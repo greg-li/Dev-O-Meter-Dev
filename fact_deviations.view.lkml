@@ -157,7 +157,7 @@ view: fact_deviations {
   measure: count {
     type: number
     drill_fields: []
-    sql: count( ${TABLE}.DATE_CREATED)
+    sql: count( ${TABLE}.INSERT_DATE)
   }
 
 
