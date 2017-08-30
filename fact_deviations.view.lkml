@@ -158,4 +158,11 @@ view: fact_deviations {
     type: count
     drill_fields: []
   }
+
+
+  measure: count_closed {
+    type: number
+    drill_fields: []
+    sql: count( ${TABLE}.DATE_CLOSED) ;;
+  }
 }
