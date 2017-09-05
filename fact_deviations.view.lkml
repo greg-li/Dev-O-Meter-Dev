@@ -25,6 +25,10 @@ view: fact_deviations {
     type: number
     sql: ${TABLE}.CUSTOMER_KEY ;;
   }
+  dimension: risk_score {
+    type: number
+    sql: ${TABLE}.RISK_SCORE ;;
+  }
 
   dimension_group: date_closed {
     type: time
