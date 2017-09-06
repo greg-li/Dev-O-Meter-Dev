@@ -118,7 +118,10 @@ view: fact_deviations {
     type: number
     sql: ${TABLE}.LOT_KEY ;;
   }
-
+  dimension: quality_rating {
+    type: string
+    sql: ${TABLE}.QUALITY_RATING ;;
+  }
   dimension: parent_record_id {
     type: number
     sql: ${TABLE}.PARENT_RECORD_ID ;;
