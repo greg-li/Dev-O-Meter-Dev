@@ -23,7 +23,7 @@ view: sql_runner_query {
     drill_fields: [detail*]
   }
   measure: goal {
-    type: count
+    type: number
     drill_fields: [detail*]
   }
   dimension: site_name {
