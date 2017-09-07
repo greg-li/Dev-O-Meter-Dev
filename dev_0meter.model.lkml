@@ -35,6 +35,7 @@ include: "*.dashboard"
 #explore: dim_step {}
 
 explore: fact_deviations {
+
   join: dim_site {
     sql_on: ${fact_deviations.site_key} =${dim_site.site_key}
     ;;relationship: one_to_many
