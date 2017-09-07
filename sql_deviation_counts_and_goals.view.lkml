@@ -22,10 +22,8 @@ view: sql_runner_query {
     type: count
     drill_fields: [detail*]
   }
-  measure: goal {
-    type: number
-    drill_fields: [detail*]
-  }
+
+
   dimension: site_name {
     type: string
     sql: ${TABLE}.SITE_NAME ;;
@@ -36,12 +34,12 @@ view: sql_runner_query {
     sql: ${TABLE}."fact_deviations.date_created_month" ;;
   }
 
-  dimension: dim_site_deviation_goal {
+  measure: dim_site_deviation_goal {
     type: number
     sql: ${TABLE}."dim_site.deviation_goal" ;;
   }
 
-  dimension: fact_deviations_count {
+  measure: fact_deviations_count {
     type: number
     sql: ${TABLE}."fact_deviations.count" ;;
   }
