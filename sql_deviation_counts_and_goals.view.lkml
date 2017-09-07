@@ -18,10 +18,6 @@ view: sql_runner_query {
        ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
 
 
   dimension: site_name {
