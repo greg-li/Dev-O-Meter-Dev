@@ -29,11 +29,11 @@ view: dim_site {
     type: string
     sql: ${TABLE}.SITE_NAME ;;
   }
-  measure: annual_deviation_goal {
+  dimension: annual_deviation_goal {
     type: number
     sql: ${TABLE}.DEVIATION_GOAL ;;
   }
-  measure: monthly_deviation_goal {
+  dimension: monthly_deviation_goal {
     type: number
     sql: ${TABLE}.DEVIATION_GOAL /12;;
   }
