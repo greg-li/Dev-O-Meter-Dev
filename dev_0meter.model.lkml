@@ -33,6 +33,7 @@ include: "*.dashboard"
 #explore: dim_site {}
 
 #explore: dim_step {}
+explore: sql_runner_query{}
 
 explore: fact_deviations {
 
