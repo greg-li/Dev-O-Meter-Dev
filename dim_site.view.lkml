@@ -29,7 +29,14 @@ view: dim_site {
     type: string
     sql: ${TABLE}.SITE_NAME ;;
   }
-
+  dimension: annual_deviation_goal {
+    type: number
+    sql: ${TABLE}.DEVIATION_GOAL ;;
+  }
+  dimension: monthly_deviation_goal {
+    type: number
+    sql: ${TABLE}.DEVIATION_GOAL /12;;
+  }
   dimension_group: update {
     type: time
     timeframes: [
