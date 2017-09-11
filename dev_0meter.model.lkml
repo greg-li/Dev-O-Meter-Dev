@@ -36,6 +36,12 @@ include: "*.dashboard"
 explore: sql_runner_query{}
 
 explore: fact_deviations {
+ always_filter: {
+   filters: {
+    field: deviation_key
+    value: "230"
+    }
+ }
 
   join: dim_site {
     sql_on: ${fact_deviations.site_key} =${dim_site.site_key}
