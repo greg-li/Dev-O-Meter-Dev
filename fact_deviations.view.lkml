@@ -178,6 +178,11 @@ view: fact_deviations {
     sql:DATEDIFF(day,${date_created_date},getdate())  ;;
 
   }
+  dimension: Closed_to_Due_Diff {
+    type: number
+    sql:DATEDIFF(day,${date_closed_date},${date_due_date})  ;;
+
+  }
   dimension: primary_key {
     primary_key: yes
     sql: CONCAT(${TABLE}.PARENT_RECORD_ID,
