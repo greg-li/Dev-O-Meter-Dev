@@ -173,6 +173,11 @@ view: fact_deviations {
     drill_fields: []
     sql: count( ${TABLE}.DATE_CLOSED) ;;
   }
+  dimension: deviation_age {
+    type: number
+    sql:DATEDIFF(day,${date_created_date},${date_closed_date})  ;;
+
+  }
   dimension: primary_key {
     primary_key: yes
     sql: CONCAT(${TABLE}.PARENT_RECORD_ID,
