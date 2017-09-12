@@ -175,7 +175,7 @@ view: fact_deviations {
   }
   dimension: deviation_age {
     type: number
-    sql:DATEDIFF(day,${date_created_date},${date_closed_date})  ;;
+    sql:DATEDIFF(day,${date_created_date},getdate())  ;;
 
   }
   dimension: primary_key {
