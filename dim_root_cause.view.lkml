@@ -22,6 +22,7 @@ view: dim_root_cause {
 
   dimension: root_cause_category {
     type: string
+    drill_fields: [root_cause_name]
     sql: ${TABLE}.ROOT_CAUSE_CATEGORY ;;
   }
 
