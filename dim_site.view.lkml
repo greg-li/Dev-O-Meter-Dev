@@ -27,7 +27,7 @@ view: dim_site {
 
   dimension: site_name {
     type: string
-    sql: ${TABLE}.SITE_NAME ;;
+   sql: ${TABLE}.SITE_NAME ;;
   }
   dimension: deviation_goal {
     type: number
