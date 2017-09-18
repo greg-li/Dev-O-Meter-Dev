@@ -135,10 +135,10 @@ view: fact_deviations {
     type: number
     sql: ${TABLE}.RISK_CAT_KEY ;;
   }
-    dimension: risk_category_name {
-      type: string
-      sql: ${TABLE}.RISK_CATEGORY_NAME ;;
-    }
+ #   dimension: risk_category_name {
+  #    type: string
+   #   sql: ${TABLE}.RISK_CATEGORY_NAME ;;
+    #}
 
   dimension: root_cause_key {
     type: number
@@ -181,7 +181,7 @@ view: fact_deviations {
 
   }
   set: Deviation_details {
-    fields: [site_name, quality_rating,risk_category_name, date_created_date,date_closed_date,date_due_date]
+    fields: [site_name, quality_rating, date_created_date,date_closed_date,date_due_date]
   }
 
 
