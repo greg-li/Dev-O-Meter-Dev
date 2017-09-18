@@ -98,6 +98,10 @@ view: fact_deviations {
     type: number
     sql: ${TABLE}.DOCUMENT_KEY ;;
   }
+  dimension: document_name {
+    type: string
+    sql: ${TABLE}.DOCUMENT_NAME ;;
+  }
 
   dimension: initiating_person_key {
     type: number
@@ -181,7 +185,7 @@ view: fact_deviations {
 
   }
   set: Deviation_details {
-    fields: [site_name, quality_rating, date_created_date,date_closed_date,date_due_date]
+    fields: [document_name,site_name, quality_rating, date_created_date,date_closed_date,date_due_date]
   }
 
 
