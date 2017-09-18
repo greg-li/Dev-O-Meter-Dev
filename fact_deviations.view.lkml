@@ -155,7 +155,7 @@ view: fact_deviations {
   }
   dimension: site_name {
     type: number
-    sql: dim_site.SITE_Namee ;;
+    sql: dim_site.SITE_Name ;;
   }
 
 
