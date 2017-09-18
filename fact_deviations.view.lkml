@@ -1,7 +1,7 @@
 view: fact_deviations {
   derived_table: {
 
-  sql: Select * from dbo.FACT_DEVIATIONS join on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
+  sql: Select * from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
   }
 
   dimension: area_assigned_key {
