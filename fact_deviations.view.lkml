@@ -164,8 +164,11 @@ view: fact_deviations {
 
   measure: count {
     type: count
-    drill_fields: []
+    drill_fields: [Deviation_details*]
 
+  }
+  set: Deviation_details {
+    fields: [quality_rating, date_created_date,date_closed_date,date_due_date]
   }
 
 
