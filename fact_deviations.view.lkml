@@ -180,10 +180,7 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     type: number
     sql: ${TABLE}.SITE_KEY ;;
   }
-  dimension: site_name {
-    type: number
-    sql: ${TABLE}.SITE_NAME ;;
-  }
+
 
 
 
@@ -212,7 +209,7 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
 
   }
   set: Deviation_details {
-    fields: [document_name,site_name, quality_rating, date_created_date,date_closed_date,date_due_date]
+    fields: [document_name, quality_rating, date_created_date,date_closed_date,date_due_date]
   }
 
 
