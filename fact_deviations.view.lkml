@@ -1,7 +1,7 @@
 view: fact_deviations {
   derived_table: {
 
-  sql: Select fact_deviations.PARENT_RECORD_KEY,
+  sql: Select fact_deviations.PARENT_RECORD_ID,
   fact_deviations.SITE_KEY,
 fact_deviations.CUSTOMER_KEY,
 fact_deviations.LOT_KEY,
