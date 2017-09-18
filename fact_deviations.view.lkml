@@ -100,7 +100,7 @@ view: fact_deviations {
   }
   dimension: document_name {
     type: string
-    sql: ${TABLE}.DOCUMENT_NAME ;;
+    sql: dim_document.DOCUMENT_NAME ;;
   }
 
   dimension: initiating_person_key {
