@@ -15,7 +15,7 @@ fact_deviations.RISK_CAT_KEY,
 fact_deviations.CAUSAL_KEY,
 fact_deviations.ROOT_CAUSE_KEY,
 fact_deviations.AREA_ASSIGNED_KEY,
-fact_deviations.QUALITY_RATING
+fact_deviations.QUALITY_RATING,
 fact_deviations.ASSIGNED_PERSON_KEY,
 fact_deviations.DATE_CREATED,
 fact_deviations.DATE_DUE,
