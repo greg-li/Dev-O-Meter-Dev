@@ -1,5 +1,8 @@
 view: fact_deviations {
-  sql_table_name: dbo.FACT_DEVIATIONS;;
+  derived_table: {
+
+  sql: Select * from dbo.FACT_DEVIATIONS join on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
+  }
 
   dimension: area_assigned_key {
     type: number
