@@ -182,7 +182,7 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
   }
   dimension: site_name {
     type: number
-    sql: ${TABLE}.SITE_Name ;;
+    sql: dim_site.SITE_NAME ;;
   }
 
 
