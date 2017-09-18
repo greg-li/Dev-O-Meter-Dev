@@ -1,7 +1,29 @@
 view: fact_deviations {
   derived_table: {
 
-  sql: Select * from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
+  sql: Select fact_deviations.SITE_KEY,
+fact_deviations.CUSTOMER_KEY,
+fact_deviations.LOT_KEY,
+fact_deviations.DOCUMENT_KEY,
+fact_deviations.STEP_KEY,
+fact_deviations.AREA_OCCURED_KEY,
+fact_deviations.INITIATING_PERSON_KEY,
+fact_deviations.DEV_STATUS_KEY,
+fact_deviations.DEVIATION_KEY,
+fact_deviations.RISK_CAT_KEY,
+fact_deviations.CAUSAL_KEY,
+fact_deviations.ROOT_CAUSE_KEY,
+fact_deviations.AREA_ASSIGNED_KEY,
+fact_deviations.ASSIGNED_PERSON_KEY,
+fact_deviations.DATE_CREATED,
+fact_deviations.DATE_DUE,
+fact_deviations.DATE_CLOSED,
+fact_deviations.DEVIATION_COUNT,
+fact_deviations.INSERT_DATE,
+fact_deviations.UPDATE_DATE,
+dim_Document.Document_name
+
+from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
   }
 
   dimension: area_assigned_key {
