@@ -126,7 +126,7 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
   }
   dimension: document_name {
     type: string
-    sql: dim_document.DOCUMENT_NAME ;;
+    sql: ${TABLE}.DOCUMENT_NAME ;;
   }
 
   dimension: initiating_person_key {
