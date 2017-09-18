@@ -1,5 +1,5 @@
 view: fact_deviations {
-  sql_table_name: dbo.FACT_DEVIATIONS, dbo.DIM_DOCUMENT;;
+  sql_table_name: dbo.FACT_DEVIATIONS;;
 
   dimension: area_assigned_key {
     type: number
