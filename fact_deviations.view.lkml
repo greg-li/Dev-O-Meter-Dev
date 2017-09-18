@@ -142,6 +142,12 @@ view: fact_deviations {
     type: number
     sql: ${TABLE}.SITE_KEY ;;
   }
+  dimension: site_name {
+    type: number
+    sql: ${TABLE}.SITE_KEY ;;
+  }
+
+
 
   dimension: step_key {
     type: number
