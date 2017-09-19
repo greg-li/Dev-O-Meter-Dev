@@ -33,7 +33,8 @@ include: "*.dashboard"
 #explore: dim_site {}
 
 #explore: dim_step {}
-explore: sql_runner_query{}
+explore: deviation_goal {}
+
 
 explore: fact_deviations {
  always_filter: {
