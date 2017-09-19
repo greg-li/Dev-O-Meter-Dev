@@ -1,6 +1,6 @@
 view: deviation_goal {
   derived_table: {
-    sql: SELECT        dbo.DIM_SITE.SITE_NAME, dbo.DIM_SITE.DEVIATION_GOAL, dbo.FACT_DEVIATIONS.DATE_CREATED, SUM(dbo.FACT_DEVIATIONS.DEVIATION_COUNT) AS Number_Deviations,
+    sql: SELECT         dbo.DIM_SITE.DEVIATION_GOAL, month(dbo.FACT_DEVIATIONS.DATE_CREATED) as create_month, year(dbo.FACT_DEVIATIONS.DATE_CREATED) as create_year,SUM(dbo.FACT_DEVIATIONS.DEVIATION_COUNT) AS Number_Deviations,
                          dbo.DIM_SITE.DEVIATION_GOAL / 12 AS Monthly_Goal
 FROM            dbo.FACT_DEVIATIONS INNER JOIN
                          dbo.DIM_SITE ON dbo.FACT_DEVIATIONS.SITE_KEY = dbo.DIM_SITE.SITE_KEY INNER JOIN
