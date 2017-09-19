@@ -9,6 +9,41 @@ FROM            dbo.FACT_DEVIATIONS INNER JOIN
 GROUP BY dbo.DIM_SITE.SITE_NAME, dbo.DIM_SITE.DEVIATION_GOAL, dbo.FACT_DEVIATIONS.DATE_CREATED
 HAVING        (dbo.DIM_SITE.DEVIATION_GOAL IS NOT NULL) ;;
   }
+  dimension: site_name {
+    type: string
+    sql: ${TABLE}.SITE_NAME ;;
+
+  }
+  dimension: deviation_goal {
+    type: number
+    sql: ${TABLE}.DEVIATION_GOAL ;;
+    }
+  dimension_group: date_created {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      month_name,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.DATE_CREATED ;;
+  }
+  dimension: deviation_goal_month {
+    type: number
+    sql: ${TABLE}.DEVIATION_GOAL ;;
+  }
+  measure: count {
+    type: count
+    drill_fields: [site_name]
+
+  }
+
+
   # # You can specify the table name if it's different from the view name:
   # sql_table_name: my_schema_name.tester ;;
   #
