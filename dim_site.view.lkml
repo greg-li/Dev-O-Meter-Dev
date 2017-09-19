@@ -34,13 +34,18 @@ view: dim_site {
     type: number
     sql: ${TABLE}.DEVIATION_GOAL ;;
   }
-  measure: annual_deviation_goal {
-    type: number
-    sql: ${TABLE}.DEVIATION_GOAL ;;
+  measure: annual_deviation_goal1 {
+    type: sum
+    sql: ${deviation_goal} ;;
   }
-  measure: monthly_deviation_goal {
+  dimension: monthly_deviation_goal {
     type: number
     sql: ${TABLE}.DEVIATION_GOAL /12;;
+  }
+
+  measure: monthly_deviation_goal1 {
+    type: sum
+    sql: ${monthly_deviation_goal};;
   }
   dimension_group: update {
     type: time
