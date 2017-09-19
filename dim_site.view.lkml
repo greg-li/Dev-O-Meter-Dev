@@ -22,6 +22,7 @@ view: dim_site {
 
   dimension: site_key {
     type: number
+    primary_key: yes
     sql: ${TABLE}.SITE_KEY ;;
   }
 
@@ -59,4 +60,7 @@ view: dim_site {
     type: count
     drill_fields: [site_name]
   }
-}
+
+
+
+  }
