@@ -40,7 +40,7 @@ view: dim_site {
   }
   dimension: monthly_deviation_goal {
     type: number
-    sql: ${TABLE}.DEVIATION_GOAL /12;;
+    sql: ${TABLE}.DEVIATION_GOAL /12*1.0;;
   }
 
   measure: monthly_deviation_goal1 {
