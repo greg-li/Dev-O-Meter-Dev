@@ -209,7 +209,7 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
 
   }
   set: Deviation_details {
-    fields: [document_name, quality_rating, date_created_date,date_closed_date,date_due_date]
+    fields: [document_name,dim_site.site_name, quality_rating, date_created_date,date_closed_date,date_due_date]
   }
 
 
