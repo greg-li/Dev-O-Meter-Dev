@@ -33,9 +33,9 @@ HAVING        (dbo.DIM_SITE.DEVIATION_GOAL IS NOT NULL) ;;
     datatype: date
     sql: ${TABLE}.DATE_CREATED ;;
   }
-  dimension: deviation_goal_month {
-    type: number
-    sql: ${TABLE}.DEVIATION_GOAL ;;
+  measure: deviation_goal_month {
+    type: average
+    sql: ${TABLE}.Monthly_Goal ;;
   }
   measure: count {
     type: count
