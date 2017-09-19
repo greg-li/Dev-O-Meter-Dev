@@ -46,7 +46,7 @@ explore: fact_deviations {
 
   join: dim_site {
     sql_on: ${fact_deviations.site_key} =${dim_site.site_key}
-    ;;relationship: one_to_many
+    ;;relationship: many_to_one
   }
   join:  dim_customer {
     sql_on: ${fact_deviations.customer_key} = ${dim_customer.customer_key} ;;relationship: many_to_one
