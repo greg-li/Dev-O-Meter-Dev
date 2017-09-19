@@ -206,6 +206,9 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
   measure: count {
     type: count
     drill_fields: [Deviation_details*]
+    link: {label:"Open Deviations"
+      url:"/dashboards/2?Site={{_site_name._value}}&Open=NULL"}
+
 
   }
   set: Deviation_details {
