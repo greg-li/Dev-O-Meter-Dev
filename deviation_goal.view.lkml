@@ -18,21 +18,14 @@ HAVING        (dbo.DIM_SITE.DEVIATION_GOAL IS NOT NULL) ;;
     type: number
     sql: ${TABLE}.DEVIATION_GOAL ;;
     }
-  dimension_group: date_created {
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      month_name,
-      quarter,
-      year
-    ]
-    convert_tz: no
-    datatype: date
-    sql: ${TABLE}.DATE_CREATED ;;
+ dimension: month {
+   sql: ${TABLE}.create_month ;;
   }
+
+  dimension: year {
+    sql: ${TABLE}.create_year ;;
+    }
+
   measure: deviation_goal_month {
     type: average
     sql: ${TABLE}.Monthly_Goal ;;
