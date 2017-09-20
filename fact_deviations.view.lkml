@@ -206,7 +206,7 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
   measure: count {
     type: count
     link: {label:"Low/Minor Root Cause Category"
-      url:"/dashboards/5?Risk%20Factor=Low&Quality%20Rating=Minor&causal factor={{dim_causal.causal_name._value}}&site={{dim_site.site_name._value}}"}
+      url:"/dashboards/5?Risk%20Factor=Low&Quality%20Rating=Minor&causal factor={{dim_causal.causal_name._value}}"}
     drill_fields: [Deviation_details*]
 
 
