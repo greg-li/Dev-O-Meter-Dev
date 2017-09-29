@@ -1,5 +1,5 @@
 # Lonza Global Business Analytics CoE
-Click on the [_looker_](https://10.20.1.205/projects/dev_0meter/files/test.md) logo in the upper left corner at any time to return to this page
+Click on the [_looker_](https://10.20.1.205/projects/dev_0meter/documents/landing_page.md) logo in the upper left corner at any time to return to this page
 ​
 ---
 ​
