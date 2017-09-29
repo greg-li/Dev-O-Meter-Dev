@@ -19,4 +19,4 @@ Click on the [_looker_](https://10.20.1.205/projects/dev_0meter/documents/landin
 ​
 
 ### Looker Help and Contacts
-- Admin - business.analytics@lonza.com
+- Admin - <business.analytics@lonza.com>
