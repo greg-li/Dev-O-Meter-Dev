@@ -2,7 +2,6 @@
 Click on the [_looker_](https://10.20.1.205/projects/dev_0meter/documents/landing_page.md) logo in the upper left corner at any time to return to this page
 ​
 
-[image](/home/looker/looker/BA CoE Landing Page 2.png; padding: 10 px;)
 ---
 ​
 
