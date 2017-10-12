@@ -45,7 +45,7 @@ explore: fact_deviations {
  }
 
   join: dim_site {
-    outer_only: yes
+
     sql_on: ${fact_deviations.site_key} =${dim_site.site_key}
     ;;relationship: many_to_one
   }
