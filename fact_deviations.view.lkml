@@ -81,6 +81,13 @@ dimension: deviation_age_tier{
   sql: ${deviation_age};;
 
 }
+  dimension: days_remaining{
+    type: tier
+    tiers: [ -45, -30, -15, -8, 0, 8, 15,30,45]
+    style: classic
+    sql: ${Days_Till_Due};;
+
+  }
   dimension_group: date_created {
     type: time
     timeframes: [
@@ -236,6 +243,11 @@ dimension: deviation_age_tier{
   dimension: Closed_to_Due_Diff {
     type: number
     sql:DATEDIFF(day,${date_closed_date},${date_due_date})  ;;
+
+  }
+  dimension: Days_Till_Due{
+    type: number
+    sql:DATEDIFF(day,getdate(),${date_due_date})  ;;
 
   }
   dimension: primary_key {
