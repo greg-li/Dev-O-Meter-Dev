@@ -23,7 +23,8 @@ fact_deviations.DATE_CLOSED,
 fact_deviations.DEVIATION_COUNT,
 fact_deviations.INSERT_DATE,
 fact_deviations.UPDATE_DATE,
-dim_Document.Document_name
+dim_Document.Document_name,
+fact_deviations.EVENT_CLASS_KEY
 
 from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
   }
@@ -46,6 +47,11 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
   dimension: causal_key {
     type: number
     sql: ${TABLE}.CAUSAL_KEY ;;
+  }
+
+  dimension: event_class_key {
+    type: number
+    sql: ${TABLE}.EVENT_CLASS_KEY ;;
   }
   dimension: causal_name {
     type: string
