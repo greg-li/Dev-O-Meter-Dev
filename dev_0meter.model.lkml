@@ -87,4 +87,7 @@ explore: fact_deviations {
   join: dim_causal {
     sql_on: ${fact_deviations.causal_key} = ${dim_causal.causal_key} ;;relationship: many_to_one
   }
+  join: dim_event_classification {
+    sql_on: ${fact_deviations.event_class_key} = ${dim_event_classification.event_class_key} ;;relationship: many_to_one
+  }
 }
