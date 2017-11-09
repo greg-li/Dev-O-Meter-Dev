@@ -11,7 +11,10 @@ view: dim_event_classification {
     type: string
     sql: ${TABLE}.EVENT_CLASSIFICATION ;;
   }
-
+  dimension: event_area{
+    type: string
+    sql: ${TABLE}.EVENT_AREA ;;
+  }
   dimension: event_limit {
     type: number
     sql: ${TABLE}.EVENT_LIMIT ;;
