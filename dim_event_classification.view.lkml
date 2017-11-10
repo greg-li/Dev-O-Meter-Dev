@@ -23,10 +23,8 @@ dimension: event_limit_monthly  {
   type:  number
   sql: ${TABLE}.EVENT_LIMIT/12 ;;
 }
-measure: event_limit_monthly1 {
-  type: sum
-  sql: sum(${event_limit_monthly} ;;
-}
+
+
   dimension_group: insert {
     type: time
     timeframes: [
@@ -59,7 +57,10 @@ measure: event_limit_monthly1 {
     type: string
     sql: ${TABLE}.ACTIVE_FLAG ;;
   }
-
+  measure: event_limit_monthly1 {
+    type: sum
+    sql: sum(${event_limit_monthly} ;;
+  }
   # # You can specify the table name if it's different from the view name:
   # sql_table_name: my_schema_name.tester ;;
   #
