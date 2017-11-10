@@ -23,6 +23,10 @@ dimension: event_limit_monthly  {
   type:  number
   sql: ${TABLE}.EVENT_LIMIT/12 ;;
 }
+measure: event_limit_monthly1 {
+  type: number
+  sql: sum(${event_limit_monthly} ;;
+}
   dimension_group: insert {
     type: time
     timeframes: [
