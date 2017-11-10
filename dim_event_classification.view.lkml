@@ -24,7 +24,7 @@ dimension: event_limit_monthly  {
   sql: ${TABLE}.EVENT_LIMIT/12 ;;
 }
 measure: event_limit_monthly1 {
-  type: number
+  type: sum
   sql: sum(${event_limit_monthly} ;;
 }
   dimension_group: insert {
