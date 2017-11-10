@@ -19,7 +19,10 @@ view: dim_event_classification {
     type: number
     sql: ${TABLE}.EVENT_LIMIT ;;
   }
-
+dimension: event_limit_monthly  {
+  type:  number
+  sql: ${TABLE}.EVENT_LIMIT/12 ;;
+}
   dimension_group: insert {
     type: time
     timeframes: [
