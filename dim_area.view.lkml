@@ -5,7 +5,7 @@ view: dim_area {
     dim_area.area_name,
     dim_area.insert_date,
     dim_area.update_date,
-    dim_area_group.group
+    dim_area_group.[group]
     from dbo.dim_area join dbo.dim_area_group on dim_area.area_name = dim_area_group.[Area Responsible];;
   }
 
@@ -25,7 +25,7 @@ view: dim_area {
   }
   dimension: Area_Group {
     type: string
-    sql: ${TABLE}.Group ;;
+    sql: ${TABLE}.[Group] ;;
   }
   dimension_group: insert {
     type: time
