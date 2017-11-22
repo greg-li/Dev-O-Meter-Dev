@@ -1,13 +1,6 @@
 view: dim_area {
-  derived_table:{
-    sql: Select dim_area.active_flag,
-    dim_area.area_key,
-    dim_area.area_name,
-    dim_area.insert_date,
-    dim_area.update_date,
-    dim_area_group.[group]
-    from dbo.dim_area join dbo.dim_area_group on dim_area.area_name = dim_area_group.[Area Responsible];;
-  }
+    sql_table_name:dbo.dim_area;;
+
 
   dimension: active_flag {
     type: string
@@ -23,10 +16,7 @@ view: dim_area {
     type: string
     sql: ${TABLE}.AREA_NAME ;;
   }
-  dimension: Area_Group {
-    type: string
-    sql: ${TABLE}.[Group] ;;
-  }
+
   dimension_group: insert {
     type: time
     timeframes: [
@@ -59,4 +49,4 @@ view: dim_area {
     type: count
     drill_fields: [area_name]
   }
-}
+  }
