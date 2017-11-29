@@ -21,7 +21,7 @@ view: dim_event_classification {
   }
 dimension: event_limit_monthly  {
   type:  number
-  sql: ${TABLE}.EVENT_LIMIT/12 ;;
+  sql: ${TABLE}.EVENT_LIMIT/13 ;;
 }
 
 
