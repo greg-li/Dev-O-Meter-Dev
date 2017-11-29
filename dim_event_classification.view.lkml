@@ -15,7 +15,7 @@ view: dim_event_classification {
     type: string
     sql: ${TABLE}.EVENT_AREA ;;
   }
-  dimension: event_limit {
+  dimension: event_limit_13_Month{
     type: number
     sql: ${TABLE}.EVENT_LIMIT ;;
   }
