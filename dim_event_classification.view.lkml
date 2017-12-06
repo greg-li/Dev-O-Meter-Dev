@@ -15,13 +15,13 @@ view: dim_event_classification {
     type: string
     sql: ${TABLE}.EVENT_AREA ;;
   }
-  dimension: event_limit_13_Month{
+  dimension: Action_Limit{
     type: number
     sql: ${TABLE}.EVENT_LIMIT ;;
   }
-dimension: event_limit_monthly  {
+dimension: Alert_Limit  {
   type:  number
-  sql: ${TABLE}.EVENT_LIMIT/13 ;;
+  sql: ${TABLE}.EVENT_LIMIT/12;;
 }
 
 
@@ -57,9 +57,9 @@ dimension: event_limit_monthly  {
     type: string
     sql: ${TABLE}.ACTIVE_FLAG ;;
   }
-  measure: event_limit_monthly1 {
+  measure: Alert_limit {
     type: sum
-    sql: sum(${event_limit_monthly} ;;
+    sql: sum(${Alert_Limit} ;;
   }
   # # You can specify the table name if it's different from the view name:
   # sql_table_name: my_schema_name.tester ;;
