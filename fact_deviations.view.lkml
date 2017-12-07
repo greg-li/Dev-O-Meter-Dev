@@ -234,7 +234,10 @@ dimension: deviation_age_tier{
   measure: count_event {
     type: count
     html:
-    {% if {{fact_deviations.count}} > dim_event_classification.Alert_Limit %} [color red];;
+    {% if {{fact_deviations.count}} > dim_event_classification.Alert_Limit %} [color red]
+    {% else %}
+      [color green]
+      {% endif %};;
 
 
 
