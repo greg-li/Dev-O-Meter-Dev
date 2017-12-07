@@ -231,6 +231,16 @@ dimension: deviation_age_tier{
 
 
   }
+  measure: count_event {
+    type: count
+    html:
+    {% if {{fact_deviations.count}} > dim_event_classification.Alert_Limit %} [color red];;
+
+
+
+
+  }
+
   set: Deviation_details {
     fields: [dim_site.site_name,document_name,dim_deviation_type.deviation_type, dim_risk_category.risk_category_name, quality_rating,dim_causal.causal_name, dim_root_cause.root_cause_category, dim_root_cause.root_cause_name, date_created_date,date_closed_date,date_due_date]
   }
