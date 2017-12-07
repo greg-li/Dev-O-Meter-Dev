@@ -234,9 +234,9 @@ dimension: deviation_age_tier{
   measure: count_event {
     type: count
     html:
-    {% if {{fact_deviations.count._value }} > {{dim_event_classification.Alert_Limit._value }} %} <div style="color: black; background-color: lightred; font-size:100%; text-align:center">{{ rendered_value }}</div>
+    {% if {{fact_deviations.count._value }} > {{dim_event_classification.Alert_Limit._value }} %} <div style="color: black; background-color: red; font-size:100%; text-align:center">{{ rendered_value }}</div>
       {% else %}
-      <p style="color: black; background-color: lightgreen; font-size:100%; text-align:center">{{ rendered_value }}</p>
+      <p style="color: black; background-color: green; font-size:100%; text-align:center">{{ rendered_value }}</p>
     {% endif %};;
   }
   measure: action_count {
