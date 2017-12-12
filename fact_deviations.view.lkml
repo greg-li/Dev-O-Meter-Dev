@@ -238,7 +238,7 @@ dimension: deviation_age_tier{
      sql: ${count} ;;
       html:
           {% if {{fact_deviations.count._value}} >= {{dim_event_classification.Alert_Limit._value }} %} <div style="color: black; background-color: red; font-size:100%; text-align:center">{{ rendered_value }}</div>
-
+          {% else %}<div style="color: black; font-size:100%; text-align:center">{{ rendered_value }}</div>
           {% endif %};;
 
     }
