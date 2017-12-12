@@ -251,7 +251,7 @@ dimension: deviation_age_tier{
           {% endif %};;
   }
   set: Deviation_details {
-    fields: [dim_site.site_name,fact_deviations.PARENT_RECORD_ID, document_name,dim_customer.customer_name,dim_lot_batch.lot_batch, dim_event_classification.event_category,dim_deviation_type.deviation_type, dim_risk_category.risk_category_name, quality_rating,dim_causal.causal_name, dim_root_cause.root_cause_category, dim_root_cause.root_cause_name, date_created_date,date_closed_date,date_due_date]
+    fields: [dim_site.site_name, parent_record_id, document_name,dim_customer.customer_name,dim_lot_batch.lot_batch, dim_event_classification.event_category,dim_deviation_type.deviation_type, dim_risk_category.risk_category_name, quality_rating,dim_causal.causal_name, dim_root_cause.root_cause_category, dim_root_cause.root_cause_name, date_created_date,date_closed_date,date_due_date]
   }
 
 
