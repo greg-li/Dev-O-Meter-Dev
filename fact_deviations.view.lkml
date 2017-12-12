@@ -234,7 +234,8 @@ dimension: deviation_age_tier{
     measure: count_event {
 
       type: number
-      sql: ${count} ;;
+      drill_fields: [Deviation_details*]
+     sql: ${count} ;;
       html:
           {% if {{fact_deviations.count._value}} >= {{dim_event_classification.Alert_Limit._value }} %} <div style="color: black; background-color: red; font-size:100%; text-align:center">{{ rendered_value }}</div>
 
@@ -243,13 +244,14 @@ dimension: deviation_age_tier{
 
   measure: action_count {
    sql: ${count} ;;
+    drill_fields: [Deviation_details*]
     html:
           {% if {{fact_deviations.count._value}} >= {{dim_event_classification.Action_Limit._value }} %} <div style="color: black; background-color: red; font-size:100%; text-align:center">{{ rendered_value }}</div>
 
           {% endif %};;
   }
   set: Deviation_details {
-    fields: [dim_site.site_name,document_name,dim_deviation_type.deviation_type, dim_risk_category.risk_category_name, quality_rating,dim_causal.causal_name, dim_root_cause.root_cause_category, dim_root_cause.root_cause_name, date_created_date,date_closed_date,date_due_date]
+    fields: [dim_site.site_name,fact_deviations.PARENT_RECORD_ID, document_name,dim_customer.customer_name,dim_lot_batch.lot_batch, dim_event_classification.event_category,dim_deviation_type.deviation_type, dim_risk_category.risk_category_name, quality_rating,dim_causal.causal_name, dim_root_cause.root_cause_category, dim_root_cause.root_cause_name, date_created_date,date_closed_date,date_due_date]
   }
 
 
