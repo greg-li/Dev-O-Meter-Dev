@@ -236,10 +236,10 @@ dimension: deviation_age_tier{
       type: number
 
      sql: ${count} ;;
-      html:
+      html:<a href="#drillmenu" target="_self">
           {% if {{fact_deviations.count._value}} >= {{dim_event_classification.Alert_Limit._value }} %} <div style="color: black; background-color: red; font-size:100%; text-align:center">{{ rendered_value }}</div>
 
-          {% endif %};;
+          {% endif %}</a>;;
       drill_fields: [Deviation_details*]
     }
 
