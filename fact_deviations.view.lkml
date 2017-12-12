@@ -246,10 +246,10 @@ dimension: deviation_age_tier{
   measure: action_count {
    sql: ${count} ;;
     drill_fields: [Deviation_details*]
-    html:
+    html:<a href="#drillmenu" target="_self">
           {% if {{fact_deviations.count._value}} >= {{dim_event_classification.Action_Limit._value }} %} <div style="color: black; background-color: red; font-size:100%; text-align:center">{{ rendered_value }}</div>
 
-          {% endif %};;
+          {% endif %}</a>;;
   }
   set: Deviation_details {
     fields: [dim_site.site_name, parent_record_id, document_name,dim_customer.customer_name,dim_lot_batch.lot_batch, dim_event_classification.event_category,dim_deviation_type.deviation_type, dim_risk_category.risk_category_name, quality_rating,dim_causal.causal_name, dim_root_cause.root_cause_category, dim_root_cause.root_cause_name, date_created_date,date_closed_date,date_due_date]
