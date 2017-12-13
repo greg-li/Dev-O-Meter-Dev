@@ -237,8 +237,8 @@ dimension: deviation_age_tier{
       drill_fields: [Deviation_details*]
      sql: ${count} ;;
       html:<a href="#drillmenu" target="_self">
-          {% if {{fact_deviations.count._value}} >= {{dim_event_classification.Alert_Limit._value }} %}  <span style="color: white;  background-color: red; font-size:100%; text-align:center">{{ rendered_value }}</span>
-          {% else %} <span  style="color: black; font-size:100%; text-align:center">{{ rendered_value }}</span>
+          {% if {{fact_deviations.count._value}} >= {{dim_event_classification.Alert_Limit._value }} %}  <div style="color: white;  background-color: red; font-size:100%; text-align:center">{{linked_value}}</div>
+          {% else %} <div  style="color: black; font-size:100%; text-align:center">{{ rendered_value }}</div>
           {% endif %};;
 
     }
@@ -247,8 +247,8 @@ dimension: deviation_age_tier{
    sql: ${count} ;;
     drill_fields: [Deviation_details*]
     html:<a href="#drillmenu" target="_self">
-          {% if {{fact_deviations.count._value}} >= {{dim_event_classification.Action_Limit._value }} %} <span style="color: white;  background-color: red; font-size:100%; text-align:center">{{ rendered_value }}</span>
-          {% else %} <span  style="color: black; font-size:100%; text-align:center">{{ rendered_value }}</span>
+          {% if {{fact_deviations.count._value}} >= {{dim_event_classification.Action_Limit._value }} %} <div style="color: white;  background-color: red; font-size:100%; text-align:center">{{linked_value}}</div>
+          {% else %} <div  style="color: black; font-size:100%; text-align:center">{{ rendered_value }}</span>
           {% endif %}</a>;;
   }
   set: Deviation_details {
