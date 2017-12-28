@@ -1,4 +1,6 @@
 # Lonza Global Business Analytics CoE
+meta http-equiv="X-UA-Compatible" content="IE=edge"
+
 Click on the [_looker_](https://10.20.1.205/projects/dev_0meter/documents/landing_page.md) logo in the upper left corner at any time to return to this page
 ​
 
