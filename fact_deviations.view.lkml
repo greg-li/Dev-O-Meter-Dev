@@ -11,6 +11,7 @@ fact_deviations.AREA_OCCURED_KEY,
 fact_deviations.INITIATING_PERSON_KEY,
 fact_deviations.DEV_STATUS_KEY,
 fact_deviations.DEVIATION_KEY,
+fact_deviations.SHORT_DESCRIPTION,
 fact_deviations.RISK_CAT_KEY,
 fact_deviations.CAUSAL_KEY,
 fact_deviations.ROOT_CAUSE_KEY,
@@ -56,6 +57,10 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
   dimension: causal_name {
     type: string
     sql: ${TABLE}.CAUSAL_NAME ;;
+  }
+  dimension: short_description {
+    type:  string
+    sql: ${TABLE}.SHORT_DESCRIPTION ;;
   }
   dimension: customer_key {
     type: number
@@ -252,7 +257,7 @@ dimension: deviation_age_tier{
           {% endif %}</a>;;
   }
   set: Deviation_details {
-    fields: [dim_site.site_name, parent_record_id, document_name,dim_customer.customer_name,dim_lot_batch.lot_batch, dim_event_classification.event_category,dim_deviation_type.deviation_type, dim_risk_category.risk_category_name, quality_rating,dim_causal.causal_name, dim_root_cause.root_cause_category, dim_root_cause.root_cause_name, date_created_date,date_closed_date,date_due_date]
+    fields: [dim_site.site_name, parent_record_id, document_name,short_description, dim_customer.customer_name,dim_lot_batch.lot_batch, dim_event_classification.event_category,dim_deviation_type.deviation_type, dim_risk_category.risk_category_name, quality_rating,dim_causal.causal_name, dim_root_cause.root_cause_category, dim_root_cause.root_cause_name, date_created_date,date_closed_date,date_due_date]
   }
 
 
