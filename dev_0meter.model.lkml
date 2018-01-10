@@ -92,6 +92,6 @@ explore: fact_deviations {
   }
 
 join: deviations_by_event_classifications {
-  sql_on: ${fact_deviations.event_class_key} = ${deviations_by_event_classifications.event_class_key}  and ${fact_deviations.date_created_date} = ${deviations_by_event_classifications.create_date};;relationship: many_to_one
+  sql_on: ${fact_deviations.event_class_key} = ${deviations_by_event_classifications.event_class_key}  ;;relationship: many_to_one
 }
 }
