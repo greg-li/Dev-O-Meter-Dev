@@ -1,13 +1,13 @@
 view: deviations_by_event_classifications {
   derived_table: {
-  sql:SELECT        dbo.DIM_EVENT_CLASSIFICATION.EVENT_CLASSIFICATION, COUNT(dbo.FACT_DEVIATIONS.DEVIATION_KEY) AS Count_Deviations, dbo.FACT_DEVIATIONS.DATE_CREATED
+  sql:SELECT        dbo.DIM_EVENT_CLASSIFICATION.EVENT_CLASS_KEY, COUNT(dbo.FACT_DEVIATIONS.DEVIATION_KEY) AS Count_Deviations, dbo.FACT_DEVIATIONS.DATE_CREATED
 FROM            dbo.DIM_EVENT_CLASSIFICATION INNER JOIN
                          dbo.FACT_DEVIATIONS ON dbo.DIM_EVENT_CLASSIFICATION.EVENT_CLASS_KEY = dbo.FACT_DEVIATIONS.EVENT_CLASS_KEY
-GROUP BY dbo.DIM_EVENT_CLASSIFICATION.EVENT_CLASSIFICATION, dbo.FACT_DEVIATIONS.DATE_CREATED};;
+GROUP BY dbo.DIM_EVENT_CLASSIFICATION.EVENT_CLASS_KEY, dbo.FACT_DEVIATIONS.DATE_CREATED};;
 }
-    dimension: event_classification {
-      type: string
-      sql: ${TABLE}.EVENT_CLASSIFICATION ;;
+    dimension: event_class_key {
+      type: number
+      sql: ${TABLE}.EVENT_CLASS_KEY ;;
     }
     dimension: dev_count {
       type: number
