@@ -85,7 +85,7 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     datatype: date
     sql: ${TABLE}.DATE_CLOSED ;;
   }
-dimension: deviation_age_tier{
+dimension: deviation_age_days{
   type: tier
   tiers: [ -45, -30, -15, -8, 0, 8, 15,30,45]
   style: integer
