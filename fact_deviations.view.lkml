@@ -88,14 +88,14 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
 dimension: deviation_age_tier{
   type: tier
   tiers: [ -45, -30, -15, -8, 0, 8, 15,30,45]
-  style: classic
+  style: integer
   sql: ${deviation_age};;
 
 }
   dimension: days_remaining{
     type: tier
     tiers: [ -45, -30, -15, -8, 0, 8, 15,30,45]
-    style: classic
+    style: integer
     sql: ${Days_Till_Due};;
 
   }
