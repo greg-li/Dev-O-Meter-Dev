@@ -21,7 +21,7 @@ view: dim_event_classification {
   }
 dimension: Alert_Limit  {
   type:  number
-  sql: ${TABLE}.EVENT_LIMIT/12;;
+  sql: if(${TABLE}.EVENT_LIMIT/12<3,3,${TABLE}.EVENT_LIMIT);;
 }
 
 
