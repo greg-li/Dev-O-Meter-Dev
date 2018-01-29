@@ -26,6 +26,11 @@ view: alert_limit_check {
     sql: ${TABLE}.Expr1 ;;
   }
 
+  dimension:alert_flag{
+    type: yesno
+    sql: ${TABLE}.Expr1>${alert_limit} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: []
