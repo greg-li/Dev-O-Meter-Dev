@@ -94,7 +94,5 @@ explore: fact_deviations {
 join: deviations_by_event_classifications {
   sql_on: ${fact_deviations.event_class_key} = ${deviations_by_event_classifications.event_class_key}  ;;relationship: many_to_one
 }
-  join: alert_limit_check {
-    sql_on: ${alert_limit_check.event_classification} = ${dim_event_classification.event_classification}  ;;relationship: many_to_one
-  }
+
 }
