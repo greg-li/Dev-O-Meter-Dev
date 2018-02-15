@@ -45,7 +45,10 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     type: number
     sql: ${TABLE}.ASSIGNED_PERSON_KEY ;;
   }
-
+  dimension: bus_sec_key {
+    type: number
+    sql: ${TABLE}.BUS_SEC_KEY ;;
+  }
   dimension: causal_key {
     type: number
     sql: ${TABLE}.CAUSAL_KEY ;;
