@@ -3,6 +3,7 @@ view: fact_deviations {
 
   sql: Select fact_deviations.PARENT_RECORD_ID,
   fact_deviations.SITE_KEY,
+  fact_deviations.BUS_SEC_KEY,
 fact_deviations.CUSTOMER_KEY,
 fact_deviations.LOT_KEY,
 fact_deviations.DOCUMENT_KEY,
