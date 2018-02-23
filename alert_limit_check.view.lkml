@@ -30,6 +30,19 @@ view: alert_limit_check {
     type: yesno
     sql: ${TABLE}.Expr1>${alert_limit} ;;
   }
+  dimension_group: Month_date {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.FirstOfMonth ;;}
 
   measure: count {
     type: count
