@@ -78,7 +78,7 @@ explore: fact_deviations {
     sql_on: ${fact_deviations.root_cause_key} = ${dim_root_cause.root_cause_key} ;;relationship: many_to_one
   }
   join: dim_area {
-    sql_on: ${fact_deviations.area_assigned_key} = ${dim_area.area_key} ;;relationship: many_to_one
+    sql_on: ${fact_deviations.area_occured_key} = ${dim_area.area_key} ;;relationship: many_to_one
   }
   join: area_occured {
     from:  dim_area
