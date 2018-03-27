@@ -10,7 +10,7 @@ view: rpt_asset {
     type: string
     sql: ${TABLE}.Asset ;;
   }
-  dimension: asset_key {
+  dimension: area_key {
     type: string
     sql: ${TABLE}.AREA_KEY;;
   }
