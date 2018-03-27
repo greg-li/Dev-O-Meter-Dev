@@ -12,7 +12,7 @@ view: rpt_asset {
   }
   dimension: asset_key {
     type: string
-    sql: ${TABLE}.Asset_KEY;;
+    sql: ${TABLE}.AREA_KEY;;
   }
 
   measure: count {
