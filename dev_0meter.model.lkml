@@ -101,6 +101,6 @@ join: deviations_by_event_classifications {
     sql_on: ${fact_deviations.bus_sec_key} = ${dim_bus_sec.bus_sec_key}  ;;relationship: many_to_one
   }
   join: rpt_asset {
-    sql_on: ${fact_deviations.area_occured_key}_key} = ${rpt_asset.asset_key} ;;relationship: many_to_one
+    sql_on: ${fact_deviations.area_occured_key} = ${rpt_asset.asset_key} ;;relationship: many_to_one
   }
 }
