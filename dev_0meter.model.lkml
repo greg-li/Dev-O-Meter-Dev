@@ -100,5 +100,7 @@ join: deviations_by_event_classifications {
   join: dim_bus_sec {
     sql_on: ${fact_deviations.bus_sec_key} = ${dim_bus_sec.bus_sec_key}  ;;relationship: many_to_one
   }
-
+  join: vw_asset_to_area {
+    sql_on: ${fact_deviations.area_occured_key} = ${vw_asset_to_area.area_key} ;;relationship: many_to_one
+  }
 }
