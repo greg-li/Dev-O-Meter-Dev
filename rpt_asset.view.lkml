@@ -10,6 +10,10 @@ view: rpt_asset {
     type: string
     sql: ${TABLE}.Asset ;;
   }
+  dimension: asset_key {
+    type: string
+    sql: ${TABLE}.Asset_KEY;;
+  }
 
   measure: count {
     type: count
