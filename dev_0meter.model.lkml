@@ -40,7 +40,7 @@ explore: fact_deviations {
  always_filter: {
    filters: {
     field: deviation_key
-    value: "230"
+    value: "230,319,323"
     }
  }
 
