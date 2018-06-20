@@ -103,4 +103,7 @@ join: deviations_by_event_classifications {
   join: vw_asset_to_area {
     sql_on: ${fact_deviations.area_occured_key} = ${vw_asset_to_area.area_key} ;;relationship: many_to_one
   }
+  join:lkp_shift {
+    sql_on: ${fact_deviations.date_created_date} = ${lkp_shift.schedule_date}} ;;relationship: many_to_one
+  }
 }
