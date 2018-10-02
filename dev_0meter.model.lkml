@@ -44,6 +44,11 @@ explore: fact_deviations {
     }
  }
 
+access_filter: {
+  field: dim_site.site_name
+  user_attribute:site
+}
+
   join: dim_site {
 
     sql_on: ${fact_deviations.site_key} =${dim_site.site_key}
