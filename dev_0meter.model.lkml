@@ -44,10 +44,10 @@ explore: fact_deviations {
     }
  }
 
-access_filter: {
-  field: dim_site.site_name
-  user_attribute:site
-}
+#access_filter: {
+#  field: dim_site.site_name
+#  user_attribute:site
+#}
 
   join: dim_site {
 
