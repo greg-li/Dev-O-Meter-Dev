@@ -4,8 +4,7 @@ connection: "edm"
 include: "*.view"
 
 # include all the dashboards
-include: "*.dashboard"
-
+#include: "*.dashboard"
 
 #explore: assigned_person {}
 
