@@ -42,6 +42,7 @@ explore: deviation_goal {}
 
 
 explore: fact_deviations {
+  label: "Deviations"
  always_filter: {
    filters: {
     field: deviation_key

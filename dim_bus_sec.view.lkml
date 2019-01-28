@@ -1,5 +1,6 @@
 view: dim_bus_sec {
   sql_table_name: dbo.DIM_BUS_SEC ;;
+  view_label: "Business Sector"
 
   dimension: active_flag {
     type: string
@@ -12,6 +13,7 @@ view: dim_bus_sec {
   }
 
   dimension: bus_sec_name {
+    label: "Business Sector Unit"
     type: string
     sql: ${TABLE}.BUS_SEC_NAME ;;
   }

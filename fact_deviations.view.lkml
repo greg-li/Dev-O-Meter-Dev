@@ -58,10 +58,14 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     type: number
     sql: ${TABLE}.EVENT_CLASS_KEY ;;
   }
+
+  ## RHW 2019-01-25: this column isn't part of the derived table SQL
   dimension: causal_name {
     type: string
     sql: ${TABLE}.CAUSAL_NAME ;;
+    hidden: yes
   }
+
   dimension: short_description {
     type:  string
     sql: ${TABLE}.SHORT_DESCRIPTION ;;
@@ -76,6 +80,7 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
   }
 
   dimension_group: date_closed {
+    label: "Closed"
     type: time
     timeframes: [
       raw,
@@ -104,6 +109,7 @@ dimension: deviation_age_days{
 
   }
   dimension_group: date_created {
+    label: "Created"
     type: time
     timeframes: [
       raw,
@@ -117,9 +123,13 @@ dimension: deviation_age_days{
     convert_tz: no
     datatype: date
     sql: ${TABLE}.DATE_CREATED ;;
+    ## Added by RHW 2019-01-24
+    drill_fields: [dim_event_classification.event_classification, dim_risk_category.risk_category_name
+                  , date_created_week, date_created_date, count]
   }
 
   dimension_group: date_due {
+    label: "Due"
     type: time
     timeframes: [
       raw,
@@ -236,12 +246,14 @@ dimension: deviation_age_days{
     #link: {label:"Low/Minor Root Cause Category"
     #  url:"/dashboards/5?Risk%20Factor=Low&Quality%20Rating=Minor&causal factor={{dim_causal.causal_name._value}}"}
     drill_fields: [Deviation_details*]
-
-
-
+    link: {
+      label: "Deviation Details"
+      url: "/dashboards/4?Site={{ _filters['dim_site.site_name'] | url_encode }}&Status={{ _filters['dim_deviation_status.deviation_status'] | url_encode }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] | url_encode }}&Asset={{ _filters['vw_asset_to_area.asset'] | url_encode }}&Root%20Category={{ _filters['dim_root_cause.root_cause_category'] | url_encode }}&Causal%20Factor={{ _filters['dim_causal.causal_name'] | url_encode }}&Event%20Area={{ _filters['alert_limit_check.event_area'] | url_encode }}&Batch={{ _filters['dim_lot_batch.lot_batch'] | url_encode }}&Customer={{ _filters['dim_customer.customer_name'] | url_encode }}&Event%20Classification={{ _filters['alert_limit_check.event_classification'] | url_encode }}&Area%20Where%20Occurred={{ _filters['dim_area.area_name'] | url_encode }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] | url_encode }}&Quality%20Impact%20Rating={{ _filters['fact_deviations.quality_rating'] | url_encode }}"
+      icon_url: "https://looker.com/favicon.ico"
+    }
   }
-    measure: count_event {
 
+    measure: count_event {
       type: number
       drill_fields: [Deviation_details*]
      sql: ${count} ;;
@@ -260,10 +272,16 @@ dimension: deviation_age_days{
           {% else %} <div  style="color: black; font-size:100%; text-align:center">{{linked_value}}</span>
           {% endif %}</a>;;
   }
-  set: Deviation_details {
-    fields: [dim_site.site_name, parent_record_id,short_description, document_name, area_occured.area_name, dim_customer.customer_name,dim_lot_batch.lot_batch, dim_event_classification.event_category, dim_event_classification.event_area, dim_risk_category.risk_category_name, quality_rating,dim_causal.causal_name, dim_root_cause.root_cause_category, dim_root_cause.root_cause_name,DIM_DEVIATION_STATUS.deviation_status, date_created_date]
-  }
 
+  ## RHW 2019-01-24: replaced dim_event_classification.event_category with
+  ## dim_event_classification.event_classification, as event_category doesn't exist.
+  set: Deviation_details {
+    fields: [dim_site.site_name, parent_record_id,short_description, document_name, area_occured.area_name
+            , dim_customer.customer_name,dim_lot_batch.lot_batch, dim_event_classification.event_classification
+            , dim_event_classification.event_area, dim_risk_category.risk_category_name, quality_rating
+            , dim_causal.causal_name, dim_root_cause.root_cause_category, dim_root_cause.root_cause_name
+            , DIM_DEVIATION_STATUS.deviation_status, date_created_date]
+  }
 
   measure: count_closed {
     type: number
