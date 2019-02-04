@@ -105,9 +105,9 @@ explore: fact_deviations {
     sql_on: ${fact_deviations.event_class_key} = ${alert_limit_check.event_class_key} and ${fact_deviations.date_created_month}=${alert_limit_check.Month_date_month};;relationship: many_to_one
   }
 
-join: deviations_by_event_classifications {
+  join: deviations_by_event_classifications {
   sql_on: ${fact_deviations.event_class_key} = ${deviations_by_event_classifications.event_class_key}  ;;relationship: many_to_one
-}
+  }
   join: dim_bus_sec {
     sql_on: ${fact_deviations.bus_sec_key} = ${dim_bus_sec.bus_sec_key}  ;;relationship: many_to_one
   }
