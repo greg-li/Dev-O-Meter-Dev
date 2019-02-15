@@ -66,9 +66,13 @@
         - "#F36254"
         - "#FCF758"
         - "#4FBC89"
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 64
       bold: false
       italic: false
       strikethrough: false
+      __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+      __LINE_NUM: 59
     - type: low to high
       value:
       background_color:
@@ -79,13 +83,18 @@
         - "#F36254"
         - "#FCF758"
         - "#4FBC89"
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 77
       bold: false
       italic: false
       strikethrough: false
+      __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+      __LINE_NUM: 72
     listen:
       Site: dim_site.site_name
-      Has Event: dim_event_classification.event_classification
       Current Quarter: fact_deviations.date_created_date
+      Has Event: dim_event_classification.event_classification
+      Business Sector: dim_bus_sec.bus_sec_name
     row: 0
     col: 0
     width: 24
@@ -147,71 +156,116 @@
       - id: Automation / Software Error
         name: Automation / Software Error
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 147
       - id: Building and Utility Failure including HVAC
         name: Building and Utility Failure including HVAC
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 150
       - id: Cell Culture Excursion
         name: Cell Culture Excursion
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 153
       - id: Documentation Management Error
         name: Documentation Management Error
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 156
       - id: Equipment Maintenance
         name: Equipment Maintenance
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 159
       - id: Equipment Malfunction / Failure
         name: Equipment Malfunction / Failure
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 162
       - id: Equipment Preparation
         name: Equipment Preparation
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 165
       - id: Error in Approved Batch Records / SOPs
         name: Error in Approved Batch Records / SOPs
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 168
       - id: Good Documentation Practice (GDP)
         name: Good Documentation Practice (GDP)
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 171
       - id: Inoculum Excursion
         name: Inoculum Excursion
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 174
       - id: Leak - Non Product
         name: Leak - Non Product
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 177
       - id: Leak - Product
         name: Leak - Product
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 180
       - id: Material Management / Supply Chain
         name: Material Management / Supply Chain
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 183
       - id: N/A
         name: N/A
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 186
       - id: Performed outside BR/SOP Instructions
         name: Performed outside BR/SOP Instructions
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 189
       - id: Production Support Excursion
         name: Production Support Excursion
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 192
       - id: Purification Excursion
         name: Purification Excursion
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 195
       - id: Testing or Reporting Error / Failure
         name: Testing or Reporting Error / Failure
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 198
       - id: Validation / Qualification
         name: Validation / Qualification
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 201
       - id: Visual Inspection Failures including Foreign Matter
         name: Visual Inspection Failures including Foreign Matter
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 204
       - id: "∅"
         name: "∅"
         axisId: fact_deviations.count
+        __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+        __LINE_NUM: 207
+      __FILE: dev_o_meter/track_trend_quarterly_extract.dashboard.lookml
+      __LINE_NUM: 135
     hide_legend: false
     listen:
       Site: dim_site.site_name
-      Has Event: dim_event_classification.event_classification
       Current Quarter: fact_deviations.date_created_date
+      Has Event: dim_event_classification.event_classification
+      Business Sector: dim_bus_sec.bus_sec_name
     row: 10
     col: 0
     width: 24
@@ -277,8 +331,9 @@
     - alert_limit_check.alert_flag
     listen:
       Site: dim_site.site_name
-      Has Event: dim_event_classification.event_classification
       Current Quarter: fact_deviations.date_created_date
+      Has Event: dim_event_classification.event_classification
+      Business Sector: dim_bus_sec.bus_sec_name
     row: 18
     col: 0
     width: 24
@@ -288,30 +343,50 @@
     title: Site
     type: field_filter
     default_value: Portsmouth
-    model: dev_0meter
-    explore: fact_deviations
-    field: dim_site.site_name
-    listens_to_filters:
-    - Event Classification
     allow_multiple_values: true
     required: false
+    model: dev_0meter
+    explore: fact_deviations
+    listens_to_filters:
+    - Event Classification
+    field: dim_site.site_name
   - name: Current Quarter
     title: Current Quarter
     type: field_filter
     default_value: 1 quarters ago for 1 quarters
-    model: dev_0meter
-    explore: fact_deviations
-    field: fact_deviations.date_created_date
-    listens_to_filters: []
     allow_multiple_values: true
     required: false
+    model: dev_0meter
+    explore: fact_deviations
+    listens_to_filters: []
+    field: fact_deviations.date_created_date
   - name: Has Event
     title: Has Event
     type: field_filter
     default_value: "-N/A"
-    model: dev_0meter
-    explore: fact_deviations
-    field: dim_event_classification.event_classification
-    listens_to_filters: []
     allow_multiple_values: true
     required: false
+    model: dev_0meter
+    explore: fact_deviations
+    listens_to_filters: []
+    field: dim_event_classification.event_classification
+  - name: Business Sector
+    title: Business Sector
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    model: dev_0meter
+    explore: fact_deviations
+    listens_to_filters: []
+    field: dim_bus_sec.bus_sec_name
+  - name: Status
+    title: Status
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    model: dev_0meter
+    explore: fact_deviations
+    listens_to_filters: []
+    field: dim_deviation_status.deviation_status

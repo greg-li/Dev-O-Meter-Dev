@@ -5,9 +5,7 @@ connection: "edm"
 # include all the views
 include: "*.view"
 
-#test line 11/30/2018 - more changes
-
-# include all the dashboards
+include: "*.dashboard.lookml"
 #include: "*.dashboard"
 
 #explore: assigned_person {}

@@ -2,28 +2,31 @@
   title: Track & Trend Monthly Extract
   layout: newspaper
   elements:
-  - title: Category Limits and Counts by Month
-    name: Category Limits and Counts by Month
+  - title: Total Events
+    name: Total Events
     model: dev_0meter
     explore: fact_deviations
     type: table
     fields:
     - dim_event_classification.event_classification
-    - fact_deviations.date_created_month
     - dim_event_classification.Action_Limit
-    - dim_event_classification.Alert_Limit
-    - fact_deviations.count_event
+    - fact_deviations.action_count
+    - fact_deviations.date_created_year
     pivots:
-    - fact_deviations.date_created_month
+    - fact_deviations.date_created_year
     fill_fields:
-    - fact_deviations.date_created_month
+    - fact_deviations.date_created_year
     filters:
-      dim_event_classification.event_classification: "-NULL"
-      fact_deviations.deviation_key: '230,319,323'
+      dim_event_classification.event_classification: "-N/A"
+      fact_deviations.deviation_key: '230'
+      dim_site.site_name: Portsmouth
+      dim_deviation_status.deviation_status: "-Closed - Cancelled"
+      dim_bus_sec.bus_sec_name: LPB Portsmouth MM
     sorts:
-    - fact_deviations.date_created_month 0
     - dim_event_classification.event_classification desc
+    - fact_deviations.date_created_year
     limit: 500
+    column_limit: 50
     show_view_names: false
     show_row_numbers: true
     truncate_column_names: false
@@ -67,9 +70,13 @@
         - "#F36254"
         - "#FCF758"
         - "#4FBC89"
+        __FILE: dev_o_meter/track__trend_monthly_extract.dashboard.lookml
+        __LINE_NUM: 381
       bold: false
       italic: false
       strikethrough: false
+      __FILE: dev_o_meter/track__trend_monthly_extract.dashboard.lookml
+      __LINE_NUM: 376
     - type: low to high
       value:
       background_color:
@@ -80,18 +87,18 @@
         - "#F36254"
         - "#FCF758"
         - "#4FBC89"
+        __FILE: dev_o_meter/track__trend_monthly_extract.dashboard.lookml
+        __LINE_NUM: 394
       bold: false
       italic: false
       strikethrough: false
+      __FILE: dev_o_meter/track__trend_monthly_extract.dashboard.lookml
+      __LINE_NUM: 389
     listen:
-      Site: dim_site.site_name
-      Event Type: dim_event_classification.event_classification
-      closed type: dim_deviation_status.deviation_status
-      Bus Sec: dim_bus_sec.bus_sec_name
       Year: fact_deviations.date_created_year
     row: 5
-    col: 0
-    width: 18
+    col: 18
+    width: 6
     height: 11
   - title: Above Alert Limit
     name: Above Alert Limit
@@ -159,7 +166,7 @@
       Site: dim_site.site_name
       start date: fact_deviations.date_created_date
       Event Type: dim_event_classification.event_classification
-      closed type: dim_deviation_status.deviation_status
+      Status: dim_deviation_status.deviation_status
       Bus Sec: dim_bus_sec.bus_sec_name
     row: 0
     col: 0
@@ -231,7 +238,7 @@
     listen:
       Site: dim_site.site_name
       Event Type: dim_event_classification.event_classification
-      closed type: dim_deviation_status.deviation_status
+      Status: dim_deviation_status.deviation_status
       Bus Sec: dim_bus_sec.bus_sec_name
       Year: fact_deviations.date_created_year
     row: 0
@@ -261,8 +268,6 @@
     - fact_deviations.date_created_month
     filters:
       alert_limit_check.alert_flag: 'Yes'
-      dim_bus_sec.bus_sec_name: LPB Portsmouth MM
-      fact_deviations.date_created_date: 2018/01/01 to 2018/02/01
       fact_deviations.deviation_key: '230,319,323'
     sorts:
     - dim_event_classification.event_classification
@@ -308,38 +313,33 @@
       Site: dim_site.site_name
       start date: fact_deviations.date_created_date
       Event Type: dim_event_classification.event_classification
-      closed type: dim_deviation_status.deviation_status
+      Status: dim_deviation_status.deviation_status
       Bus Sec: dim_bus_sec.bus_sec_name
     row: 16
     col: 0
     width: 24
     height: 37
-  - title: Total Events
-    name: Total Events
+  - title: Category Limits and Counts by Month
+    name: Category Limits and Counts by Month
     model: dev_0meter
     explore: fact_deviations
     type: table
     fields:
     - dim_event_classification.event_classification
+    - fact_deviations.date_created_month
     - dim_event_classification.Action_Limit
-    - fact_deviations.action_count
-    - fact_deviations.date_created_year
+    - dim_event_classification.Alert_Limit
+    - fact_deviations.count_event
     pivots:
-    - fact_deviations.date_created_year
+    - fact_deviations.date_created_month
     fill_fields:
-    - fact_deviations.date_created_year
+    - fact_deviations.date_created_month
     filters:
-      dim_event_classification.event_classification: "-N/A"
-      fact_deviations.deviation_key: '230'
-      dim_site.site_name: Portsmouth
-      dim_deviation_status.deviation_status: "-Closed - Cancelled"
-      dim_bus_sec.bus_sec_name: LPB Portsmouth MM
-      fact_deviations.date_created_year: '2018'
+      fact_deviations.deviation_key: '230,319,323'
     sorts:
+    - fact_deviations.date_created_month 0
     - dim_event_classification.event_classification desc
-    - fact_deviations.date_created_year
     limit: 500
-    column_limit: 50
     show_view_names: false
     show_row_numbers: true
     truncate_column_names: false
@@ -383,9 +383,13 @@
         - "#F36254"
         - "#FCF758"
         - "#4FBC89"
+        __FILE: dev_o_meter/track__trend_monthly_extract.dashboard.lookml
+        __LINE_NUM: 65
       bold: false
       italic: false
       strikethrough: false
+      __FILE: dev_o_meter/track__trend_monthly_extract.dashboard.lookml
+      __LINE_NUM: 60
     - type: low to high
       value:
       background_color:
@@ -396,72 +400,82 @@
         - "#F36254"
         - "#FCF758"
         - "#4FBC89"
+        __FILE: dev_o_meter/track__trend_monthly_extract.dashboard.lookml
+        __LINE_NUM: 78
       bold: false
       italic: false
       strikethrough: false
+      __FILE: dev_o_meter/track__trend_monthly_extract.dashboard.lookml
+      __LINE_NUM: 73
+    listen:
+      Site: dim_site.site_name
+      Event Type: dim_event_classification.event_classification
+      Status: dim_deviation_status.deviation_status
+      Bus Sec: dim_bus_sec.bus_sec_name
+      Year: fact_deviations.date_created_year
     row: 5
-    col: 18
-    width: 6
+    col: 0
+    width: 18
     height: 11
   filters:
   - name: Site
     title: Site
     type: field_filter
     default_value: Portsmouth
-    model: dev_0meter
-    explore: fact_deviations
-    field: dim_site.site_name
-    listens_to_filters:
-    - Event Classification
     allow_multiple_values: true
     required: false
+    model: dev_0meter
+    explore: fact_deviations
+    listens_to_filters:
+    - Event Classification
+    field: dim_site.site_name
   - name: start date
     title: start date
     type: field_filter
     default_value: 1 months ago for 1 months
-    model: dev_0meter
-    explore: fact_deviations
-    field: fact_deviations.date_created_date
-    listens_to_filters: []
     allow_multiple_values: true
     required: false
+    model: dev_0meter
+    explore: fact_deviations
+    listens_to_filters: []
+    field: fact_deviations.date_created_date
   - name: Event Type
     title: Event Type
     type: field_filter
     default_value: "-N/A"
-    model: dev_0meter
-    explore: fact_deviations
-    field: dim_event_classification.event_classification
-    listens_to_filters: []
     allow_multiple_values: true
     required: false
-  - name: closed type
-    title: closed type
+    model: dev_0meter
+    explore: fact_deviations
+    listens_to_filters: []
+    field: dim_event_classification.event_classification
+  - name: Status
+    title: Status
     type: field_filter
     default_value: "-Closed - Cancelled"
-    model: dev_0meter
-    explore: fact_deviations
-    field: dim_deviation_status.deviation_status
-    listens_to_filters: []
     allow_multiple_values: true
     required: false
+    model: dev_0meter
+    explore: fact_deviations
+    listens_to_filters: []
+    field: dim_deviation_status.deviation_status
   - name: Bus Sec
     title: Bus Sec
     type: field_filter
     default_value: LPB Portsmouth MM
-    model: dev_0meter
-    explore: fact_deviations
-    field: dim_bus_sec.bus_sec_name
-    listens_to_filters: []
     allow_multiple_values: true
     required: false
+    model: dev_0meter
+    explore: fact_deviations
+    listens_to_filters: []
+    field: dim_bus_sec.bus_sec_name
   - name: Year
     title: Year
     type: field_filter
-    default_value: '2018'
-    model: dev_0meter
-    explore: fact_deviations
-    field: fact_deviations.date_created_year
-    listens_to_filters: []
+    default_value: this year
     allow_multiple_values: true
     required: false
+    model: dev_0meter
+    explore: fact_deviations
+    listens_to_filters: []
+    field: fact_deviations.date_created_year
