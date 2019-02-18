@@ -242,6 +242,21 @@ dimension: deviation_age_days{
     sql: ${quality_rating} = 'Minor' ;;
   }
 
+  dimension: is_risk_rating_high {
+    type: yesno
+    sql: ${dim_risk_category.risk_category_name} = 'High' ;;
+  }
+
+  dimension: is_risk_rating_medium {
+    type: yesno
+    sql: ${dim_risk_category.risk_category_name}  = 'Medium' ;;
+  }
+
+  dimension: is_risk_rating_low {
+    type: yesno
+    sql: ${dim_risk_category.risk_category_name}  = 'Low' ;;
+  }
+
   dimension_group: insert {
     type: time
     timeframes: [
@@ -341,6 +356,56 @@ dimension: deviation_age_days{
       value: "Yes"
     }
   }
+
+  measure: critical_rating_count {
+    type: count
+    filters: {
+      field: is_quality_rating_critical
+      value: "Yes"
+    }
+  }
+
+  measure: major_rating_count {
+    type: count
+    filters: {
+      field: is_quality_rating_major
+      value: "Yes"
+    }
+  }
+
+  measure: minor_rating_count {
+    type: count
+    filters: {
+      field: is_quality_rating_minor
+      value: "Yes"
+    }
+  }
+
+  measure:high_risk_rating_count {
+    type: count
+    filters: {
+      field: is_risk_rating_high
+      value: "Yes"
+    }
+  }
+
+  measure: medium_risk_rating_count {
+    type: count
+    filters: {
+      field: is_risk_rating_medium
+      value: "Yes"
+    }
+  }
+
+  measure: low_risk_rating_count {
+    type: count
+    filters: {
+      field: is_risk_rating_low
+      value: "Yes"
+    }
+  }
+
+
 
 
   measure: percent_cancelled_deviations {
