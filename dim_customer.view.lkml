@@ -20,6 +20,7 @@ view: dim_customer {
       &Customer={{customer_name._value}}&Event%20Classification={{ _filters['alert_limit_check.event_classification'] | url_encode }}&Area%20Where%20Occurred={{ _filters['dim_area.area_name'] | url_encode }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] | url_encode }}&Quality%20Impact%20Rating={{ _filters['fact_deviations.quality_rating'] | url_encode }}"
       icon_url: "https://looker.com/favicon.ico"
     }
+    html: Customer Name: {{rendered_value}} <p> Customer Key: {{customer_key._rendered_value}} </p>;;
   }
 
   dimension_group: insert {

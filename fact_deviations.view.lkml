@@ -31,6 +31,36 @@ fact_deviations.EVENT_CLASS_KEY
 from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
   }
 
+
+  parameter: date_selection{
+    type: string
+    allowed_value: {
+      label: "Quarterly"
+      value: "quarterly"
+    }
+    allowed_value: {
+      label: "Annually"
+      value: "annually"
+    }
+    allowed_value: {
+      label: "Daily"
+      value: "daily"
+    }
+  }
+
+  dimension: date_created_selector {
+    type: string
+    sql:
+    {% if date_selection._parameter_value == "'quarterly'" %}
+    ${date_created_quarter}
+    {% elsif date_selection._parameter_value == "'annually'" %}
+    ${date_created_year}
+    {% else %}
+    cast(${date_created_date} as nvarchar)
+    {% endif %}
+;;
+  }
+
   dimension: area_assigned_key {
     type: number
     sql: ${TABLE}.AREA_ASSIGNED_KEY ;;
@@ -144,6 +174,11 @@ dimension: deviation_age_days{
     sql: ${TABLE}.DATE_DUE ;;
   }
 
+  dimension: days_to_close {
+    type: number
+    sql: datediff(day,${date_created_date},${date_closed_date}) ;;
+  }
+
   dimension: dev_status_key {
     type: number
     sql: ${TABLE}.DEV_STATUS_KEY ;;
@@ -173,6 +208,40 @@ dimension: deviation_age_days{
     sql: ${TABLE}.INITIATING_PERSON_KEY ;;
   }
 
+  dimension: is_cancelled {
+    type: yesno
+    sql: ${dim_deviation_status.deviation_status} = 'Closed - Cancelled' ;;
+  }
+
+
+
+  dimension: is_closed {
+    type: yesno
+    sql: ${date_closed_raw} IS NOT NULL ;;
+  }
+
+  dimension: is_overdue {
+    type: yesno
+    sql: ${date_due_raw} < getdate()
+    and ${date_closed_date} is null
+    ;;
+  }
+
+  dimension: is_quality_rating_critical {
+    type: yesno
+    sql: ${quality_rating} = 'Critical' ;;
+  }
+
+  dimension: is_quality_rating_major {
+    type: yesno
+    sql: ${quality_rating} = 'Major' ;;
+  }
+
+  dimension: is_quality_rating_minor {
+    type: yesno
+    sql: ${quality_rating} = 'Minor' ;;
+  }
+
   dimension_group: insert {
     type: time
     timeframes: [
@@ -198,6 +267,11 @@ dimension: deviation_age_days{
   dimension: parent_record_id {
     type: number
     sql: ${TABLE}.PARENT_RECORD_ID ;;
+  }
+
+  dimension: requires_investigation {
+    type: yesno
+    sql: ${dim_deviation_status.deviation_status} = 'Investigation' ;;
   }
 
   dimension: risk_cat_key {
@@ -241,8 +315,14 @@ dimension: deviation_age_days{
     sql: ${TABLE}.UPDATE_DATE ;;
   }
 
+  measure: average_days_to_close {
+    type: average
+    sql: ${days_to_close} ;;
+  }
+
   measure: count {
     type: count
+    label: "Count of Deviations"
     #link: {label:"Low/Minor Root Cause Category"
     #  url:"/dashboards/5?Risk%20Factor=Low&Quality%20Rating=Minor&causal factor={{dim_causal.causal_name._value}}"}
     drill_fields: [Deviation_details*]
@@ -251,6 +331,22 @@ dimension: deviation_age_days{
       url: "/dashboards/4?Site={{ _filters['dim_site.site_name'] | url_encode }}&Status={{ _filters['dim_deviation_status.deviation_status'] | url_encode }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] | url_encode }}&Asset={{ _filters['vw_asset_to_area.asset'] | url_encode }}&Root%20Category={{ _filters['dim_root_cause.root_cause_category'] | url_encode }}&Causal%20Factor={{ _filters['dim_causal.causal_name'] | url_encode }}&Event%20Area={{ _filters['alert_limit_check.event_area'] | url_encode }}&Batch={{ _filters['dim_lot_batch.lot_batch'] | url_encode }}&Customer={{ _filters['dim_customer.customer_name'] | url_encode }}&Event%20Classification={{ _filters['alert_limit_check.event_classification'] | url_encode }}&Area%20Where%20Occurred={{ _filters['dim_area.area_name'] | url_encode }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] | url_encode }}&Quality%20Impact%20Rating={{ _filters['fact_deviations.quality_rating'] | url_encode }}"
       icon_url: "https://looker.com/favicon.ico"
     }
+  }
+
+  measure: cancelled_count {
+    type: count
+    label: "Count of Cancelled Deviations"
+    filters: {
+      field: is_cancelled
+      value: "Yes"
+    }
+  }
+
+
+  measure: percent_cancelled_deviations {
+    type: number
+    value_format_name: percent_2
+    sql: ${cancelled_count}/coalesce(${count},0) ;;
   }
 
     measure: count_event {
@@ -273,6 +369,7 @@ dimension: deviation_age_days{
           {% endif %}</a>;;
   }
 
+
   ## RHW 2019-01-24: replaced dim_event_classification.event_category with
   ## dim_event_classification.event_classification, as event_category doesn't exist.
   set: Deviation_details {
@@ -288,6 +385,13 @@ dimension: deviation_age_days{
     drill_fields: []
     sql: count( ${TABLE}.DATE_CLOSED) ;;
   }
+
+  measure: count_open {
+    type: sum
+    drill_fields: []
+    sql: case when ${TABLE}.DATE_CLOSED is null then 1 else 0 END ;;
+  }
+
   dimension: deviation_age {
     type: number
     sql:DATEDIFF(day,${date_created_date},getdate())  ;;
