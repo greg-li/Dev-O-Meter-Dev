@@ -262,9 +262,7 @@
     filters:
       dim_event_classification.event_classification: "-N/A"
       fact_deviations.deviation_key: '230'
-      dim_site.site_name: Portsmouth
       dim_deviation_status.deviation_status: "-Closed - Cancelled"
-      dim_bus_sec.bus_sec_name: LPB Portsmouth MM
     sorts:
     - dim_event_classification.event_classification desc
     - fact_deviations.date_created_year
@@ -338,6 +336,8 @@
       __FILE: dev_o_meter/track_trend_monthly_extract_pdf_friendly.dashboard.lookml
       __LINE_NUM: 149
     listen:
+      Site: dim_site.site_name
+      Bus Sec: dim_bus_sec.bus_sec_name
       Year: fact_deviations.date_created_year
     row: 8
     col: 18
