@@ -24,6 +24,20 @@ dimension: Alert_Limit  {
   sql: ${TABLE}.EVENT_MONTH_LIMIT;;
 }
 
+  dimension_group: effective {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.EFFECTIVE_DATE ;;
+  }
+
 
   dimension_group: insert {
     type: time
