@@ -8,10 +8,12 @@ view: dim_event_classification {
   }
 
   dimension: event_classification {
+    label: "Event Category Name"
     type: string
     sql: ${TABLE}.EVENT_CLASSIFICATION ;;
   }
   dimension: event_area{
+    label: "Event General Category"
     type: string
     sql: ${TABLE}.EVENT_AREA ;;
   }
