@@ -114,4 +114,7 @@ join: deviations_by_event_classifications {
   join:lkp_shift {
     sql_on: ${fact_deviations.date_created_date} = ${lkp_shift.schedule_date} ;;relationship: many_to_one
   }
+  join: dim_technology_business {
+    sql_on: ${fact_deviations.technology_business_key} = ${dim_technology_business.technology_business_key} ;;relationship: many_to_one
+  }
 }
