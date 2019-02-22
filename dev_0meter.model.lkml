@@ -45,8 +45,8 @@ explore: fact_deviations {
   label: "Deviations"
  always_filter: {
    filters: {
-    field: deviation_key
-    value: "319"
+    field: dim_deviation_type.deviation_type
+    value: "Customer Complaint - Packaging and shipping complaints"
     }
  }
 

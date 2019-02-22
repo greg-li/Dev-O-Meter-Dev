@@ -213,16 +213,17 @@ dimension: deviation_age_days{
     sql: ${dim_deviation_status.deviation_status} = 'Closed - Cancelled' ;;
   }
 
-
-
   dimension: is_closed {
     type: yesno
-    sql: ${date_closed_raw} IS NOT NULL ;;
+    sql: ${date_closed_raw} IS NOT NULL OR ${dim_deviation_status.deviation_status} like '%Closed%' ;;
   }
 
+# The calculation for overdue looks at the current date and then adds one day.
+# For deviations due on the current day, these are not overdue as they can be
+# addressed at anytime during the due date
   dimension: is_overdue {
     type: yesno
-    sql: ${date_due_raw} < getdate()
+    sql: ${date_due_raw} < dateadd(day,1,cast(getdate() as date))
     and ${date_closed_date} is null
     ;;
   }
@@ -348,6 +349,25 @@ dimension: deviation_age_days{
     }
   }
 
+  measure: overdue_count {
+    type: count
+    label: "Count of Overdue Deviations"
+    filters: {
+      field:is_overdue
+      value:"Yes"
+      }
+    filters: {
+      field: is_closed
+      value: "No"
+      }
+  }
+
+  measure: overdue_percentage {
+    value_format_name: percent_1
+    type: number
+    sql:  1.0*${overdue_count}/nullif(${count_open},0);;
+  }
+
   measure: cancelled_count {
     type: count
     label: "Count of Cancelled Deviations"
@@ -451,10 +471,16 @@ dimension: deviation_age_days{
     sql: count( ${TABLE}.DATE_CLOSED) ;;
   }
 
+#   measure: count_open {
+#     type: sum
+#     drill_fields: []
+#     sql: case when ${TABLE}.DATE_CLOSED is null then 1 else 0 END ;;
+#   }
+
   measure: count_open {
-    type: sum
+    type: count
     drill_fields: []
-    sql: case when ${TABLE}.DATE_CLOSED is null then 1 else 0 END ;;
+    filters: {field:is_closed value: "No"}
   }
 
   dimension: deviation_age {
