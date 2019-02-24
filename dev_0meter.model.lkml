@@ -5,9 +5,7 @@ connection: "edm"
 # include all the views
 include: "*.view"
 
-#test line 11/30/2018 - more changes
-
-# include all the dashboards
+include: "*.dashboard.lookml"
 #include: "*.dashboard"
 
 #explore: assigned_person {}
@@ -116,5 +114,8 @@ explore: fact_deviations {
   }
   join:lkp_shift {
     sql_on: ${fact_deviations.date_created_date} = ${lkp_shift.schedule_date} ;;relationship: many_to_one
+  }
+  join: dim_technology_business {
+    sql_on: ${fact_deviations.technology_business_key} = ${dim_technology_business.technology_business_key} ;;relationship: many_to_one
   }
 }

@@ -8,10 +8,12 @@ view: dim_event_classification {
   }
 
   dimension: event_classification {
+    label: "Event Category Name"
     type: string
     sql: ${TABLE}.EVENT_CLASSIFICATION ;;
   }
   dimension: event_area{
+    label: "Event General Category"
     type: string
     sql: ${TABLE}.EVENT_AREA ;;
   }
@@ -23,6 +25,20 @@ dimension: Alert_Limit  {
   type:  number
   sql: ${TABLE}.EVENT_MONTH_LIMIT;;
 }
+
+  dimension_group: effective {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.EFFECTIVE_DATE ;;
+  }
 
 
   dimension_group: insert {

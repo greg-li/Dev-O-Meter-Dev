@@ -26,7 +26,10 @@ fact_deviations.DEVIATION_COUNT,
 fact_deviations.INSERT_DATE,
 fact_deviations.UPDATE_DATE,
 dim_Document.Document_name,
-fact_deviations.EVENT_CLASS_KEY
+fact_deviations.EVENT_CLASS_KEY,
+fact_deviations.CUSTOMER_APPROVAL_REQ,
+fact_deviations.INVESTIGATION_REQ,
+fact_deviations.TECHNOLOGY_BUSINESS_KEY
 
 from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
   }
@@ -532,6 +535,22 @@ dimension: deviation_age_days{
     sql:DATEDIFF(day,getdate(),${date_due_date})  ;;
 
   }
+
+  dimension: technology_business_key {
+    type: number
+    sql: ${TABLE}.TECHNOLOGY_BUSINESS_KEY ;;
+  }
+
+  dimension: customer_approval_req {
+    type: yesno
+    sql: ${TABLE}.CUSTOMER_APPROVAL_REQ = 1 ;;
+  }
+
+  dimension: investigation_req {
+    type: yesno
+    sql: ${TABLE}.investigation_req  = 1 ;;
+  }
+
   dimension: primary_key {
     primary_key: yes
     sql: CONCAT(${TABLE}.PARENT_RECORD_ID,
