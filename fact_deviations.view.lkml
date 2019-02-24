@@ -52,13 +52,21 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     type: string
     sql:
     {% if date_selection._parameter_value == "'quarterly'" %}
-    ${date_created_quarter}
+    cast(${date_created_quarter} as varchar)
     {% elsif date_selection._parameter_value == "'annually'" %}
     ${date_created_year}
     {% else %}
     cast(${date_created_date} as nvarchar)
     {% endif %}
 ;;
+    html:     {% if date_selection._parameter_value == "'quarterly'" %}
+    {{date_created_quarter._rendered_value}}
+    {% elsif date_selection._parameter_value == "'annually'" %}
+    {{date_created_year._rendered_value}}
+    {% else %}
+    {{date_created_date._rendered_value}}
+    {% endif %}
+     ;;
   }
 
   dimension: area_assigned_key {
@@ -349,6 +357,31 @@ dimension: deviation_age_days{
     }
   }
 
+  measure: investigation_required_count {
+    type: count
+    label: "Count of Investigation Deviations"
+    filters: {
+      field:is_overdue
+      value:"Yes"
+    }
+    filters: {
+      field: is_closed
+      value: "No"
+    }
+  }
+
+  measure: investigated_percentage {
+    value_format_name: percent_1
+    type: number
+    sql:  1.0*${investigation_required_count}/nullif(${count_open},0);;
+  }
+
+  measure: track_and_trend_percentage {
+    value_format_name: percent_1
+    type: number
+    sql: 1.0*(${count_open}-${investigation_required_count})/nullif(${count_open},0) ;;
+  }
+
   measure: overdue_count {
     type: count
     label: "Count of Overdue Deviations"
@@ -361,6 +394,7 @@ dimension: deviation_age_days{
       value: "No"
       }
   }
+
 
   measure: overdue_percentage {
     value_format_name: percent_1
