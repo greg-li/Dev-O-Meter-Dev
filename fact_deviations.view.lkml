@@ -51,8 +51,9 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     }
   }
 
-  dimension: date_created_selector {
+  dimension: date_created_selector_helper {
     type: string
+    hidden: yes
     sql:
     {% if date_selection._parameter_value == "'quarterly'" %}
     cast(${date_created_quarter} as varchar)
@@ -62,14 +63,16 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     cast(${date_created_date} as nvarchar)
     {% endif %}
 ;;
-    html:     {% if date_selection._parameter_value == "'quarterly'" %}
-    {{date_created_quarter._rendered_value}}
-    {% elsif date_selection._parameter_value == "'annually'" %}
-    {{date_created_year._rendered_value}}
-    {% else %}
-    {{date_created_date._rendered_value}}
-    {% endif %}
-     ;;
+  }
+
+  dimension: date_created_selector {
+    type: string
+    sql:   case when ${date_created_selector_helper}like '%-01' and len(${date_created_selector_helper}) = 7 then replace(${date_created_selector_helper},'-01','-Q1')
+    when ${date_created_selector_helper}like '%-04' and len(${date_created_selector_helper}) = 7 then replace(${date_created_selector_helper},'-04','-Q2')
+    when ${date_created_selector_helper}like '%-07' and len(${date_created_selector_helper}) = 7 then replace(${date_created_selector_helper},'-07','-Q3')
+    when ${date_created_selector_helper}like '%-10' and len(${date_created_selector_helper}) = 7 then replace(${date_created_selector_helper},'-10','-Q4')
+    else ${date_created_selector_helper} END
+    ;;
   }
 
   dimension: area_assigned_key {
