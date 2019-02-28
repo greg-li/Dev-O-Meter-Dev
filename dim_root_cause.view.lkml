@@ -32,7 +32,6 @@ view: dim_root_cause {
   }
 
   dimension: root_cause_name {
-    label: "ROOT CAUSE -- NAME"
     type: string
     sql: ${TABLE}.ROOT_CAUSE_NAME ;;
   }

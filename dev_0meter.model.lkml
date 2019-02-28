@@ -119,3 +119,4 @@ explore: fact_deviations {
     sql_on: ${fact_deviations.technology_business_key} = ${dim_technology_business.technology_business_key} ;;relationship: many_to_one
   }
 }
+explore: dashboard_headers {}
