@@ -280,7 +280,7 @@
     - fact_deviations.short_description
     - dim_site.site_name
     - area_occured.area_name
-    - dim_customer.customer_name
+    - dim_customers.customer_name
     - dim_lot_batch.lot_batch
     - dim_event_classification.event_area
     - dim_event_classification.event_classification

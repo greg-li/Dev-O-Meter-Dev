@@ -51,7 +51,7 @@
       Event Area: dim_root_cause.root_cause_name
       Status: dim_deviation_status.deviation_status
       Root Cause Catagory: dim_root_cause.root_cause_category
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Asset: vw_asset_to_area.asset
       Dates: fact_deviations.date_created_date
       Business Sector: dim_bus_sec.bus_sec_name
@@ -144,7 +144,7 @@
       Event Area: dim_root_cause.root_cause_name
       Status: dim_deviation_status.deviation_status
       Root Cause Catagory: dim_root_cause.root_cause_category
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Asset: vw_asset_to_area.asset
       Dates: fact_deviations.date_created_date
       Business Sector: dim_bus_sec.bus_sec_name
@@ -263,7 +263,7 @@
       Event Area: dim_root_cause.root_cause_name
       Status: dim_deviation_status.deviation_status
       Root Cause Catagory: dim_root_cause.root_cause_category
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Asset: vw_asset_to_area.asset
       Dates: fact_deviations.date_created_date
       Business Sector: dim_bus_sec.bus_sec_name
@@ -337,7 +337,7 @@
       Event Area: dim_root_cause.root_cause_name
       Status: dim_deviation_status.deviation_status
       Root Cause Catagory: dim_root_cause.root_cause_category
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Asset: vw_asset_to_area.asset
       Dates: fact_deviations.date_created_date
       Business Sector: dim_bus_sec.bus_sec_name
@@ -408,7 +408,7 @@
       Event Area: dim_root_cause.root_cause_name
       Status: dim_deviation_status.deviation_status
       Root Cause Catagory: dim_root_cause.root_cause_category
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Asset: vw_asset_to_area.asset
       Dates: fact_deviations.date_created_date
       Business Sector: dim_bus_sec.bus_sec_name
@@ -507,7 +507,7 @@
       Event Area: dim_root_cause.root_cause_name
       Status: dim_deviation_status.deviation_status
       Root Cause Catagory: dim_root_cause.root_cause_category
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Asset: vw_asset_to_area.asset
       Dates: fact_deviations.date_created_date
       Business Sector: dim_bus_sec.bus_sec_name
@@ -580,7 +580,7 @@
       Event Area: dim_root_cause.root_cause_name
       Status: dim_deviation_status.deviation_status
       Root Cause Catagory: dim_root_cause.root_cause_category
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Asset: vw_asset_to_area.asset
       Dates: fact_deviations.date_created_date
       Business Sector: dim_bus_sec.bus_sec_name
@@ -650,7 +650,7 @@
       Event Area: dim_root_cause.root_cause_name
       Status: dim_deviation_status.deviation_status
       Root Cause Catagory: dim_root_cause.root_cause_category
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Asset: vw_asset_to_area.asset
       Dates: fact_deviations.date_created_date
       Business Sector: dim_bus_sec.bus_sec_name
@@ -715,7 +715,7 @@
       Event Area: dim_root_cause.root_cause_name
       Status: dim_deviation_status.deviation_status
       Root Cause Catagory: dim_root_cause.root_cause_category
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Asset: vw_asset_to_area.asset
       Dates: fact_deviations.date_created_date
       Business Sector: dim_bus_sec.bus_sec_name
@@ -786,7 +786,7 @@
       Event Area: dim_root_cause.root_cause_name
       Status: dim_deviation_status.deviation_status
       Root Cause Catagory: dim_root_cause.root_cause_category
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Asset: vw_asset_to_area.asset
       Dates: fact_deviations.date_created_date
       Business Sector: dim_bus_sec.bus_sec_name
@@ -857,7 +857,7 @@
       Event Area: dim_root_cause.root_cause_name
       Status: dim_deviation_status.deviation_status
       Root Cause Catagory: dim_root_cause.root_cause_category
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Asset: vw_asset_to_area.asset
       Dates: fact_deviations.date_created_date
       Business Sector: dim_bus_sec.bus_sec_name
@@ -930,7 +930,7 @@
       Event Area: dim_root_cause.root_cause_name
       Status: dim_deviation_status.deviation_status
       Root Cause Catagory: dim_root_cause.root_cause_category
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Asset: vw_asset_to_area.asset
       Dates: fact_deviations.date_created_date
       Business Sector: dim_bus_sec.bus_sec_name
@@ -1003,7 +1003,7 @@
       Event Area: dim_root_cause.root_cause_name
       Status: dim_deviation_status.deviation_status
       Root Cause Catagory: dim_root_cause.root_cause_category
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Asset: vw_asset_to_area.asset
       Dates: fact_deviations.date_created_date
       Business Sector: dim_bus_sec.bus_sec_name
@@ -1167,7 +1167,7 @@
       Event Area: dim_root_cause.root_cause_name
       Status: dim_deviation_status.deviation_status
       Root Cause Catagory: dim_root_cause.root_cause_category
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Asset: vw_asset_to_area.asset
       Dates: fact_deviations.date_created_date
       Business Sector: dim_bus_sec.bus_sec_name
@@ -1226,7 +1226,7 @@
     model: dev_0meter
     explore: fact_deviations
     listens_to_filters: []
-    field: dim_customer.customer_name
+    field: dim_customers.customer_name
   - name: Asset
     title: Asset
     type: field_filter

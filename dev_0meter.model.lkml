@@ -15,7 +15,7 @@ include: "*.dashboard.lookml"
 
 #explore: dim_causal {}
 
-#explore: dim_customer {}
+#explore: dim_customers {}
 
 #explore: dim_deviation_status {}
 
@@ -58,8 +58,18 @@ explore: fact_deviations {
     sql_on: ${fact_deviations.site_key} =${dim_site.site_key}
     ;;relationship: many_to_one
   }
-  join:  dim_customer {
-    sql_on: ${fact_deviations.customer_key} = ${dim_customer.customer_key} ;;relationship: many_to_one
+#   join:  dim_customers {
+#     sql_on: ${fact_deviations.customer_key} = ${dim_customers.customer_key} ;;relationship: many_to_one
+#   }
+  join: bridge_customers_dev {
+    sql_on: ${fact_deviations.parent_record_id} = ${bridge_customers_dev.parent_record_id};;
+    type: inner
+    relationship: many_to_one
+  }
+  join:  dim_customers {
+    sql_on: ${bridge_customers_dev.customer_key} = ${dim_customers.customer_key} ;;
+    type: inner
+    relationship: many_to_one
   }
   join:  dim_deviation_status {
     sql_on: ${fact_deviations.dev_status_key} = ${dim_deviation_status.dev_status_key} ;;relationship: many_to_one

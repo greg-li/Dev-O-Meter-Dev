@@ -1,5 +1,5 @@
-view: dim_customer {
-  sql_table_name: dbo.DIM_CUSTOMER ;;
+view: dim_customers {
+  sql_table_name: dbo.dim_customers ;;
 
   dimension: active_flag {
     type: string
