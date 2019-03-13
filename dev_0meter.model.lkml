@@ -134,5 +134,5 @@ explore: dashboard_headers {}
 
 ##Suggest Explores
 explore: available_timezones {
-  hidden: yes
+ hidden: yes
 }

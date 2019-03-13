@@ -130,6 +130,20 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     type: number
     sql: ${TABLE}.RISK_SCORE ;;
   }
+  dimension_group: date_closed_old {
+    label: "Old_Closed"
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: ${TABLE}.DATE_CLOSED ;;  }
 
   dimension_group: date_closed {
     label: "Closed"
@@ -144,7 +158,7 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     ]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}.DATE_CLOSED ;;
+    sql: cast(tzdb.utctolocal(${TABLE}.DATE_CLOSED,{% parameter timezone_selection %}) as datetime2);;
   }
 dimension: deviation_age_days{
   type: tier
@@ -160,7 +174,8 @@ dimension: deviation_age_days{
     sql: ${Days_Till_Due};;
 
   }
-  dimension_group: date_created {
+
+  dimension_group: date_created{
     label: "Created"
     type: time
     timeframes: [
@@ -174,11 +189,12 @@ dimension: deviation_age_days{
     ]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}.DATE_CREATED ;;
+    sql: cast(tzdb.utctolocal(${TABLE}.date_created,{% parameter timezone_selection %}) as datetime2) ;;
     ## Added by RHW 2019-01-24
     drill_fields: [dim_event_classification.event_classification, dim_risk_category.risk_category_name
-                  , date_created_week, date_created_date, count]
+      , date_created_week, date_created_date, count]
   }
+
 
   dimension_group: date_due {
     label: "Due"
@@ -193,7 +209,7 @@ dimension: deviation_age_days{
     ]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}.DATE_DUE ;;
+    sql: cast(tzdb.utctolocal(${TABLE}.DATE_DUE,{% parameter timezone_selection %}) as datetime2) ;;
   }
 
   dimension: days_to_close {
@@ -280,7 +296,7 @@ dimension: deviation_age_days{
     sql: ${dim_risk_category.risk_category_name}  = 'Low' ;;
   }
 
-  dimension_group: insert {
+  dimension_group: insert_old {
     type: time
     timeframes: [
       raw,
@@ -292,6 +308,21 @@ dimension: deviation_age_days{
       year
     ]
     sql: ${TABLE}.INSERT_DATE ;;
+
+  }
+
+  dimension_group: insert {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: cast(tzdb.utctolocal(${TABLE}.INSERT_DATE,{% parameter timezone_selection %}) as datetime2);;
   }
 
   dimension: lot_key {
