@@ -296,20 +296,6 @@ dimension: deviation_age_days{
     sql: ${dim_risk_category.risk_category_name}  = 'Low' ;;
   }
 
-  dimension_group: insert_old {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.INSERT_DATE ;;
-
-  }
 
   dimension_group: insert {
     type: time
@@ -322,6 +308,8 @@ dimension: deviation_age_days{
       quarter,
       year
     ]
+    convert_tz: no
+    datatype: date
     sql: cast(tzdb.utctolocal(${TABLE}.INSERT_DATE,{% parameter timezone_selection %}) as datetime2);;
   }
 
