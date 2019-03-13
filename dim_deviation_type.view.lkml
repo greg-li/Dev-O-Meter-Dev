@@ -15,7 +15,6 @@ view: dim_deviation_type {
     type: string
     sql: ${TABLE}.DEVIATION_TYPE ;;
   }
-
   dimension_group: insert {
     type: time
     timeframes: [
@@ -27,7 +26,9 @@ view: dim_deviation_type {
       quarter,
       year
     ]
-    sql: ${TABLE}.INSERT_DATE ;;
+    convert_tz: no
+    datatype: date
+    sql: cast(tzdb.utctolocal(${TABLE}.INSERT_DATE,{% parameter fact_deviations.timezone_selection %}) as datetime2) ;;
   }
 
   dimension_group: update {
@@ -41,7 +42,9 @@ view: dim_deviation_type {
       quarter,
       year
     ]
-    sql: ${TABLE}.UPDATE_DATE ;;
+    convert_tz: no
+    datatype: date
+    sql: cast(tzdb.utctolocal(${TABLE}.UPDATE_DATE,{% parameter fact_deviations.timezone_selection %}) as datetime2) ;;
   }
 
   measure: count {

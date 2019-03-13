@@ -1,6 +1,9 @@
 view: deviation_goal {
   derived_table: {
-    sql: SELECT         dbo.DIM_SITE.DEVIATION_GOAL, month(dbo.FACT_DEVIATIONS.DATE_CREATED) as create_month, year(dbo.FACT_DEVIATIONS.DATE_CREATED) as create_year,SUM(dbo.FACT_DEVIATIONS.DEVIATION_COUNT) AS Number_Deviations,
+    sql: SELECT         dbo.DIM_SITE.DEVIATION_GOAL,
+                        month(cast(tzdb.utctolocal(dbo.FACT_DEVIATIONS.DATE_CREATED,{% parameter fact_deviations.timezone_selection %}) as datetime2)) as create_month,
+                       year(cast(tzdb.utctolocal(dbo.FACT_DEVIATIONS.DATE_CREATED,{% parameter fact_deviations.timezone_selection %}) as datetime2)) as create_year,
+                        SUM(dbo.FACT_DEVIATIONS.DEVIATION_COUNT) AS Number_Deviations,
                          dbo.DIM_SITE.DEVIATION_GOAL / 12 AS Monthly_Goal
 FROM            dbo.FACT_DEVIATIONS INNER JOIN
                          dbo.DIM_SITE ON dbo.FACT_DEVIATIONS.SITE_KEY = dbo.DIM_SITE.SITE_KEY INNER JOIN
@@ -18,8 +21,9 @@ HAVING        (dbo.DIM_SITE.DEVIATION_GOAL IS NOT NULL) ;;
     type: number
     sql: ${TABLE}.DEVIATION_GOAL ;;
     }
- dimension: month {
-   sql: ${TABLE}.create_month ;;
+
+  dimension: month {
+    sql: ${TABLE}.create_month ;;
   }
 
   dimension: year {
@@ -33,9 +37,14 @@ HAVING        (dbo.DIM_SITE.DEVIATION_GOAL IS NOT NULL) ;;
   measure: count {
     type: count
     drill_fields: [site_name]
-
   }
 
+#   parameter: timezone_selection {
+#     type: string
+#     suggest_explore: available_timezones
+#     suggest_dimension: available_timezones.timezone_name
+#   }
+#
 
   # # You can specify the table name if it's different from the view name:
   # sql_table_name: my_schema_name.tester ;;

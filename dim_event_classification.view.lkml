@@ -37,7 +37,9 @@ dimension: Alert_Limit  {
       quarter,
       year
     ]
-    sql: ${TABLE}.EFFECTIVE_DATE ;;
+    convert_tz: no
+    datatype: date
+    sql: cast(tzdb.utctolocal(${TABLE}.EFFECTIVE_DATE,{% parameter fact_deviations.timezone_selection %}) as datetime2) ;;
   }
 
 
@@ -52,7 +54,9 @@ dimension: Alert_Limit  {
       quarter,
       year
     ]
-    sql: ${TABLE}.INSERT_DATE ;;
+    convert_tz: no
+    datatype: date
+    sql: cast(tzdb.utctolocal(${TABLE}.INSERT_DATE,{% parameter fact_deviations.timezone_selection %}) as datetime2) ;;
   }
 
   dimension_group: update {
@@ -66,8 +70,11 @@ dimension: Alert_Limit  {
       quarter,
       year
     ]
-    sql: ${TABLE}.UPDATE_DATE ;;
+    convert_tz: no
+    datatype: date
+    sql: cast(tzdb.utctolocal(${TABLE}.UPDATE_DATE,{% parameter fact_deviations.timezone_selection %}) as datetime2) ;;
   }
+
 
   dimension: active_flag {
     type: string

@@ -1,6 +1,8 @@
 view: deviations_by_event_classifications {
   derived_table: {
-  sql:SELECT        dbo.DIM_EVENT_CLASSIFICATION.EVENT_CLASS_KEY, COUNT(dbo.FACT_DEVIATIONS.DEVIATION_KEY) AS Count_Deviations, dbo.FACT_DEVIATIONS.DATE_CREATED
+  sql:SELECT        dbo.DIM_EVENT_CLASSIFICATION.EVENT_CLASS_KEY,
+                  COUNT(dbo.FACT_DEVIATIONS.DEVIATION_KEY) AS Count_Deviations,
+                  dbo.FACT_DEVIATIONS.DATE_CREATED
 FROM            dbo.DIM_EVENT_CLASSIFICATION INNER JOIN
                          dbo.FACT_DEVIATIONS ON dbo.DIM_EVENT_CLASSIFICATION.EVENT_CLASS_KEY = dbo.FACT_DEVIATIONS.EVENT_CLASS_KEY
 GROUP BY dbo.DIM_EVENT_CLASSIFICATION.EVENT_CLASS_KEY, dbo.FACT_DEVIATIONS.DATE_CREATED;;
@@ -25,7 +27,10 @@ GROUP BY dbo.DIM_EVENT_CLASSIFICATION.EVENT_CLASS_KEY, dbo.FACT_DEVIATIONS.DATE_
         quarter,
         year
       ]
-      sql: ${TABLE}.DATE_CREATED ;;
+      convert_tz: no
+      datatype: date
+      sql: cast(tzdb.utctolocal(${TABLE}.DATE_CREATED,{% parameter fact_deviations.timezone_selection %}) as datetime2) ;;
+
     }
 
   # # You can specify the table name if it's different from the view name:
