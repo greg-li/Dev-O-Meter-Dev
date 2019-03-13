@@ -350,9 +350,6 @@ dimension: deviation_age_days{
     sql: ${TABLE}.SITE_KEY ;;
   }
 
-
-
-
   dimension: step_key {
     type: number
     sql: ${TABLE}.STEP_KEY ;;
@@ -369,8 +366,11 @@ dimension: deviation_age_days{
       quarter,
       year
     ]
-    sql: ${TABLE}.UPDATE_DATE ;;
+    convert_tz: no
+    datatype: date
+    sql: cast(tzdb.utctolocal(${TABLE}.UPDATE_DATE,{% parameter timezone_selection %}) as datetime2);;
   }
+
 
   measure: average_days_to_close {
     type: average
