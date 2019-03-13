@@ -22,17 +22,9 @@ view: dim_step {
       quarter,
       year
     ]
-    sql: ${TABLE}.INSERT_DATE ;;
-  }
-
-  dimension: step_key {
-    type: number
-    sql: ${TABLE}.STEP_KEY ;;
-  }
-
-  dimension: step_name {
-    type: string
-    sql: ${TABLE}.STEP_NAME ;;
+    convert_tz: no
+    datatype: date
+    sql: cast(tzdb.utctolocal(${TABLE}.INSERT_DATE,{% parameter fact_deviations.timezone_selection %}) as datetime2) ;;
   }
 
   dimension_group: update {
@@ -46,7 +38,20 @@ view: dim_step {
       quarter,
       year
     ]
-    sql: ${TABLE}.UPDATE_DATE ;;
+    convert_tz: no
+    datatype: date
+    sql: cast(tzdb.utctolocal(${TABLE}.UPDATE_DATE,{% parameter fact_deviations.timezone_selection %}) as datetime2) ;;
+  }
+
+
+  dimension: step_key {
+    type: number
+    sql: ${TABLE}.STEP_KEY ;;
+  }
+
+  dimension: step_name {
+    type: string
+    sql: ${TABLE}.STEP_NAME ;;
   }
 
   measure: count {

@@ -17,7 +17,25 @@ view: dim_site {
       quarter,
       year
     ]
-    sql: ${TABLE}.INSERT_DATE ;;
+    convert_tz: no
+    datatype: date
+    sql: cast(tzdb.utctolocal(${TABLE}.INSERT_DATE,{% parameter fact_deviations.timezone_selection %}) as datetime2) ;;
+  }
+
+  dimension_group: update {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: cast(tzdb.utctolocal(${TABLE}.UPDATE_DATE,{% parameter fact_deviations.timezone_selection %}) as datetime2) ;;
   }
 
   dimension: site_key {
@@ -46,19 +64,6 @@ view: dim_site {
   measure: monthly_deviation_goal1 {
     type: sum
     sql: ${monthly_deviation_goal};;
-  }
-  dimension_group: update {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.UPDATE_DATE ;;
   }
 
   measure: count {

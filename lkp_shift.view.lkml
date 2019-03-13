@@ -17,7 +17,9 @@ view: lkp_shift {
       quarter,
       year
     ]
-    sql: ${TABLE}.schedule_Date ;;
+    convert_tz: no
+    datatype: date
+    sql: cast(tzdb.utctolocal(${TABLE}.schedule_Date,{% parameter fact_deviations.timezone_selection %}) as datetime2) ;;
   }
 
   dimension: schedule_day {

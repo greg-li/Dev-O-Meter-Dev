@@ -130,20 +130,7 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     type: number
     sql: ${TABLE}.RISK_SCORE ;;
   }
-  dimension_group: date_closed_old {
-    label: "Old_Closed"
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    convert_tz: no
-    datatype: date
-    sql: ${TABLE}.DATE_CLOSED ;;  }
+
 
   dimension_group: date_closed {
     label: "Closed"

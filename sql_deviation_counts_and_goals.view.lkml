@@ -1,4 +1,5 @@
-view: sql_runner_query {
+#view: sql_runner_query {
+view: sql_deviation_counts_and_goals {
   derived_table: {
     sql: SELECT
       TOP 500
