@@ -130,3 +130,9 @@ explore: fact_deviations {
   }
 }
 explore: dashboard_headers {}
+
+
+##Suggest Explores
+explore: available_timezones {
+  hidden: yes
+}

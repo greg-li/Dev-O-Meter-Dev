@@ -1,3 +1,5 @@
+
+
 view: fact_deviations {
   derived_table: {
 
@@ -73,6 +75,12 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     when ${date_created_selector_helper}like '%-10' and len(${date_created_selector_helper}) = 7 then replace(${date_created_selector_helper},'-10','-Q4')
     else ${date_created_selector_helper} END
     ;;
+  }
+
+  parameter: timezone_selection {
+    type: string
+    suggest_explore: available_timezones
+    suggest_dimension: available_timezones.timezone_name
   }
 
   dimension: area_assigned_key {
