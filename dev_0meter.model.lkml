@@ -34,7 +34,14 @@ include: "*.dashboard.lookml"
 #explore: dim_site {}
 
 #explore: dim_step {}
-explore: deviation_goal {}
+
+##Added in join to fact_deviations
+explore: deviation_goal  {
+  # join: fact_deviations {
+  #   sql_on: ${fact_deviations.site_key} = ${deviation_goal.site_key} ;;
+  # }
+}
+
 
 
 
@@ -65,6 +72,7 @@ explore: fact_deviations {
     sql_on: ${fact_deviations.parent_record_id} = ${bridge_customers_dev.parent_record_id};;
     type: inner
     relationship: many_to_one
+    fields: []
   }
   join:  dim_customers {
     sql_on: ${bridge_customers_dev.customer_key} = ${dim_customers.customer_key} ;;
