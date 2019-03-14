@@ -8,43 +8,10 @@ include: "*.view"
 include: "*.dashboard.lookml"
 #include: "*.dashboard"
 
-#explore: assigned_person {}
 
-#explore: area_occured {}
-#explore: dim_area {}
 
-#explore: dim_causal {}
-
-#explore: dim_customers {}
-
-#explore: dim_deviation_status {}
-
-#explore: dim_deviation_type {}
-
-#explore: dim_document {}
-
-#explore: dim_lot_batch {}
-
-#explore: dim_person {}
-
-#explore: dim_risk_category {}
-
-#explore: dim_root_cause {}
-
-#explore: dim_site {}
-
-#explore: dim_step {}
-
-##Added in join to fact_deviations
 explore: deviation_goal  {
-  # join: fact_deviations {
-  #   sql_on: ${fact_deviations.site_key} = ${deviation_goal.site_key} ;;
-  # }
 }
-
-
-
-
 
 explore: fact_deviations {
   label: "Deviations"
@@ -70,13 +37,11 @@ explore: fact_deviations {
 #   }
   join: bridge_customers_dev {
     sql_on: ${fact_deviations.parent_record_id} = ${bridge_customers_dev.parent_record_id};;
-    type: inner
     relationship: many_to_one
     fields: []
   }
   join:  dim_customers {
     sql_on: ${bridge_customers_dev.customer_key} = ${dim_customers.customer_key} ;;
-    type: inner
     relationship: many_to_one
   }
   join:  dim_deviation_status {
@@ -139,8 +104,33 @@ explore: fact_deviations {
 }
 explore: dashboard_headers {}
 
-
 ##Suggest Explores
 explore: available_timezones {
  hidden: yes
 }
+#explore: assigned_person {}
+
+#explore: area_occured {}
+#explore: dim_area {}
+
+#explore: dim_causal {}
+
+#explore: dim_customers {}
+
+#explore: dim_deviation_status {}
+
+#explore: dim_deviation_type {}
+
+#explore: dim_document {}
+
+#explore: dim_lot_batch {}
+
+#explore: dim_person {}
+
+#explore: dim_risk_category {}
+
+#explore: dim_root_cause {}
+
+#explore: dim_site {}
+
+#explore: dim_step {}
