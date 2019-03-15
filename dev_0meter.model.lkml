@@ -128,10 +128,6 @@ explore: fact_deviations {
   }
 }
 
-explore: dashboard_headers {
-  fields: []
-}
-
 ##Suggest Explores
 explore: available_timezones {
  hidden: yes
