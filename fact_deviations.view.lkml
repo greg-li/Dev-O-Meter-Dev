@@ -53,6 +53,11 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     }
   }
 
+#   dimension: date_selection_dim {
+#     type: string
+#     sql: {%parameter date_selection %} ;;
+#   }
+
   dimension: date_created_selector_helper {
     type: string
     hidden: yes
