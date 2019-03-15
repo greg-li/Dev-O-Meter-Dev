@@ -9,9 +9,28 @@ view: dashboard_headers {
       ;;
   }
 
-  dimension: dashboard_section{
+  dimension: dashboard_section_causal_factors_root_cause{
+    label: "  "
     sql: ${TABLE}.number;;
-    html: <b><font size="20">Root Cause</font></b>;;
+    html: <b><center><font size="18">Causal Factors <br>& Root Causes</font></center></b>;;
+  }
+
+  dimension: dashboard_section_event{
+    label: "  "
+    sql: ${TABLE}.number;;
+    html: <b><center><font size="18">Event</font></center></b>;;
+  }
+
+  dimension: dashboard_section_asset{
+    label: "  "
+    sql: ${TABLE}.number;;
+    html: <b><center><font size="18">Asset</font></center></b>;;
+  }
+
+  dimension: dashboard_section_areat{
+    label: "  "
+    sql: ${TABLE}.number;;
+    html: <b><center><font size="18"> Area</font></center></b>;;
   }
 
 }
