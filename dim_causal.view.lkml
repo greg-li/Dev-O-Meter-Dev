@@ -2,21 +2,24 @@ view: dim_causal {
   sql_table_name: dbo.DIM_CAUSAL ;;
 
   dimension: active_flag {
+    label: "Causual Active Flag"
     type: string
     sql: ${TABLE}.ACTIVE_FLAG ;;
   }
 
   dimension: causal_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.CAUSAL_KEY ;;
   }
 
-  dimension: causal_name {
+  dimension: causal_name {              ##keep
     type: string
     sql: ${TABLE}.CAUSAL_NAME ;;
   }
 
   dimension_group: insert {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -33,6 +36,7 @@ view: dim_causal {
   }
 
   dimension_group: update {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -49,6 +53,7 @@ view: dim_causal {
   }
 
   measure: count {
+    label: "Causal Count"
     type: count
     drill_fields: [causal_name]
   }

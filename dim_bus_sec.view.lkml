@@ -8,17 +8,19 @@ view: dim_bus_sec {
   }
 
   dimension: bus_sec_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.BUS_SEC_KEY ;;
   }
 
-  dimension: bus_sec_name {
+  dimension: bus_sec_name {           ##keep
     label: "Business Sector Unit"
     type: string
     sql: ${TABLE}.BUS_SEC_NAME ;;
   }
 
   dimension_group: insert {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -35,6 +37,7 @@ view: dim_bus_sec {
   }
 
   dimension_group: update {
+    hidden: yes
     type: time
     timeframes: [
       raw,

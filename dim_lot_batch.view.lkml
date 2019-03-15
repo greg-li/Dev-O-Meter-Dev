@@ -7,6 +7,7 @@ view: dim_lot_batch {
   }
 
   dimension_group: insert {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -23,6 +24,7 @@ view: dim_lot_batch {
   }
 
   dimension_group: update {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -39,7 +41,7 @@ view: dim_lot_batch {
   }
 
 
-  dimension: lot_batch {
+  dimension: lot_batch {          ##keep
     type: string
     sql: ${TABLE}.LOT_BATCH ;;
   }

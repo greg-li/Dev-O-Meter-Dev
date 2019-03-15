@@ -33,6 +33,7 @@ view: dim_document {
   }
 
   dimension_group: update {
+    hidden: yes
     type: time
     timeframes: [
       raw,

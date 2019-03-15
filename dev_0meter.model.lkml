@@ -11,10 +11,10 @@ include: "*.dashboard.lookml"
 
 
 explore: deviation_goal  {
+  label: "Deviations"
 }
 
 explore: fact_deviations {
-  label: "Deviations"
  always_filter: {
    filters: {
     field: dim_deviation_type.deviation_type
@@ -28,7 +28,7 @@ explore: fact_deviations {
 #}
 
   join: dim_site {
-
+    view_label: "Site"
     sql_on: ${fact_deviations.site_key} =${dim_site.site_key}
     ;;relationship: many_to_one
   }
@@ -41,55 +41,73 @@ explore: fact_deviations {
     fields: []
   }
   join:  dim_customers {
+    view_label: "Customers"
     sql_on: ${bridge_customers_dev.customer_key} = ${dim_customers.customer_key} ;;
     relationship: many_to_one
   }
   join:  dim_deviation_status {
+    view_label: "Deviations"
     sql_on: ${fact_deviations.dev_status_key} = ${dim_deviation_status.dev_status_key} ;;relationship: many_to_one
   }
   join: dim_deviation_type {
+    view_label: "Deviations"
     sql_on: ${fact_deviations.deviation_key} = ${dim_deviation_type.deviation_key} ;;relationship: many_to_one
   }
   join: dim_document {
+    view_label: "Document"
     sql_on: ${fact_deviations.document_key} = ${dim_document.document_key} ;;relationship: many_to_one
+    fields: []
   }
   join: dim_lot_batch {
+    view_label: "Lot Batch"
     sql_on: ${fact_deviations.lot_key} = ${dim_lot_batch.lot_key} ;;relationship: many_to_one
   }
   join: dim_person {
+    view_label: "Employees" ## can we just have this in the fact table
     sql_on: ${fact_deviations.initiating_person_key} =${dim_person.person_key} ;;relationship: many_to_one
   }
  join: assigned_person {
+  view_label: "Employees" ##can we just have this in the fact table
   from: dim_person
   sql_on: ${fact_deviations.assigned_person_key} =  ;;relationship: many_to_one
 }
   join:  dim_risk_category {
+    view_label: "Risk Category"
     sql_on: ${fact_deviations.risk_cat_key} = ${dim_risk_category.risk_cat_key} ;;relationship: many_to_one
   }
   join: dim_root_cause {
+    view_label: "Causes"
     sql_on: ${fact_deviations.root_cause_key} = ${dim_root_cause.root_cause_key} ;;relationship: many_to_one
   }
   join: dim_area {
+    view_label: "Area"
     sql_on: ${fact_deviations.area_assigned_key} = ${dim_area.area_key} ;;relationship: many_to_one
   }
   join: area_occured {
+    view_label: "Area"
     from:  dim_area
     sql_on: ${fact_deviations.area_occured_key} = ${area_occured.area_key} ;;relationship: many_to_one
 }
   join: dim_causal {
+    view_label: "Causes"
     sql_on: ${fact_deviations.causal_key} = ${dim_causal.causal_key} ;;relationship: many_to_one
   }
   join: dim_event_classification {
+    view_label: "Events"
     sql_on: ${fact_deviations.event_class_key} = ${dim_event_classification.event_class_key} ;;relationship: many_to_one
   }
   join: alert_limit_check {
-    sql_on: ${fact_deviations.event_class_key} = ${alert_limit_check.event_class_key} and ${fact_deviations.date_created_month}=${alert_limit_check.Month_date_month};;relationship: many_to_one
+    sql_on: ${fact_deviations.event_class_key} = ${alert_limit_check.event_class_key}
+    and ${fact_deviations.date_created_month}=${alert_limit_check.month_date_month};;
+    relationship: many_to_one
   }
 
   join: deviations_by_event_classifications {
+    view_label: "Events"
   sql_on: ${fact_deviations.event_class_key} = ${deviations_by_event_classifications.event_class_key}  ;;relationship: many_to_one
   }
   join: dim_bus_sec {
+    view_label: "Business Sector"
     sql_on: ${fact_deviations.bus_sec_key} = ${dim_bus_sec.bus_sec_key}  ;;relationship: many_to_one
   }
   join: vw_asset_to_area {
@@ -97,12 +115,17 @@ explore: fact_deviations {
   }
   join:lkp_shift {
     sql_on: ${fact_deviations.date_created_date} = ${lkp_shift.schedule_date} ;;relationship: many_to_one
+    fields: []
   }
+
   join: dim_technology_business {
+    view_label: "Technology Business"
     sql_on: ${fact_deviations.technology_business_key} = ${dim_technology_business.technology_business_key} ;;relationship: many_to_one
   }
 }
-explore: dashboard_headers {}
+explore: dashboard_headers {
+  fields: []
+}
 
 ##Suggest Explores
 explore: available_timezones {

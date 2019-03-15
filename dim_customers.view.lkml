@@ -7,11 +7,12 @@ view: dim_customers {
   }
 
   dimension: customer_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.CUSTOMER_KEY ;;
   }
 
-  dimension: customer_name {
+  dimension: customer_name {          ##keep
     type: string
     sql: ${TABLE}.CUSTOMER_NAME ;;
     link: {
@@ -24,6 +25,7 @@ view: dim_customers {
   }
 
   dimension_group: insert {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -40,6 +42,7 @@ view: dim_customers {
   }
 
   dimension_group: update {
+    hidden: yes
     type: time
     timeframes: [
       raw,
