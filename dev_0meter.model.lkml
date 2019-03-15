@@ -122,7 +122,12 @@ explore: fact_deviations {
     view_label: "Technology Business"
     sql_on: ${fact_deviations.technology_business_key} = ${dim_technology_business.technology_business_key} ;;relationship: many_to_one
   }
+  join: dashboard_headers {
+    sql_on: 1=1;;
+    relationship: many_to_many
+  }
 }
+
 explore: dashboard_headers {
   fields: []
 }

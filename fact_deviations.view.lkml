@@ -53,6 +53,11 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     }
   }
 
+#   dimension: date_selection_dim {
+#     type: string
+#     sql: {%parameter date_selection %} ;;
+#   }
+
   dimension: date_created_selector_helper {
     type: string
     hidden: yes
@@ -68,6 +73,7 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
   }
 
   dimension: date_created_selector {
+    label: "Reporting Period"
     type: string
     sql:   case when ${date_created_selector_helper}like '%-01' and len(${date_created_selector_helper}) = 7 then replace(${date_created_selector_helper},'-01','-Q1')
     when ${date_created_selector_helper}like '%-04' and len(${date_created_selector_helper}) = 7 then replace(${date_created_selector_helper},'-04','-Q2')

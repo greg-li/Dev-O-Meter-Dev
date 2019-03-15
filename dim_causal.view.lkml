@@ -13,7 +13,10 @@ view: dim_causal {
     sql: ${TABLE}.CAUSAL_KEY ;;
   }
 
-  dimension: causal_name {              ##keep
+
+
+  dimension: causal_name{
+    label: "Causal Factor"
     type: string
     sql: ${TABLE}.CAUSAL_NAME ;;
   }
