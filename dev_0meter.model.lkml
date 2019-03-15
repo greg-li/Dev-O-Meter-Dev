@@ -11,10 +11,10 @@ include: "*.dashboard.lookml"
 
 
 explore: deviation_goal  {
-  label: "Deviations"
 }
 
 explore: fact_deviations {
+  label: "Deviations"
  always_filter: {
    filters: {
     field: dim_deviation_type.deviation_type
