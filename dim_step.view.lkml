@@ -12,6 +12,7 @@ view: dim_step {
   }
 
   dimension_group: insert {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -28,6 +29,7 @@ view: dim_step {
   }
 
   dimension_group: update {
+    hidden: yes
     type: time
     timeframes: [
       raw,

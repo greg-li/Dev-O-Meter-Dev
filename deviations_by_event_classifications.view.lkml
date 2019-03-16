@@ -12,6 +12,7 @@ GROUP BY dbo.DIM_EVENT_CLASSIFICATION.EVENT_CLASS_KEY, dbo.FACT_DEVIATIONS.DATE_
       sql: ${TABLE}.EVENT_CLASS_KEY ;;
     }
     dimension: dev_count {
+      label: "Event Classification Deviations Count"
       type: number
       sql: ${TABLE}.Count_Deviations ;;
     }

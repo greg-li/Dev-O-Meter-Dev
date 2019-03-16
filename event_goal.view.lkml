@@ -23,18 +23,22 @@ HAVING        ( dbo.DIM_EVENT_CLASSIFICATION.EVENT_LIMIT IS NOT NULL) ;;
       sql: ${TABLE}.EVENT_LIMIT ;;
     }
     dimension: month {
+      label: "Event Goal Month"
       sql: ${TABLE}.create_month ;;
     }
 
     dimension: year {
+      label: "Event Goal Year"
       sql: ${TABLE}.create_year ;;
     }
 
     measure: event_goal_month {
+      label: "Average Event Monthly Goal"
       type: average
       sql: ${TABLE}.Monthly_Goal ;;
     }
     measure: count {
+      label: "Event Goal Count"
       type: count
       drill_fields: [site_name]
     }

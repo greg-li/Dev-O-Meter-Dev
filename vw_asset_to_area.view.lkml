@@ -7,6 +7,7 @@ view: vw_asset_to_area {
   }
 
   dimension: area_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.AREA_KEY ;;
   }
@@ -17,6 +18,7 @@ view: vw_asset_to_area {
   }
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: []
   }

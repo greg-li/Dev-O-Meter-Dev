@@ -34,14 +34,17 @@ view: deviation_goal {
     }
 
   dimension: month {
+    hidden: yes
     sql: ${TABLE}.create_month ;;
   }
 
   dimension: year {
+    hidden: yes
     sql: ${TABLE}.create_year ;;
     }
 
   measure: deviation_goal_month {
+    label: "Average Monthly Deviation Goal"
     type: average
     sql: ${TABLE}.Monthly_Goal ;;
   }

@@ -1,3 +1,4 @@
+##Area Occurred
 view: dim_area {
     sql_table_name:dbo.dim_area;;
 
@@ -8,16 +9,18 @@ view: dim_area {
   }
 
   dimension: area_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.AREA_KEY ;;
   }
 
-  dimension: area_name {
+  dimension: area_name {          ##keep
     type: string
     sql: ${TABLE}.AREA_NAME ;;
   }
 
   dimension_group: insert {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -34,6 +37,7 @@ view: dim_area {
   }
 
   dimension_group: update {
+    hidden: yes
     type: time
     timeframes: [
       raw,

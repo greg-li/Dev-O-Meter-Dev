@@ -2,20 +2,23 @@ view: dim_deviation_type {
   sql_table_name: dbo.DIM_DEVIATION_TYPE ;;
 
   dimension: active_flag {
+    label: "Type Active Flag"
     type: string
     sql: ${TABLE}.ACTIVE_FLAG ;;
   }
 
   dimension: deviation_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.DEVIATION_KEY ;;
   }
 
-  dimension: deviation_type {
+  dimension: deviation_type {       ##keep
     type: string
     sql: ${TABLE}.DEVIATION_TYPE ;;
   }
   dimension_group: insert {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -32,6 +35,7 @@ view: dim_deviation_type {
   }
 
   dimension_group: update {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -48,6 +52,7 @@ view: dim_deviation_type {
   }
 
   measure: count {
+    label: "Deviation Type Count"
     type: count
     drill_fields: []
   }

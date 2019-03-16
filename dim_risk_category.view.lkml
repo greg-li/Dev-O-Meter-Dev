@@ -7,6 +7,7 @@ view: dim_risk_category {
   }
 
   dimension_group: insert {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -23,6 +24,7 @@ view: dim_risk_category {
   }
 
   dimension_group: update {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -40,6 +42,7 @@ view: dim_risk_category {
 
 
   dimension: risk_cat_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.RISK_CAT_KEY ;;
   }

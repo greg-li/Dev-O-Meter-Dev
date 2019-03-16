@@ -3,6 +3,7 @@ view: dim_event_classification {
   sql_table_name: dbo.DIM_EVENT_CLASSIFICATION ;;
 
   dimension: event_class_key{
+    hidden: yes
     type: number
     sql: ${TABLE}.EVENT_CLASS_KEY ;;
   }
@@ -18,15 +19,18 @@ view: dim_event_classification {
     sql: ${TABLE}.EVENT_AREA ;;
   }
   dimension: Action_Limit{
+    label: "Event Action Limit"
     type: number
     sql: ${TABLE}.EVENT_LIMIT ;;
   }
 dimension: Alert_Limit  {
+  label: "Event Month Limit"
   type:  number
   sql: ${TABLE}.EVENT_MONTH_LIMIT;;
 }
 
   dimension_group: effective {
+    label: "Event Effective"
     type: time
     timeframes: [
       raw,
@@ -44,6 +48,7 @@ dimension: Alert_Limit  {
 
 
   dimension_group: insert {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -60,6 +65,7 @@ dimension: Alert_Limit  {
   }
 
   dimension_group: update {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -77,80 +83,13 @@ dimension: Alert_Limit  {
 
 
   dimension: active_flag {
+    label: "Event Active Flag"
     type: string
     sql: ${TABLE}.ACTIVE_FLAG ;;
   }
   measure: Alert_limit {
+    label: "Total Event Alert Limit"
     type: sum
     sql: sum(${Alert_Limit} ;;
   }
-
-
-  # # You can specify the table name if it's different from the view name:
-  # sql_table_name: my_schema_name.tester ;;
-  #
-  # # Define your dimensions and measures here, like this:
-  # dimension: user_id {
-  #   description: "Unique ID for each user that has ordered"
-  #   type: number
-  #   sql: ${TABLE}.user_id ;;
-  # }
-  #
-  # dimension: lifetime_orders {
-  #   description: "The total number of orders for each user"
-  #   type: number
-  #   sql: ${TABLE}.lifetime_orders ;;
-  # }
-  #
-  # dimension_group: most_recent_purchase {
-  #   description: "The date when each user last ordered"
-  #   type: time
-  #   timeframes: [date, week, month, year]
-  #   sql: ${TABLE}.most_recent_purchase_at ;;
-  # }
-  #
-  # measure: total_lifetime_orders {
-  #   description: "Use this for counting lifetime orders across many users"
-  #   type: sum
-  #   sql: ${lifetime_orders} ;;
-  # }
 }
-
-# view: dim_event_classification {
-#   # Or, you could make this view a derived table, like this:
-#   derived_table: {
-#     sql: SELECT
-#         user_id as user_id
-#         , COUNT(*) as lifetime_orders
-#         , MAX(orders.created_at) as most_recent_purchase_at
-#       FROM orders
-#       GROUP BY user_id
-#       ;;
-#   }
-#
-#   # Define your dimensions and measures here, like this:
-#   dimension: user_id {
-#     description: "Unique ID for each user that has ordered"
-#     type: number
-#     sql: ${TABLE}.user_id ;;
-#   }
-#
-#   dimension: lifetime_orders {
-#     description: "The total number of orders for each user"
-#     type: number
-#     sql: ${TABLE}.lifetime_orders ;;
-#   }
-#
-#   dimension_group: most_recent_purchase {
-#     description: "The date when each user last ordered"
-#     type: time
-#     timeframes: [date, week, month, year]
-#     sql: ${TABLE}.most_recent_purchase_at ;;
-#   }
-#
-#   measure: total_lifetime_orders {
-#     description: "Use this for counting lifetime orders across many users"
-#     type: sum
-#     sql: ${lifetime_orders} ;;
-#   }
-# }

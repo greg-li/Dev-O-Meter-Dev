@@ -6,23 +6,25 @@ view: alert_limit_check {
     sql: ${TABLE}.Alert_Limit ;;
   }
 
-  dimension: event_area {
+  dimension: event_area {                     ##keep
     type: string
     sql: ${TABLE}.EVENT_AREA ;;
   }
 
   dimension: event_class_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.EVENT_CLASS_KEY ;;
   }
 
-  dimension: event_classification {
+  dimension: event_classification {            ##keep
     type: string
     sql: ${TABLE}.EVENT_CLASSIFICATION ;;
   }
 
   dimension: cnt_dev {
     type: number
+    hidden: yes
     sql: ${TABLE}.Expr1 ;;
   }
 
@@ -31,7 +33,7 @@ view: alert_limit_check {
     sql: ${TABLE}.Expr1>${alert_limit} ;;
   }
 
-  dimension_group: Month_date {
+  dimension_group: month_date {
     type: time
     timeframes: [
       raw,

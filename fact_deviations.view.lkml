@@ -90,20 +90,24 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
   }
 
   dimension: area_assigned_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.AREA_ASSIGNED_KEY ;;
   }
 
   dimension: area_occured_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.AREA_OCCURED_KEY ;;
   }
 
   dimension: assigned_person_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.ASSIGNED_PERSON_KEY ;;
   }
   dimension: bus_sec_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.BUS_SEC_KEY ;;
   }
@@ -113,6 +117,7 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
   }
 
   dimension: event_class_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.EVENT_CLASS_KEY ;;
   }
@@ -129,6 +134,7 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     sql: ${TABLE}.SHORT_DESCRIPTION ;;
   }
   dimension: customer_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.CUSTOMER_KEY ;;
   }
@@ -211,6 +217,7 @@ dimension: deviation_age_days{
   }
 
   dimension: dev_status_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.DEV_STATUS_KEY ;;
   }
@@ -221,11 +228,13 @@ dimension: deviation_age_days{
   }
 
   dimension: deviation_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.DEVIATION_KEY ;;
   }
 
   dimension: document_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.DOCUMENT_KEY ;;
   }
@@ -235,6 +244,7 @@ dimension: deviation_age_days{
   }
 
   dimension: initiating_person_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.INITIATING_PERSON_KEY ;;
   }
@@ -260,37 +270,44 @@ dimension: deviation_age_days{
   }
 
   dimension: is_quality_rating_critical {
+    group_label: "Quality Rating"
     type: yesno
     sql: ${quality_rating} = 'Critical' ;;
   }
 
   dimension: is_quality_rating_major {
+    group_label: "Quality Rating"
     type: yesno
     sql: ${quality_rating} = 'Major' ;;
   }
 
   dimension: is_quality_rating_minor {
+    group_label: "Quality Rating"
     type: yesno
     sql: ${quality_rating} = 'Minor' ;;
   }
 
   dimension: is_risk_rating_high {
+    group_label: "Risk Rating"
     type: yesno
     sql: ${dim_risk_category.risk_category_name} = 'High' ;;
   }
 
   dimension: is_risk_rating_medium {
+    group_label: "Risk Rating"
     type: yesno
     sql: ${dim_risk_category.risk_category_name}  = 'Medium' ;;
   }
 
   dimension: is_risk_rating_low {
+    group_label: "Risk Rating"
     type: yesno
     sql: ${dim_risk_category.risk_category_name}  = 'Low' ;;
   }
 
 
   dimension_group: insert {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -307,14 +324,17 @@ dimension: deviation_age_days{
   }
 
   dimension: lot_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.LOT_KEY ;;
   }
-  dimension: quality_rating {
+  dimension: quality_rating {  ##keep
+    group_label: "Quality Rating"
     type: string
     sql: ${TABLE}.QUALITY_RATING ;;
   }
   dimension: parent_record_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.PARENT_RECORD_ID ;;
   }
@@ -325,6 +345,7 @@ dimension: deviation_age_days{
   }
 
   dimension: risk_cat_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.RISK_CAT_KEY ;;
   }
@@ -334,21 +355,25 @@ dimension: deviation_age_days{
     #}
 
   dimension: root_cause_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.ROOT_CAUSE_KEY ;;
   }
 
   dimension: site_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.SITE_KEY ;;
   }
 
   dimension: step_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.STEP_KEY ;;
   }
 
   dimension_group: update {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -384,6 +409,7 @@ dimension: deviation_age_days{
   }
 
   measure: investigation_required_count {
+    group_label: "Investigation"
     type: count
     label: "Count of Investigation Deviations"
     filters: {
@@ -397,6 +423,7 @@ dimension: deviation_age_days{
   }
 
   measure: investigated_percentage {
+    group_label: "Investigation"
     value_format_name: percent_1
     type: number
     sql:  1.0*${investigation_required_count}/nullif(${count_open},0);;
@@ -409,6 +436,7 @@ dimension: deviation_age_days{
   }
 
   measure: overdue_count {
+    group_label: "Overdue"
     type: count
     label: "Count of Overdue Deviations"
     filters: {
@@ -421,8 +449,8 @@ dimension: deviation_age_days{
       }
   }
 
-
   measure: overdue_percentage {
+    group_label: "Overdue"
     value_format_name: percent_1
     type: number
     sql:  1.0*${overdue_count}/nullif(${count_open},0);;
@@ -438,6 +466,7 @@ dimension: deviation_age_days{
   }
 
   measure: critical_rating_count {
+    group_label: "Rating Counts"
     type: count
     filters: {
       field: is_quality_rating_critical
@@ -446,6 +475,7 @@ dimension: deviation_age_days{
   }
 
   measure: major_rating_count {
+    group_label: "Rating Counts"
     type: count
     filters: {
       field: is_quality_rating_major
@@ -454,6 +484,7 @@ dimension: deviation_age_days{
   }
 
   measure: minor_rating_count {
+    group_label: "Rating Counts"
     type: count
     filters: {
       field: is_quality_rating_minor
@@ -462,6 +493,7 @@ dimension: deviation_age_days{
   }
 
   measure:high_risk_rating_count {
+    group_label: "Rating Counts"
     type: count
     filters: {
       field: is_risk_rating_high
@@ -470,6 +502,7 @@ dimension: deviation_age_days{
   }
 
   measure: medium_risk_rating_count {
+    group_label: "Rating Counts"
     type: count
     filters: {
       field: is_risk_rating_medium
@@ -478,15 +511,13 @@ dimension: deviation_age_days{
   }
 
   measure: low_risk_rating_count {
+    group_label: "Rating Counts"
     type: count
     filters: {
       field: is_risk_rating_low
       value: "Yes"
     }
   }
-
-
-
 
   measure: percent_cancelled_deviations {
     type: number
@@ -575,6 +606,7 @@ dimension: deviation_age_days{
   }
 
   dimension: primary_key {
+    hidden: yes
     primary_key: yes
     sql: CONCAT(${TABLE}.PARENT_RECORD_ID,
 ${TABLE}.SITE_KEY,

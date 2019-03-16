@@ -7,6 +7,7 @@ view: dim_site {
   }
 
   dimension_group: insert {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -23,6 +24,7 @@ view: dim_site {
   }
 
   dimension_group: update {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -39,12 +41,13 @@ view: dim_site {
   }
 
   dimension: site_key {
+    hidden: yes
     type: number
     primary_key: yes
     sql: ${TABLE}.SITE_KEY ;;
   }
 
-  dimension: site_name {
+  dimension: site_name {      ##keep
     type: string
    sql: ${TABLE}.SITE_NAME ;;
   }
