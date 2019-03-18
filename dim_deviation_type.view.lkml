@@ -2,7 +2,7 @@ view: dim_deviation_type {
   sql_table_name: dbo.DIM_DEVIATION_TYPE ;;
 
   dimension: active_flag {
-    label: "Type Active Flag"
+    label: "{% if _view._name == 'dim_deviation_type %} Deviation Type Active Flag {% else %} Deviation Status Alert Flag {% endif %}"
     type: string
     sql: ${TABLE}.ACTIVE_FLAG ;;
   }
@@ -53,7 +53,7 @@ view: dim_deviation_type {
   }
 
   measure: count {
-    label: "Deviation Type Count"
+    label: "{% if _view._name == 'dim_deviation_type %} Deviation Type Count {% else %} Deviation Status Count {% endif %}"
     type: count
     drill_fields: []
   }

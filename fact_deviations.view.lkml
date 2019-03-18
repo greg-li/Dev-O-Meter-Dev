@@ -1,5 +1,3 @@
-
-
 view: fact_deviations {
   derived_table: {
 
@@ -33,7 +31,9 @@ fact_deviations.CUSTOMER_APPROVAL_REQ,
 fact_deviations.INVESTIGATION_REQ,
 fact_deviations.TECHNOLOGY_BUSINESS_KEY,
 1 as number
-from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
+from dbo.FACT_DEVIATIONS
+join dbo.DIM_DOCUMENT
+on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
   }
 
 
@@ -143,7 +143,6 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     type: number
     sql: ${TABLE}.RISK_SCORE ;;
   }
-
 
   dimension_group: date_closed {
     label: "Closed"

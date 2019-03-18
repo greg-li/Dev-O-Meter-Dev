@@ -7,12 +7,14 @@ view: bridge_customers_dev {
   }
 
   dimension: customer_dev_bridge_id {
+    hidden: yes
     type: number
     primary_key: yes
     sql: ${TABLE}.CUSTOMER_DEV_BRIDGE_ID ;;
   }
 
   dimension: customer_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.CUSTOMER_KEY ;;
   }
@@ -29,11 +31,13 @@ view: bridge_customers_dev {
       year
     ]
     convert_tz: no
+    hidden: yes
     datatype: date
     sql: cast(tzdb.utctolocal(${TABLE}.INSERT_DATE,{% parameter fact_deviations.timezone_selection %}) as datetime2);;
   }
 
   dimension: parent_record_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.PARENT_RECORD_ID ;;
   }
@@ -50,6 +54,7 @@ view: bridge_customers_dev {
       year
     ]
     convert_tz: no
+    hidden: yes
     datatype: date
     sql: cast(tzdb.utctolocal(${TABLE}.UPDATE_DATE,{% parameter fact_deviations.timezone_selection %}) as datetime2);;
   }

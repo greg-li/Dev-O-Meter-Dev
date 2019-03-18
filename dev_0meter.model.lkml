@@ -15,6 +15,7 @@ explore: deviation_goal  {
 
 explore: fact_deviations {
   label: "Deviations"
+  view_label: " Deviations"
  always_filter: {
    filters: {
     field: dim_deviation_type.deviation_type
@@ -38,7 +39,7 @@ explore: fact_deviations {
   join: bridge_customers_dev {
     sql_on: ${fact_deviations.parent_record_id} = ${bridge_customers_dev.parent_record_id};;
     relationship: many_to_one
-    view_label: ""
+    fields: []
   }
   join:  dim_customers {
     view_label: "Customers"
@@ -46,12 +47,12 @@ explore: fact_deviations {
     relationship: many_to_one
   }
   join:  dim_deviation_status {
-    view_label: "Deviations"
+    view_label: " Deviations"
     sql_on: ${fact_deviations.dev_status_key} = ${dim_deviation_status.dev_status_key} ;;
     relationship: many_to_one
   }
   join: dim_deviation_type {
-    view_label: "Deviations"
+    view_label: " Deviations"
     sql_on: ${fact_deviations.deviation_key} = ${dim_deviation_type.deviation_key} ;;
     relationship: many_to_one
   }
@@ -117,6 +118,7 @@ explore: fact_deviations {
     sql_on: ${fact_deviations.bus_sec_key} = ${dim_bus_sec.bus_sec_key}  ;;relationship: many_to_one
   }
   join: vw_asset_to_area {
+    view_label: "Asset/Area"
     sql_on: ${fact_deviations.area_occured_key} = ${vw_asset_to_area.area_key} ;;relationship: many_to_one
   }
   join:lkp_shift {
