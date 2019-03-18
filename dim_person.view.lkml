@@ -2,7 +2,6 @@ view: dim_person {
   sql_table_name: dbo.DIM_PERSON ;;
 
   dimension: active_flag {
-  #  label: "{% if _view._name == 'dim_person' %} Initiating Person Active Flag {% elseif _view._name == 'assigned_person' %} Assigned Person Alert Flag {% endif %}"
     label: "{% if _view._name == 'dim_person' %} Initiating Person Active Flag {% else %} Assigned Person Alert Flag {% endif %}"
     type: string
     sql: ${TABLE}.ACTIVE_FLAG ;;

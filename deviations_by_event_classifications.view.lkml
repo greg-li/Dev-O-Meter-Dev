@@ -31,6 +31,11 @@ GROUP BY dbo.DIM_EVENT_CLASSIFICATION.EVENT_CLASS_KEY, dbo.FACT_DEVIATIONS.DATE_
       convert_tz: no
       datatype: date
       sql: cast(tzdb.utctolocal(${TABLE}.DATE_CREATED,{% parameter fact_deviations.timezone_selection %}) as datetime2) ;;
-
     }
+
+  dimension: unique_id {
+    primary_key: yes
+    hidden: yes
+    sql: CONCAT(${event_class_key},${dev_count},${create_raw};;
+}
 }

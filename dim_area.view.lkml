@@ -3,6 +3,7 @@ view: dim_area {
 
 
   dimension: active_flag {
+    label: "{% if _view._name == 'dim_area' %} Area Assigned Active Flag {% else %} Area Occurred Alert Flag {% endif %}"
     type: string
     sql: ${TABLE}.ACTIVE_FLAG ;;
   }
@@ -15,6 +16,7 @@ view: dim_area {
   }
 
   dimension: area_name {          ##keep
+    label: "{% if _view._name == 'dim_area' %} Area Assigned Name {% else %} Area Occurred Name {% endif %}"
     type: string
     sql: ${TABLE}.AREA_NAME ;;
   }
@@ -54,6 +56,7 @@ view: dim_area {
   }
 
   measure: count {
+    label: "{% if _view._name == 'dim_area' %} Area Assigned Count {% else %} Area Occurred Count {% endif %}"
     type: count
     drill_fields: [area_name]
   }

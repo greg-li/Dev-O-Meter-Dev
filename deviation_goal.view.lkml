@@ -43,6 +43,11 @@ view: deviation_goal {
     sql: ${TABLE}.create_year ;;
     }
 
+  dimension: unique_id {
+    primary_key: yes
+    hidden: yes
+    sql: concat(${site_name},${site_key},${deviation_goal},${month},${year}) ;;
+  }
   measure: deviation_goal_month {
     label: "Average Monthly Deviation Goal"
     type: average
@@ -52,6 +57,7 @@ view: deviation_goal {
     type: count
     drill_fields: [site_name]
   }
+
 
   parameter: timezone_selection {
     type: string

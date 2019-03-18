@@ -32,6 +32,12 @@ HAVING        ( dbo.DIM_EVENT_CLASSIFICATION.EVENT_LIMIT IS NOT NULL) ;;
       sql: ${TABLE}.create_year ;;
     }
 
+  dimension: unique_id {
+    primary_key: yes
+    hidden: yes
+    sql: concat(${site_name},${event_limit},${month},${year});;
+    }
+
     measure: event_goal_month {
       label: "Average Event Monthly Goal"
       type: average

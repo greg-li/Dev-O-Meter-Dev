@@ -34,6 +34,7 @@ view: alert_limit_check {
   }
 
   dimension_group: month_date {
+    label: "First_of_Month"
     type: time
     timeframes: [
       raw,
@@ -47,6 +48,12 @@ view: alert_limit_check {
     convert_tz: no
     datatype: date
     sql: cast(tzdb.utctolocal(${TABLE}.FirstOfMonth,{% parameter fact_deviations.timezone_selection %}) as datetime2);;
+  }
+
+  dimension: unique_id {
+    primary_key: yes
+    hidden: yes
+    sql: CONCAT(${alert_limit},${cnt_dev},${event_area},${event_class_key},${event_classification},${month_date_raw}) ;;
   }
 
   measure: count {

@@ -17,6 +17,12 @@ view: vw_asset_to_area {
     sql: ${TABLE}.Asset ;;
   }
 
+  dimension: unique_id {
+    primary_key: yes
+    hidden: yes
+    sql: concat(${area},${area_key},${asset});;
+  }
+
   measure: count {
     hidden: yes
     type: count

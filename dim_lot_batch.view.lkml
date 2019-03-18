@@ -47,6 +47,8 @@ view: dim_lot_batch {
   }
 
   dimension: lot_key {
+    primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.LOT_KEY ;;
   }

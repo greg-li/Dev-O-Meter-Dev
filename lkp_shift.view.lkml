@@ -37,6 +37,12 @@ view: lkp_shift {
     sql: ${TABLE}.shift ;;
   }
 
+  dimension: unique_id {
+    primary_key: yes
+    hidden: yes
+    sql: concat(${color_number},${schedule_raw},${schedule_day},${schedule_month_num},${shift});;
+  }
+
   measure: count {
     type: count
     drill_fields: []
