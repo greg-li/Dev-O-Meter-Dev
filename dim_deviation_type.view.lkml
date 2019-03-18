@@ -8,6 +8,7 @@ view: dim_deviation_type {
   }
 
   dimension: deviation_key {
+    primary_key: yes
     hidden: yes
     type: number
     sql: ${TABLE}.DEVIATION_KEY ;;

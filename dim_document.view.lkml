@@ -7,6 +7,7 @@ view: dim_document {
   }
 
   dimension: document_key {
+    primary_key: yes
     type: number
     sql: ${TABLE}.DOCUMENT_KEY ;;
   }

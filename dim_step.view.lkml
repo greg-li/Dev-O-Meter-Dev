@@ -47,6 +47,7 @@ view: dim_step {
 
 
   dimension: step_key {
+    primary_key: yes
     type: number
     sql: ${TABLE}.STEP_KEY ;;
   }

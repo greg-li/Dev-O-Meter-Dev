@@ -38,7 +38,7 @@ explore: fact_deviations {
   join: bridge_customers_dev {
     sql_on: ${fact_deviations.parent_record_id} = ${bridge_customers_dev.parent_record_id};;
     relationship: many_to_one
-    fields: []
+    view_label: ""
   }
   join:  dim_customers {
     view_label: "Customers"
@@ -47,29 +47,35 @@ explore: fact_deviations {
   }
   join:  dim_deviation_status {
     view_label: "Deviations"
-    sql_on: ${fact_deviations.dev_status_key} = ${dim_deviation_status.dev_status_key} ;;relationship: many_to_one
+    sql_on: ${fact_deviations.dev_status_key} = ${dim_deviation_status.dev_status_key} ;;
+    relationship: many_to_one
   }
   join: dim_deviation_type {
     view_label: "Deviations"
-    sql_on: ${fact_deviations.deviation_key} = ${dim_deviation_type.deviation_key} ;;relationship: many_to_one
+    sql_on: ${fact_deviations.deviation_key} = ${dim_deviation_type.deviation_key} ;;
+    relationship: many_to_one
   }
   join: dim_document {
     view_label: "Document"
-    sql_on: ${fact_deviations.document_key} = ${dim_document.document_key} ;;relationship: many_to_one
+    sql_on: ${fact_deviations.document_key} = ${dim_document.document_key} ;;
+    relationship: many_to_one
     fields: []
   }
   join: dim_lot_batch {
     view_label: "Lot Batch"
-    sql_on: ${fact_deviations.lot_key} = ${dim_lot_batch.lot_key} ;;relationship: many_to_one
+    sql_on: ${fact_deviations.lot_key} = ${dim_lot_batch.lot_key} ;;
+    relationship: many_to_one
   }
   join: dim_person {
     view_label: "Employees" ## can we just have this in the fact table
-    sql_on: ${fact_deviations.initiating_person_key} =${dim_person.person_key} ;;relationship: many_to_one
+    sql_on: ${fact_deviations.initiating_person_key} =${dim_person.person_key} ;;
+    relationship: many_to_one
   }
  join: assigned_person {
   view_label: "Employees" ##can we just have this in the fact table
   from: dim_person
-  sql_on: ${fact_deviations.assigned_person_key} =  ;;relationship: many_to_one
+  sql_on: ${fact_deviations.assigned_person_key} = ${dim_person.person_key} ;;
+  relationship: many_to_one
 }
   join:  dim_risk_category {
     view_label: "Risk Category"

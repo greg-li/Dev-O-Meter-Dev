@@ -4,8 +4,8 @@ view: fact_deviations {
   derived_table: {
 
   sql: Select fact_deviations.PARENT_RECORD_ID,
-  fact_deviations.SITE_KEY,
-  fact_deviations.BUS_SEC_KEY,
+fact_deviations.SITE_KEY,
+fact_deviations.BUS_SEC_KEY,
 fact_deviations.CUSTOMER_KEY,
 fact_deviations.LOT_KEY,
 fact_deviations.DOCUMENT_KEY,
@@ -112,6 +112,7 @@ from dbo.FACT_DEVIATIONS join dbo.DIM_DOCUMENT on FACT_DEVIATIONS.DOCUMENT_KEY =
     sql: ${TABLE}.BUS_SEC_KEY ;;
   }
   dimension: causal_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.CAUSAL_KEY ;;
   }

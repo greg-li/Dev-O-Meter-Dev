@@ -1,4 +1,3 @@
-##Area Occurred
 view: dim_area {
     sql_table_name:dbo.dim_area;;
 
@@ -9,6 +8,7 @@ view: dim_area {
   }
 
   dimension: area_key {
+    primary_key: yes
     hidden: yes
     type: number
     sql: ${TABLE}.AREA_KEY ;;

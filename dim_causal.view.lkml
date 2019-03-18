@@ -8,6 +8,7 @@ view: dim_causal {
   }
 
   dimension: causal_key {
+    primary_key: yes
     hidden: yes
     type: number
     sql: ${TABLE}.CAUSAL_KEY ;;

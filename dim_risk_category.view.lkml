@@ -42,6 +42,7 @@ view: dim_risk_category {
 
 
   dimension: risk_cat_key {
+    primary_key: yes
     hidden: yes
     type: number
     sql: ${TABLE}.RISK_CAT_KEY ;;

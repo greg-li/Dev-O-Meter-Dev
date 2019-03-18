@@ -3,6 +3,7 @@ view: dim_event_classification {
   sql_table_name: dbo.DIM_EVENT_CLASSIFICATION ;;
 
   dimension: event_class_key{
+    primary_key: yes
     hidden: yes
     type: number
     sql: ${TABLE}.EVENT_CLASS_KEY ;;

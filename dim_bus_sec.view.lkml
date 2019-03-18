@@ -8,6 +8,7 @@ view: dim_bus_sec {
   }
 
   dimension: bus_sec_key {
+    primary_key: yes
     hidden: yes
     type: number
     sql: ${TABLE}.BUS_SEC_KEY ;;

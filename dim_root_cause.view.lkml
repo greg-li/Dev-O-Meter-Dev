@@ -48,6 +48,7 @@ view: dim_root_cause {
   }
 
   dimension: root_cause_key {
+    primary_key: yes
     hidden: yes
     type: number
     sql: ${TABLE}.ROOT_CAUSE_KEY ;;

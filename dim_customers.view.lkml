@@ -7,6 +7,7 @@ view: dim_customers {
   }
 
   dimension: customer_key {
+    primary_key: yes
     hidden: yes
     type: number
     sql: ${TABLE}.CUSTOMER_KEY ;;

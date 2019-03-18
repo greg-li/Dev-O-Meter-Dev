@@ -7,6 +7,7 @@ view: dim_technology_business {
   }
 
   dimension: technology_business_key {
+    primary_key: yes
     hidden: yes
     type: number
     sql: ${TABLE}.technology_business_KEY ;;

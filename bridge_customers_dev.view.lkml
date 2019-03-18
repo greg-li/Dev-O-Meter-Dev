@@ -8,6 +8,7 @@ view: bridge_customers_dev {
 
   dimension: customer_dev_bridge_id {
     type: number
+    primary_key: yes
     sql: ${TABLE}.CUSTOMER_DEV_BRIDGE_ID ;;
   }
 

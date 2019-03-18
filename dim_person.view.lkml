@@ -2,7 +2,8 @@ view: dim_person {
   sql_table_name: dbo.DIM_PERSON ;;
 
   dimension: active_flag {
-    label: "Initiating Person Active Flag"
+  #  label: "{% if _view._name == 'dim_person' %} Initiating Person Active Flag {% elseif _view._name == 'assigned_person' %} Assigned Person Alert Flag {% endif %}"
+    label: "{% if _view._name == 'dim_person' %} Initiating Person Active Flag {% else %} Assigned Person Alert Flag {% endif %}"
     type: string
     sql: ${TABLE}.ACTIVE_FLAG ;;
   }
@@ -42,26 +43,28 @@ view: dim_person {
   }
 
   dimension: network_id {
-    label: "Initiating Person Network ID"
+    label: "{% if _view._name == 'dim_person' %} Initiating Person Network ID {% else %} Assigned Person Network ID {% endif %}"
     type: string
     sql: ${TABLE}.NETWORK_ID ;;
   }
 
   dimension: person_key {
-    label: "Initiating Person Key"
+    primary_key: yes
+    label: "{% if _view._name == 'dim_person' %} Initiating Person Person Key {% else %} Assigned Person Person Key {% endif %}"
     type: number
     sql: ${TABLE}.PERSON_KEY ;;
   }
 
   dimension: person_name {
-    label: "Initiating Person Name"
+    label: "{% if _view._name == 'dim_person' %} Initiating Person Name {% else %} Assigned Person Name {% endif %}"
     type: string
     sql: ${TABLE}.PERSON_NAME ;;
   }
 
 
+
   measure: count {
-    label: "Initiating Person Count"
+    label: "{% if _view._name == 'dim_person' %} Initiating Person Count {% else %} Assigned Person Count {% endif %}"
     type: count
     drill_fields: [person_name]
   }

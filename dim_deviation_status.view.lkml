@@ -8,6 +8,7 @@ view: dim_deviation_status {
   }
 
   dimension: dev_status_key {
+    primary_key: yes
     hidden: yes
     type: number
     sql: ${TABLE}.DEV_STATUS_KEY ;;
