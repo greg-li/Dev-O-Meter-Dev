@@ -54,7 +54,7 @@ view: dim_deviation_type {
   }
 
   measure: count {
-    label: "{% if _view._name == 'dim_deviation_type %} Deviation Type Count {% else %} Deviation Status Count {% endif %}"
+    label: "{% if _view._name == 'dim_deviation_type %}Deviation Type Count {% else %}Deviation Status Count {% endif %}"
     type: count
     drill_fields: []
   }

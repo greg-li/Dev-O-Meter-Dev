@@ -144,6 +144,7 @@ on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
   }
 
   dimension: short_description {
+    label: "Deviation Description"
     type:  string
     sql: ${TABLE}.SHORT_DESCRIPTION ;;
   }
@@ -158,7 +159,7 @@ on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
   }
 
   dimension_group: date_closed {
-    label: "Closed"
+    label: " Closed"
     type: time
     timeframes: [
       raw,
@@ -188,7 +189,7 @@ dimension: deviation_age_days{
   }
 
   dimension_group: date_created{
-    label: "Created"
+    label: " Created"
     type: time
     timeframes: [
       raw,
@@ -209,7 +210,7 @@ dimension: deviation_age_days{
 
 
   dimension_group: date_due {
-    label: "Due"
+    label: " Due"
     type: time
     timeframes: [
       raw,
@@ -265,13 +266,13 @@ dimension: deviation_age_days{
   }
 
   dimension: is_cancelled {
-    group_label: "Yes/No Flags"
+    group_label: " Yes/No Flags"
     type: yesno
     sql: ${dim_deviation_status.deviation_status} = 'Closed - Cancelled' ;;
   }
 
   dimension: is_closed {
-    group_label: "Yes/No Flags"
+    group_label: " Yes/No Flags"
     type: yesno
     sql: ${date_closed_raw} IS NOT NULL OR ${dim_deviation_status.deviation_status} like '%Closed%' ;;
   }
@@ -280,7 +281,7 @@ dimension: deviation_age_days{
 # For deviations due on the current day, these are not overdue as they can be
 # addressed at anytime during the due date
   dimension: is_overdue {
-    group_label: "Yes/No Flags"
+    group_label: " Yes/No Flags"
     type: yesno
     sql: ${date_due_raw} < dateadd(day,1,cast(getdate() as date))
     and ${date_closed_date} is null
@@ -289,37 +290,37 @@ dimension: deviation_age_days{
 
   dimension: is_quality_rating_critical {
 
-    group_label: "Quality Rating"
+    group_label: " Quality Rating"
     type: yesno
     sql: ${quality_rating} = 'Critical' ;;
   }
 
   dimension: is_quality_rating_major {
-    group_label: "Quality Rating"
+    group_label: " Quality Rating"
     type: yesno
     sql: ${quality_rating} = 'Major' ;;
   }
 
   dimension: is_quality_rating_minor {
-    group_label: "Quality Rating"
+    group_label: " Quality Rating"
     type: yesno
     sql: ${quality_rating} = 'Minor' ;;
   }
 
   dimension: is_risk_rating_high {
-    group_label: "Risk Rating"
+    group_label: " Risk Rating"
     type: yesno
     sql: ${dim_risk_category.risk_category_name} = 'High' ;;
   }
 
   dimension: is_risk_rating_medium {
-    group_label: "Risk Rating"
+    group_label: " Risk Rating"
     type: yesno
     sql: ${dim_risk_category.risk_category_name}  = 'Medium' ;;
   }
 
   dimension: is_risk_rating_low {
-    group_label: "Risk Rating"
+    group_label: " Risk Rating"
     type: yesno
     sql: ${dim_risk_category.risk_category_name}  = 'Low' ;;
   }
@@ -348,7 +349,7 @@ dimension: deviation_age_days{
     sql: ${TABLE}.LOT_KEY ;;
   }
   dimension: quality_rating {  ##keep
-    group_label: "Quality Rating"
+    group_label: " Quality Rating"
     type: string
     sql: ${TABLE}.QUALITY_RATING ;;
   }
@@ -359,7 +360,7 @@ dimension: deviation_age_days{
   }
 
   dimension: requires_investigation {
-    group_label: "Yes/No Flags"
+    group_label: " Yes/No Flags"
     type: yesno
     sql: ${dim_deviation_status.deviation_status} = 'Investigation' ;;
   }
@@ -429,7 +430,7 @@ dimension: deviation_age_days{
   }
 
   measure: investigation_required_count {
-    group_label: "Investigation"
+    group_label: " Investigation"
     type: count
     label: "Count of Investigation Deviations"
     filters: {
@@ -443,7 +444,7 @@ dimension: deviation_age_days{
   }
 
   measure: investigated_percentage {
-    group_label: "Investigation"
+    group_label: " Investigation"
     value_format_name: percent_1
     type: number
     sql:  1.0*${investigation_required_count}/nullif(${count_open},0);;
@@ -456,7 +457,7 @@ dimension: deviation_age_days{
   }
 
   measure: overdue_count {
-    group_label: "Overdue"
+    group_label: " Overdue"
     type: count
     label: "Count of Overdue Deviations"
     filters: {
@@ -470,7 +471,7 @@ dimension: deviation_age_days{
   }
 
   measure: overdue_percentage {
-    group_label: "Overdue"
+    group_label: " Overdue"
     value_format_name: percent_1
     type: number
     sql:  1.0*${overdue_count}/nullif(${count_open},0);;
@@ -486,7 +487,7 @@ dimension: deviation_age_days{
   }
 
   measure: critical_rating_count {
-    group_label: "Rating Counts"
+    group_label: " Rating Counts"
     type: count
     filters: {
       field: is_quality_rating_critical
@@ -495,7 +496,7 @@ dimension: deviation_age_days{
   }
 
   measure: major_rating_count {
-    group_label: "Rating Counts"
+    group_label: " Rating Counts"
     type: count
     filters: {
       field: is_quality_rating_major
@@ -504,7 +505,7 @@ dimension: deviation_age_days{
   }
 
   measure: minor_rating_count {
-    group_label: "Rating Counts"
+    group_label: " Rating Counts"
     type: count
     filters: {
       field: is_quality_rating_minor
@@ -513,7 +514,7 @@ dimension: deviation_age_days{
   }
 
   measure:high_risk_rating_count {
-    group_label: "Rating Counts"
+    group_label: " Rating Counts"
     type: count
     filters: {
       field: is_risk_rating_high
@@ -522,7 +523,7 @@ dimension: deviation_age_days{
   }
 
   measure: medium_risk_rating_count {
-    group_label: "Rating Counts"
+    group_label: " Rating Counts"
     type: count
     filters: {
       field: is_risk_rating_medium
@@ -531,7 +532,7 @@ dimension: deviation_age_days{
   }
 
   measure: low_risk_rating_count {
-    group_label: "Rating Counts"
+    group_label: " Rating Counts"
     type: count
     filters: {
       field: is_risk_rating_low
@@ -617,13 +618,13 @@ dimension: deviation_age_days{
   }
 
   dimension: customer_approval_req {
-    group_label: "Yes/No Flags"
+    group_label: " Yes/No Flags"
     type: yesno
     sql: ${TABLE}.CUSTOMER_APPROVAL_REQ = 1 ;;
   }
 
   dimension: investigation_req {
-    group_label: "Yes/No Flags"
+    group_label: " Yes/No Flags"
     type: yesno
     sql: ${TABLE}.investigation_req  = 1 ;;
   }
