@@ -81,11 +81,16 @@ on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
   dimension: date_created_selector {
     label: "Reporting Period"
     type: string
-    sql:   case when ${date_created_selector_helper}like '%-01' and len(${date_created_selector_helper}) = 7 then replace(${date_created_selector_helper},'-01','-Q1')
+    sql:
+    {% if date_selection._parameter_value == "'quarterly'" %}
+    case when ${date_created_selector_helper}like '%-01' and len(${date_created_selector_helper}) = 7 then replace(${date_created_selector_helper},'-01','-Q1')
     when ${date_created_selector_helper}like '%-04' and len(${date_created_selector_helper}) = 7 then replace(${date_created_selector_helper},'-04','-Q2')
     when ${date_created_selector_helper}like '%-07' and len(${date_created_selector_helper}) = 7 then replace(${date_created_selector_helper},'-07','-Q3')
     when ${date_created_selector_helper}like '%-10' and len(${date_created_selector_helper}) = 7 then replace(${date_created_selector_helper},'-10','-Q4')
     else ${date_created_selector_helper} END
+    {% else %}
+     ${date_created_selector_helper}
+    {% endif %}
     ;;
   }
 
