@@ -10,8 +10,8 @@ include: "*.dashboard.lookml"
 
 
 
-explore: deviation_goal  {
-}
+# explore: deviation_goal  {
+# }
 
 explore: fact_deviations {
   label: "Deviations"
