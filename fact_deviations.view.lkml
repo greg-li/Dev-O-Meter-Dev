@@ -48,6 +48,10 @@ on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
       value: "annually"
     }
     allowed_value: {
+      label: "Monthly"
+      value: "monthly"
+    }
+    allowed_value: {
       label: "Daily"
       value: "daily"
     }
@@ -66,6 +70,8 @@ on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
     cast(${date_created_quarter} as varchar)
     {% elsif date_selection._parameter_value == "'annually'" %}
     ${date_created_year}
+    {% elsif date_selection._parameter_value == "'monthly'" %}
+    ${date_created_month}
     {% else %}
     cast(${date_created_date} as nvarchar)
     {% endif %}
