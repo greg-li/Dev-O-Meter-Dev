@@ -2,6 +2,7 @@ view: dim_deviation_status {
   sql_table_name: dbo.DIM_DEVIATION_STATUS ;;
 
   dimension: active_flag {
+    hidden: yes
     label: "{% if _view._name == 'DIM_DEVIATION_STATUS' %} Deviation Status Active Flag {% else %} Deviation Type Alert Flag {% endif %}"
     type: string
     sql: ${TABLE}.ACTIVE_FLAG ;;

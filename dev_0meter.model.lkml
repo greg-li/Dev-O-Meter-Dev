@@ -21,6 +21,9 @@ explore: fact_deviations {
     field: dim_deviation_type.deviation_type
     value: "Customer Complaint - Packaging and shipping complaints"
     }
+  filters: {
+    field: timezone_selection
+  }
  }
 
 #access_filter: {

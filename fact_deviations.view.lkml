@@ -39,6 +39,7 @@ on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
 
   parameter: date_selection{
     type: string
+    description: "This fields allow for dynamice Time selection. It must be used in conjunction with the Reporting Period dimension."
     allowed_value: {
       label: "Quarterly"
       value: "quarterly"
@@ -80,6 +81,7 @@ on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
 
   dimension: date_created_selector {
     label: "Reporting Period"
+    description: "This field needs to be used in conjunction with the Date Selection Filter. This field enables Dyanmic Time Frames. By selecting a Period type in the Date Selection filter, you can toggle between Daily, Monthly, Quarter, and Annual using this one dimension in your visualizations"
     type: string
     sql:
     {% if date_selection._parameter_value == "'quarterly'" %}
@@ -234,6 +236,7 @@ dimension: deviation_age_days{
   }
 
   dimension: deviation_count {
+    hidden: yes
     type: number
     sql: ${TABLE}.DEVIATION_COUNT ;;
   }
@@ -250,6 +253,7 @@ dimension: deviation_age_days{
     sql: ${TABLE}.DOCUMENT_KEY ;;
   }
   dimension: document_name {
+    hidden: yes
     type: string
     sql: ${TABLE}.DOCUMENT_NAME ;;
   }
@@ -261,11 +265,13 @@ dimension: deviation_age_days{
   }
 
   dimension: is_cancelled {
+    group_label: "Yes/No Flags"
     type: yesno
     sql: ${dim_deviation_status.deviation_status} = 'Closed - Cancelled' ;;
   }
 
   dimension: is_closed {
+    group_label: "Yes/No Flags"
     type: yesno
     sql: ${date_closed_raw} IS NOT NULL OR ${dim_deviation_status.deviation_status} like '%Closed%' ;;
   }
@@ -274,6 +280,7 @@ dimension: deviation_age_days{
 # For deviations due on the current day, these are not overdue as they can be
 # addressed at anytime during the due date
   dimension: is_overdue {
+    group_label: "Yes/No Flags"
     type: yesno
     sql: ${date_due_raw} < dateadd(day,1,cast(getdate() as date))
     and ${date_closed_date} is null
@@ -281,6 +288,7 @@ dimension: deviation_age_days{
   }
 
   dimension: is_quality_rating_critical {
+
     group_label: "Quality Rating"
     type: yesno
     sql: ${quality_rating} = 'Critical' ;;
@@ -351,6 +359,7 @@ dimension: deviation_age_days{
   }
 
   dimension: requires_investigation {
+    group_label: "Yes/No Flags"
     type: yesno
     sql: ${dim_deviation_status.deviation_status} = 'Investigation' ;;
   }
@@ -602,16 +611,19 @@ dimension: deviation_age_days{
   }
 
   dimension: technology_business_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.TECHNOLOGY_BUSINESS_KEY ;;
   }
 
   dimension: customer_approval_req {
+    group_label: "Yes/No Flags"
     type: yesno
     sql: ${TABLE}.CUSTOMER_APPROVAL_REQ = 1 ;;
   }
 
   dimension: investigation_req {
+    group_label: "Yes/No Flags"
     type: yesno
     sql: ${TABLE}.investigation_req  = 1 ;;
   }

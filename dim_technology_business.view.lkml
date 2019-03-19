@@ -2,6 +2,7 @@ view: dim_technology_business {
   sql_table_name: dbo.DIM_technology_business ;;
 
   dimension: active_flag {
+    hidden: yes
     type: string
     sql: ${TABLE}.ACTIVE_FLAG ;;
   }
@@ -14,6 +15,7 @@ view: dim_technology_business {
   }
 
   dimension: technology_business_name {
+    hidden: yes
     type: string
     sql: ${TABLE}.technology_business_NAME ;;
   }
@@ -53,6 +55,7 @@ view: dim_technology_business {
   }
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: [technology_business_name]
   }
