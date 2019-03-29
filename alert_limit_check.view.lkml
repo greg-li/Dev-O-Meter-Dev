@@ -1,6 +1,12 @@
 view: alert_limit_check {
   sql_table_name: dbo.Alert_Limit_Check ;;
 
+  parameter: timezone_selection {
+    type: string
+    suggest_explore: available_timezones
+    suggest_dimension: available_timezones.name
+  }
+
   dimension: alert_limit {
     type: number
     sql: ${TABLE}.Alert_Limit ;;
@@ -47,7 +53,7 @@ view: alert_limit_check {
     ]
     convert_tz: no
     datatype: date
-    sql: cast(tzdb.utctolocal(${TABLE}.FirstOfMonth,{% parameter fact_deviations.timezone_selection %}) as datetime2);;
+    sql: cast(${TABLE}.FirstofMonth AT TIME ZONE 'UTC' AT TIME ZONE {% parameter timezone_selection %} as datetime2) ;;
   }
 
   dimension: unique_id {

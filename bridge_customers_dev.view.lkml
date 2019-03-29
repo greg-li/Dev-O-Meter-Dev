@@ -33,7 +33,7 @@ view: bridge_customers_dev {
     convert_tz: no
     hidden: yes
     datatype: date
-    sql: cast(tzdb.utctolocal(${TABLE}.INSERT_DATE,{% parameter fact_deviations.timezone_selection %}) as datetime2);;
+    sql: cast(${TABLE}.INSERT_DATE AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2);;
   }
 
   dimension: parent_record_id {
@@ -56,7 +56,7 @@ view: bridge_customers_dev {
     convert_tz: no
     hidden: yes
     datatype: date
-    sql: cast(tzdb.utctolocal(${TABLE}.UPDATE_DATE,{% parameter fact_deviations.timezone_selection %}) as datetime2);;
+    sql: cast(${TABLE}.UPDATE_DATE AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2);;
   }
 
   measure: count {

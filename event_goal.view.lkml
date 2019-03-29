@@ -2,8 +2,9 @@ view: event_goal {
     derived_table: {
       sql: SELECT
         dbo.DIM_EVENT_CLASSIFICATION.EVENT_LIMIT,
-        month(cast(tzdb.utctolocal(dbo.FACT_DEVIATIONS.DATE_CREATED,{% parameter timezone_selection %}) as datetime2)) as create_month,
-        year(cast(tzdb.utctolocal(dbo.FACT_DEVIATIONS.DATE_CREATED,{% parameter timezone_selection %}) as datetime2)) as create_year,
+
+        month(cast(fact_deviations.DATE_CREATED AT TIME ZONE 'UTC' AT TIME ZONE {% parameter timezone_selection %} as datetime2)) as create_month,
+        year(cast(fact_deviations.DATE_CREATED AT TIME ZONE 'UTC' AT TIME ZONE {% parameter timezone_selection %} as datetime2)) as create_year,
         SUM(dbo.FACT_DEVIATIONS.DEVIATION_COUNT) AS Number_Deviations,
         dbo.DIM_EVENT_CLASSIFICATION.EVENT_LIMIT / 12 AS Monthly_Goal
 FROM            dbo.FACT_DEVIATIONS INNER JOIN

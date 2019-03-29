@@ -19,7 +19,7 @@ view: lkp_shift {
     ]
     convert_tz: no
     datatype: date
-    sql: cast(tzdb.utctolocal(${TABLE}.schedule_Date,{% parameter fact_deviations.timezone_selection %}) as datetime2) ;;
+    sql: cast(${TABLE}.schedule_Date AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2) ;;
   }
 
   dimension: schedule_day {

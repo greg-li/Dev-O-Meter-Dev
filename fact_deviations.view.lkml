@@ -283,7 +283,7 @@ dimension: deviation_age_days{
   dimension: is_overdue {
     group_label: " Yes/No Flags"
     type: yesno
-    sql: ${date_due_raw} < dateadd(day,1,cast(getdate() as date))
+    sql: ${date_due_raw} < dateadd(day,1,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter timezone_selection %} as datetime2))
     and ${date_closed_date} is null
     ;;
   }
@@ -340,7 +340,7 @@ dimension: deviation_age_days{
     ]
     convert_tz: no
     datatype: date
-    sql: cast(${TABLE}.INSERT_DATE AT TIME ZONE 'UTC' AT TIME ZONE {% parameter timezone_selection %} as datetime2);;
+    sql: cast(${TABLE}.INSERT_DATE AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2);;
   }
 
   dimension: lot_key {
@@ -407,7 +407,7 @@ dimension: deviation_age_days{
     ]
     convert_tz: no
     datatype: date
-    sql: cast(${TABLE}.UPDATE_DATE AT TIME ZONE 'UTC' AT TIME ZONE {% parameter timezone_selection %} as datetime2);;
+    sql: cast(${TABLE}.UPDATE_DATE AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2);;
   }
 
 

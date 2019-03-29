@@ -4,8 +4,8 @@ view: deviation_goal {
     sql: SELECT
         dbo.DIM_SITE.SITE_NAME,
         dbo.DIM_SITE.DEVIATION_GOAL,
-        month(cast(tzdb.utctolocal(dbo.FACT_DEVIATIONS.DATE_CREATED,{% parameter timezone_selection %}) as datetime2)) as create_month,
-        year(cast(tzdb.utctolocal(dbo.FACT_DEVIATIONS.DATE_CREATED,{% parameter timezone_selection %}) as datetime2)) as create_year,
+        month(cast(${TABLE}.DATE_CREATED AT TIME ZONE 'UTC' AT TIME ZONE {% parameter timezone_selection %} as datetime2)) as create_month,
+        year(cast(${TABLE}.DATE_CREATED AT TIME ZONE 'UTC' AT TIME ZONE {% parameter timezone_selection %} as datetime2)) as create_year,
         SUM(dbo.FACT_DEVIATIONS.DEVIATION_COUNT) AS Number_Deviations,
         dbo.DIM_SITE.DEVIATION_GOAL / 12 AS Monthly_Goal
     FROM dbo.FACT_DEVIATIONS
