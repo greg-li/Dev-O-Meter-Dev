@@ -8,6 +8,10 @@ include: "*.view"
 include: "*.dashboard.lookml"
 #include: "*.dashboard"
 
+# access_grant: test {
+#   user_attribute: test
+#   allowed_values: ["greg"]
+# }
 
 
 # explore: deviation_goal  {

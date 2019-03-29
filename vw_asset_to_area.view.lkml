@@ -12,12 +12,15 @@ view: vw_asset_to_area {
     sql: ${TABLE}.AREA_KEY ;;
   }
 
+
   dimension: asset {
+#     required_access_grants: [test]
     type: string
     sql: ${TABLE}.Asset ;;
   }
 
   dimension: unique_id {
+    required_access_grants: [test]
     primary_key: yes
     hidden: yes
     sql: concat(${area},${area_key},${asset});;
@@ -27,5 +30,11 @@ view: vw_asset_to_area {
     hidden: yes
     type: count
     drill_fields: []
+  }
+
+  measure: count_of_deviations {
+    required_access_grants: [test]
+    type: number
+    sql: ${fact_deviations.count} ;;
   }
 }

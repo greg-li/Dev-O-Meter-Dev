@@ -34,7 +34,7 @@ view: alert_limit_check {
   }
 
   dimension_group: month_date {
-    label: "First_of_Month"
+    label: "First of Month"
     type: time
     timeframes: [
       raw,

@@ -2,6 +2,7 @@ view: dim_site {
   sql_table_name: dbo.DIM_SITE ;;
 
   dimension: active_flag {
+    hidden: yes
     type: string
     sql: ${TABLE}.ACTIVE_FLAG ;;
   }
@@ -52,24 +53,29 @@ view: dim_site {
    sql: ${TABLE}.SITE_NAME ;;
   }
   dimension: deviation_goal {
+    hidden: yes
     type: number
     sql: ${TABLE}.DEVIATION_GOAL ;;
   }
   measure: annual_deviation_goal1 {
+    label: "Annual Deviation Goal"
     type: sum
     sql: ${deviation_goal} ;;
   }
   dimension: monthly_deviation_goal {
+    hidden: yes
     type: number
     sql: ${TABLE}.DEVIATION_GOAL /12.0;;
   }
 
   measure: monthly_deviation_goal1 {
+    label: "Monthly Deviation Goal"
     type: sum
     sql: ${monthly_deviation_goal};;
   }
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: [site_name]
   }
