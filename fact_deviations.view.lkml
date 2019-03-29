@@ -39,7 +39,7 @@ on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
 
   parameter: date_selection{
     type: string
-    description: "This fields allow for dynamice Time selection. It must be used in conjunction with the Reporting Period dimension."
+    description: "This fields allow for dynamic Time selection. It must be used in conjunction with the Reporting Period dimension."
     allowed_value: {
       label: "Quarterly"
       value: "quarterly"
@@ -99,7 +99,7 @@ on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
   parameter: timezone_selection {
     type: string
     suggest_explore: available_timezones
-    suggest_dimension: available_timezones.timezone_name
+    suggest_dimension: available_timezones.name
   }
 
   dimension: area_assigned_key {
@@ -171,7 +171,7 @@ on FACT_DEVIATIONS.DOCUMENT_KEY = DIM_DOCUMENT.DOCUMENT_KEY;;
     ]
     convert_tz: no
     datatype: date
-    sql: cast(tzdb.utctolocal(${TABLE}.DATE_CLOSED,{% parameter timezone_selection %}) as datetime2);;
+    sql: cast(${TABLE}.DATE_CLOSED AT TIME ZONE 'UTC' AT TIME ZONE {% parameter timezone_selection %} as datetime2);;
   }
 dimension: deviation_age_days{
   type: tier
@@ -202,7 +202,7 @@ dimension: deviation_age_days{
     ]
     convert_tz: no
     datatype: date
-    sql: cast(tzdb.utctolocal(${TABLE}.date_created,{% parameter timezone_selection %}) as datetime2) ;;
+    sql: cast(${TABLE}.DATE_CREATED AT TIME ZONE 'UTC' AT TIME ZONE {% parameter timezone_selection %} as datetime2);;
     ## Added by RHW 2019-01-24
     drill_fields: [dim_event_classification.event_classification, dim_risk_category.risk_category_name
       , date_created_week, date_created_date, count]
@@ -222,7 +222,7 @@ dimension: deviation_age_days{
     ]
     convert_tz: no
     datatype: date
-    sql: cast(tzdb.utctolocal(${TABLE}.DATE_DUE,{% parameter timezone_selection %}) as datetime2) ;;
+    sql: cast(${TABLE}.DATE_DUE AT TIME ZONE 'UTC' AT TIME ZONE {% parameter timezone_selection %} as datetime2) ;;
   }
 
   dimension: days_to_close {
@@ -340,7 +340,7 @@ dimension: deviation_age_days{
     ]
     convert_tz: no
     datatype: date
-    sql: cast(tzdb.utctolocal(${TABLE}.INSERT_DATE,{% parameter timezone_selection %}) as datetime2);;
+    sql: cast(${TABLE}.INSERT_DATE AT TIME ZONE 'UTC' AT TIME ZONE {% parameter timezone_selection %} as datetime2);;
   }
 
   dimension: lot_key {
@@ -407,7 +407,7 @@ dimension: deviation_age_days{
     ]
     convert_tz: no
     datatype: date
-    sql: cast(tzdb.utctolocal(${TABLE}.UPDATE_DATE,{% parameter timezone_selection %}) as datetime2);;
+    sql: cast(${TABLE}.UPDATE_DATE AT TIME ZONE 'UTC' AT TIME ZONE {% parameter timezone_selection %} as datetime2);;
   }
 
 
