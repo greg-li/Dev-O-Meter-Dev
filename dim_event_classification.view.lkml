@@ -1,12 +1,23 @@
+explore: dim_event_classification {hidden:yes}
 view: dim_event_classification {
 
   sql_table_name: dbo.DIM_EVENT_CLASSIFICATION ;;
 
   dimension: event_class_key{
     primary_key: yes
-    hidden: yes
+#     hidden: yes
     type: number
     sql: ${TABLE}.EVENT_CLASS_KEY ;;
+  }
+  dimension: bus_sec_key{
+    hidden: yes
+    type: number
+    sql: ${TABLE}.BUS_SEC_KEY ;;
+  }
+  dimension: site_key{
+    hidden: yes
+    type: number
+    sql: ${TABLE}.SITE_KEY ;;
   }
 
   dimension: event_classification {
@@ -19,16 +30,23 @@ view: dim_event_classification {
     type: string
     sql: ${TABLE}.EVENT_AREA ;;
   }
-  dimension: Action_Limit{
+  dimension: action_limit {
     label: "Event Action Limit"
+    description: "Annual Deviation Limit"
+    group_label: "Category Yearly Facts"
     type: number
     sql: ${TABLE}.EVENT_LIMIT ;;
   }
-dimension: Alert_Limit  {
-  label: "Event Month Limit"
-  type:  number
-  sql: ${TABLE}.EVENT_MONTH_LIMIT;;
-}
+  measure: count {
+    type: count
+  }
+  dimension: alert_limit  { # Using this instead of alert_limit_check.alert_limit
+    group_label: "Category Monthly Facts"
+#   label: "Category Monthly Limit"
+    description: "Category Monthly Limit AKA Alert Limit"
+    type:  number
+    sql: ${TABLE}.EVENT_MONTH_LIMIT;;
+  }
 
   dimension_group: effective {
     label: "Event Effective"
@@ -88,9 +106,9 @@ dimension: Alert_Limit  {
     type: string
     sql: ${TABLE}.ACTIVE_FLAG ;;
   }
-  measure: Alert_limit {
+  measure: total_alert_limit {
     label: "Total Event Alert Limit"
     type: sum
-    sql: sum(${Alert_Limit} ;;
+    sql: ${alert_limit} ;;
   }
 }

@@ -7,7 +7,8 @@ view: alert_limit_check {
     suggest_dimension: available_timezones.name
   }
 
-  dimension: alert_limit {
+  dimension: alert_limit { # Use dim_event_classification.Alert_Limit instead
+    hidden: yes
     type: number
     sql: ${TABLE}.Alert_Limit ;;
   }

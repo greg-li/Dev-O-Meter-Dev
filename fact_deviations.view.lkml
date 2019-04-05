@@ -547,25 +547,19 @@ dimension: deviation_age_days{
   }
 
     measure: count_event {
+      label: "Count of Deviations - formatted"
       type: number
       drill_fields: [Deviation_details*]
-     sql: ${count} ;;
+      sql: ${count} ;;
       html:<a href="#drillmenu" target="_self">
-          {% if {{fact_deviations.count._value}} > {{dim_event_classification.Alert_Limit._value }} %}  <div style="color: white;  background-color: red; font-size:100%; text-align:center">{{linked_value}}</div>
-          {% else %} <div  style="color: black; font-size:100%; text-align:center">{{linked_value}}</div>
+          {% if {{fact_deviations.count._value}} > {{dim_event_classification.alert_limit._value }} %}
+          <div style="font-weight: bold; background-color: #e0434b; font-color:#ffffff; margin: 0; border-radius: 5px; text-align:center;color: white ">{{ value }}</div>
+
+          {% else %} <div style="color:black; font-size:100%; text-align:center">{{ value }}</div>
           {% endif %};;
+#           <div style="color: white;  background-color: red; font-size:100%; text-align:center">{{linked_value}}</div>
 
     }
-
-  measure: action_count {
-   sql: ${count} ;;
-    drill_fields: [Deviation_details*]
-    html:<a href="#drillmenu" target="_self">
-          {% if {{fact_deviations.count._value}} > {{dim_event_classification.Action_Limit._value }} %} <div style="color: white;  background-color: red; font-size:100%; text-align:center">{{linked_value}}</div>
-          {% else %} <div  style="color: black; font-size:100%; text-align:center">{{linked_value}}</span>
-          {% endif %}</a>;;
-  }
-
 
   ## RHW 2019-01-24: replaced dim_event_classification.event_category with
   ## dim_event_classification.event_classification, as event_category doesn't exist.
@@ -600,7 +594,7 @@ dimension: deviation_age_days{
     sql:DATEDIFF(day,${date_created_date},getdate())  ;;
 
   }
-  dimension: Closed_to_Due_Diff {
+  dimension: closed_to_due_diff {
     type: number
     sql:DATEDIFF(day,${date_closed_date},${date_due_date})  ;;
 
