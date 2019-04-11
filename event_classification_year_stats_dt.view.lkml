@@ -79,7 +79,7 @@ view: event_classification_year_stats_dt {
     }
     drill_fields: [fact_deviations.date_created_year, event_classification, action_limit, percent_action_limit_reached, fact_deviations.count]
     link: {
-      label: "Pass Categories to Dashboard 25"
+      label: "View Categories in Deviation Detailed Dashboard"
       url: "https://lonzadev.looker.com/dashboards/25?Event%20Classification={{ dim_event_classification.list_of_categories._value }}"
       icon_url: "http://www.looker.com/favicon.ico"
     }

@@ -24,6 +24,11 @@ view: dim_event_classification {
     label: "Event Category Name"
     type: string
     sql: ${TABLE}.EVENT_CLASSIFICATION ;;
+    link: {
+      label: "View Category in Deviation Detailed Dashboard"
+      url: "https://lonzadev.looker.com/dashboards/25?Site={{ _filters['dim_site.site_name'] | url_encode }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] | url_encode }}&Event%20Classification={{ value }}"
+      icon_url: "http://www.looker.com/favicon.ico"
+    }
   }
 
   ##############
