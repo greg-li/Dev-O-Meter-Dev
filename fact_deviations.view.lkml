@@ -208,6 +208,14 @@ dimension: deviation_age_days{
       , date_created_week, date_created_date, count]
   }
 
+  # last_12_months is used for the spark line viz only. Viz used in "DEVIATION DETAILED ANALYSIS DASHBOARD"
+  # Reason: viz doesn't allow column renaming, and this should be the name of the trend line column.
+  # Hide unless working on viz, andemember to hide again when you're done!
+  dimension: last_12_months {
+    description: "Trailing last 12 months"
+    hidden: yes
+    sql: ${date_created_month} ;;
+  }
 
   dimension_group: date_due {
     label: " Due"

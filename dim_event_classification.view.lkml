@@ -25,6 +25,24 @@ view: dim_event_classification {
     type: string
     sql: ${TABLE}.EVENT_CLASSIFICATION ;;
   }
+
+  ##############
+  # Documentation: list_of_categories
+  # Uses this SQL Server function: https://docs.microsoft.com/en-us/sql/t-sql/functions/string-agg-transact-sql?view=sql-server-2017
+  # FUTURE WORK: This should return distinct values.
+  # Would require SELECT STRING_AGG(a, ',') FROM (SELECT DISTINCT a FROM dbo.Test) t    (Source: https://feedback.azure.com/forums/908035-sql-server/suggestions/35243533-support-distinct-for-string-agg)
+  ##############
+  measure: list_of_categories {
+    description: "A list of categories that have a result for the selected dimensions. Categories repeat."
+    type: string
+    sql: STRING_AGG(CAST(${event_classification} AS VARCHAR(MAX)), ',') ;;
+    link: {
+      label: "Pass Categories to Dashboard 25"
+      url: "https://lonzadev.looker.com/dashboards/25?Event%20Classification={{ value }}"
+      icon_url: "http://www.looker.com/favicon.ico"
+    }
+  }
+
   dimension: event_area{
     label: "Event General Category"
     type: string
@@ -39,6 +57,7 @@ view: dim_event_classification {
   }
   measure: count {
     type: count
+    drill_fields: [event_classification, count]
   }
   dimension: alert_limit  { # Using this instead of alert_limit_check.alert_limit
     group_label: "Category Monthly Facts"

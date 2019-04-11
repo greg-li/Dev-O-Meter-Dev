@@ -14,6 +14,7 @@ view: dim_customers {
   }
 
   dimension: customer_name {          ##keep
+    description: "Customer name and customer key"
     type: string
     sql: ${TABLE}.CUSTOMER_NAME ;;
     link: {
@@ -22,6 +23,10 @@ view: dim_customers {
       icon_url: "https://looker.com/favicon.ico"
     }
     html: Customer Name: {{rendered_value}} <p> Customer Key: {{customer_key._rendered_value}} </p>;;
+  }
+
+  dimension: customer_name_number_only {
+    sql: ${TABLE}.CUSTOMER_NAME ;;
   }
 
   dimension_group: insert {

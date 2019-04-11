@@ -42,6 +42,7 @@ view: event_classification_quarter_stats_dt {
       value: "Yes"
     }
     drill_fields: [detail*]
+
   }
   set: detail {
     fields: [
