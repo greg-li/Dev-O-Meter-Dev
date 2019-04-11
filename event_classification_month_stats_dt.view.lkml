@@ -19,10 +19,6 @@ view: event_classification_month_stats_dt {
         value: "Eastern Standard Time"
       }
       filters: {
-        field: alert_limit_check.timezone_selection
-        value: "Eastern Standard Time"
-      }
-      filters: {
         field: dim_site.site_name
         value: "Portsmouth"
       }

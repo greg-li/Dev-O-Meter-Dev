@@ -82,7 +82,7 @@
     fields:
     - dim_event_classification.event_area
     - dim_event_classification.event_classification
-    - dim_event_classification.Action_Limit
+    - dim_event_classification.action_limit
     - fact_deviations.action_count
     - fact_deviations.count
     filters:
@@ -95,7 +95,7 @@
     dynamic_fields:
     - table_calculation: action_limit_hit
       label: Action Limit Hit
-      expression: "${fact_deviations.count}>${dim_event_classification.Action_Limit}"
+      expression: "${fact_deviations.count}>${dim_event_classification.action_limit}"
       value_format:
       value_format_name:
       _kind_hint: measure
@@ -229,7 +229,7 @@
     fields:
     - dim_event_classification.event_classification
     - fact_deviations.date_created_month
-    - dim_event_classification.Action_Limit
+    - dim_event_classification.action_limit
     - dim_event_classification.Alert_Limit
     - fact_deviations.count_event
     pivots:
@@ -326,7 +326,7 @@
     type: table
     fields:
     - dim_event_classification.event_classification
-    - dim_event_classification.Action_Limit
+    - dim_event_classification.action_limit
     - fact_deviations.action_count
     - fact_deviations.date_created_year
     pivots:

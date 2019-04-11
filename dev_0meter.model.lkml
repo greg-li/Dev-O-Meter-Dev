@@ -29,10 +29,6 @@ explore: fact_deviations {
       field: fact_deviations.timezone_selection
       value: "Eastern Standard Time"
     }
-    filters: {
-      field: alert_limit_check.timezone_selection
-      value: "Eastern Standard Time"
-    }
   }
 
 #access_filter: {

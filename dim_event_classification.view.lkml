@@ -1,4 +1,5 @@
-explore: dim_event_classification {hidden:yes}
+
+# explore: dim_event_classification {hidden:yes}
 view: dim_event_classification {
 
   sql_table_name: dbo.DIM_EVENT_CLASSIFICATION ;;
