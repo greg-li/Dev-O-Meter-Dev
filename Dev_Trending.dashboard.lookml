@@ -51,7 +51,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -109,7 +109,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -184,7 +184,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -243,7 +243,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -318,7 +318,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -382,7 +382,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -441,7 +441,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -501,7 +501,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -600,7 +600,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -616,7 +616,7 @@
     explore: fact_deviations
     type: looker_donut_multiples
     fields:
-    - dim_customer.customer_name
+    - dim_customers.customer_name
     - fact_deviations.count
     - dim_causal.causal_name
     pivots:
@@ -659,7 +659,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -715,7 +715,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -771,7 +771,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -841,7 +841,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -898,7 +898,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -957,7 +957,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -1017,7 +1017,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -1035,7 +1035,7 @@
     fields:
     - fact_deviations.count
     - alert_limit_check.event_classification
-    - dim_customer.customer_name
+    - dim_customers.customer_name
     pivots:
     - alert_limit_check.event_classification
     filters:
@@ -1077,7 +1077,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -1141,7 +1141,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -1237,7 +1237,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -1290,7 +1290,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -1349,7 +1349,7 @@
       Causal Factor: dim_causal.causal_name
       Event Area: alert_limit_check.event_area
       Batch: dim_lot_batch.lot_batch
-      Customer: dim_customer.customer_name
+      Customer: dim_customers.customer_name
       Event Classification: alert_limit_check.event_classification
       Area Where Occurred: area_occured.area_name
       Business Sector Unit: dim_bus_sec.bus_sec_name
@@ -1439,7 +1439,7 @@
     model: dev_0meter
     explore: fact_deviations
     listens_to_filters: []
-    field: dim_customer.customer_name
+    field: dim_customers.customer_name
   - name: Event Classification
     title: Event Classification
     type: field_filter

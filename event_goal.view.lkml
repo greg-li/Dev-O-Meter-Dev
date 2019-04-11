@@ -1,7 +1,12 @@
 view: event_goal {
     derived_table: {
-      sql: SELECT         dbo.DIM_EVENT_CLASSIFICATION.EVENT_LIMIT, month(dbo.FACT_DEVIATIONS.DATE_CREATED) as create_month, year(dbo.FACT_DEVIATIONS.DATE_CREATED) as create_year,SUM(dbo.FACT_DEVIATIONS.DEVIATION_COUNT) AS Number_Deviations,
-                         dbo.DIM_EVENT_CLASSIFICATION.EVENT_LIMIT / 12 AS Monthly_Goal
+      sql: SELECT
+        dbo.DIM_EVENT_CLASSIFICATION.EVENT_LIMIT,
+
+        month(cast(fact_deviations.DATE_CREATED AT TIME ZONE 'UTC' AT TIME ZONE {% parameter timezone_selection %} as datetime2)) as create_month,
+        year(cast(fact_deviations.DATE_CREATED AT TIME ZONE 'UTC' AT TIME ZONE {% parameter timezone_selection %} as datetime2)) as create_year,
+        SUM(dbo.FACT_DEVIATIONS.DEVIATION_COUNT) AS Number_Deviations,
+        dbo.DIM_EVENT_CLASSIFICATION.EVENT_LIMIT / 12 AS Monthly_Goal
 FROM            dbo.FACT_DEVIATIONS INNER JOIN
                           dbo.DIM_EVENT_CLASSIFICATION ON dbo.FACT_DEVIATIONS.EVENT_CLASS_KEY = dbo.DIM_EVENT_CLASSIFICATION.EVENT_CLASS_KEY INNER JOIN
                          dbo.DIM_DOCUMENT ON dbo.FACT_DEVIATIONS.DOCUMENT_KEY = dbo.DIM_DOCUMENT.DOCUMENT_KEY INNER JOIN
@@ -19,87 +24,35 @@ HAVING        ( dbo.DIM_EVENT_CLASSIFICATION.EVENT_LIMIT IS NOT NULL) ;;
       sql: ${TABLE}.EVENT_LIMIT ;;
     }
     dimension: month {
+      label: "Event Goal Month"
       sql: ${TABLE}.create_month ;;
     }
 
     dimension: year {
+      label: "Event Goal Year"
       sql: ${TABLE}.create_year ;;
     }
 
+  dimension: unique_id {
+    primary_key: yes
+    hidden: yes
+    sql: concat(${site_name},${event_limit},${month},${year});;
+    }
+
     measure: event_goal_month {
+      label: "Average Event Monthly Goal"
       type: average
       sql: ${TABLE}.Monthly_Goal ;;
     }
     measure: count {
+      label: "Event Goal Count"
       type: count
       drill_fields: [site_name]
-
     }
-  # # You can specify the table name if it's different from the view name:
-  # sql_table_name: my_schema_name.tester ;;
-  #
-  # # Define your dimensions and measures here, like this:
-  # dimension: user_id {
-  #   description: "Unique ID for each user that has ordered"
-  #   type: number
-  #   sql: ${TABLE}.user_id ;;
-  # }
-  #
-  # dimension: lifetime_orders {
-  #   description: "The total number of orders for each user"
-  #   type: number
-  #   sql: ${TABLE}.lifetime_orders ;;
-  # }
-  #
-  # dimension_group: most_recent_purchase {
-  #   description: "The date when each user last ordered"
-  #   type: time
-  #   timeframes: [date, week, month, year]
-  #   sql: ${TABLE}.most_recent_purchase_at ;;
-  # }
-  #
-  # measure: total_lifetime_orders {
-  #   description: "Use this for counting lifetime orders across many users"
-  #   type: sum
-  #   sql: ${lifetime_orders} ;;
-  # }
-}
 
-# view: event_goal {
-#   # Or, you could make this view a derived table, like this:
-#   derived_table: {
-#     sql: SELECT
-#         user_id as user_id
-#         , COUNT(*) as lifetime_orders
-#         , MAX(orders.created_at) as most_recent_purchase_at
-#       FROM orders
-#       GROUP BY user_id
-#       ;;
-#   }
-#
-#   # Define your dimensions and measures here, like this:
-#   dimension: user_id {
-#     description: "Unique ID for each user that has ordered"
-#     type: number
-#     sql: ${TABLE}.user_id ;;
-#   }
-#
-#   dimension: lifetime_orders {
-#     description: "The total number of orders for each user"
-#     type: number
-#     sql: ${TABLE}.lifetime_orders ;;
-#   }
-#
-#   dimension_group: most_recent_purchase {
-#     description: "The date when each user last ordered"
-#     type: time
-#     timeframes: [date, week, month, year]
-#     sql: ${TABLE}.most_recent_purchase_at ;;
-#   }
-#
-#   measure: total_lifetime_orders {
-#     description: "Use this for counting lifetime orders across many users"
-#     type: sum
-#     sql: ${lifetime_orders} ;;
-#   }
-# }
+  parameter: timezone_selection {
+    type: string
+    suggest_explore: available_timezones
+    suggest_dimension: available_timezones.timezone_name
+  }
+}

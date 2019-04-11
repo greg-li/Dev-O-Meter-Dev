@@ -1,9 +1,10 @@
-view: sql_runner_query {
+#view: sql_runner_query {
+view: sql_deviation_counts_and_goals {
   derived_table: {
     sql: SELECT
       TOP 500
         DIM_SITE.SITE_NAME,
-        CONVERT(VARCHAR(7),fact_deviations.DATE_CREATED ,120) AS "fact_deviations.date_created_month",
+        CONVERT(VARCHAR(7),cast(fact_deviations.DATE_CREATED AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)  ,120) AS "fact_deviations.date_created_month",
         dim_site.DEVIATION_GOAL/12  AS "dim_site.deviation_goal",
         sum(fact_deviations.DEVIATION_COUNT) as "fact_deviations.count"
       FROM dbo.FACT_DEVIATIONS  AS fact_deviations

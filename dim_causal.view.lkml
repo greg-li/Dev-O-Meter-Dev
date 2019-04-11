@@ -2,21 +2,28 @@ view: dim_causal {
   sql_table_name: dbo.DIM_CAUSAL ;;
 
   dimension: active_flag {
+    label: "Causual Active Flag"
     type: string
     sql: ${TABLE}.ACTIVE_FLAG ;;
   }
 
   dimension: causal_key {
+    primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.CAUSAL_KEY ;;
   }
 
-  dimension: causal_name {
+
+
+  dimension: causal_name{
+    label: "Causal Factor"
     type: string
     sql: ${TABLE}.CAUSAL_NAME ;;
   }
 
   dimension_group: insert {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -27,10 +34,13 @@ view: dim_causal {
       quarter,
       year
     ]
-    sql: ${TABLE}.INSERT_DATE ;;
+    convert_tz: no
+    datatype: date
+    sql: cast(${TABLE}.INSERT_DATE AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2) ;;
   }
 
   dimension_group: update {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -41,10 +51,13 @@ view: dim_causal {
       quarter,
       year
     ]
-    sql: ${TABLE}.UPDATE_DATE ;;
+    convert_tz: no
+    datatype: date
+    sql: cast(${TABLE}.UPDATE_DATE AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2) ;;
   }
 
   measure: count {
+    label: "Causal Count"
     type: count
     drill_fields: [causal_name]
   }

@@ -17,7 +17,9 @@ view: lkp_shift {
       quarter,
       year
     ]
-    sql: ${TABLE}.schedule_Date ;;
+    convert_tz: no
+    datatype: date
+    sql: cast(${TABLE}.schedule_Date AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2) ;;
   }
 
   dimension: schedule_day {
@@ -33,6 +35,12 @@ view: lkp_shift {
   dimension: shift {
     type: string
     sql: ${TABLE}.shift ;;
+  }
+
+  dimension: unique_id {
+    primary_key: yes
+    hidden: yes
+    sql: concat(${color_number},${schedule_raw},${schedule_day},${schedule_month_num},${shift});;
   }
 
   measure: count {

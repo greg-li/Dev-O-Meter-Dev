@@ -12,6 +12,7 @@ view: dim_step {
   }
 
   dimension_group: insert {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -22,10 +23,31 @@ view: dim_step {
       quarter,
       year
     ]
-    sql: ${TABLE}.INSERT_DATE ;;
+    convert_tz: no
+    datatype: date
+    sql: cast(${TABLE}.INSERT_DATE AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2) ;;
   }
 
+  dimension_group: update {
+    hidden: yes
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: cast(${TABLE}.UPDATE_DATE AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2) ;;
+  }
+
+
   dimension: step_key {
+    primary_key: yes
     type: number
     sql: ${TABLE}.STEP_KEY ;;
   }
@@ -33,20 +55,6 @@ view: dim_step {
   dimension: step_name {
     type: string
     sql: ${TABLE}.STEP_NAME ;;
-  }
-
-  dimension_group: update {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.UPDATE_DATE ;;
   }
 
   measure: count {

@@ -7,6 +7,7 @@ view: dim_risk_category {
   }
 
   dimension_group: insert {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -17,10 +18,32 @@ view: dim_risk_category {
       quarter,
       year
     ]
-    sql: ${TABLE}.INSERT_DATE ;;
+    convert_tz: no
+    datatype: date
+    sql: cast(${TABLE}.INSERT_DATE AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2) ;;
   }
 
+  dimension_group: update {
+    hidden: yes
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: cast(${TABLE}.UPDATE_DATE AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2) ;;
+  }
+
+
   dimension: risk_cat_key {
+    primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.RISK_CAT_KEY ;;
   }
@@ -28,20 +51,6 @@ view: dim_risk_category {
   dimension: risk_category_name {
     type: string
     sql: ${TABLE}.RISK_CATEGORY_NAME ;;
-  }
-
-  dimension_group: update {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.UPDATE_DATE ;;
   }
 
   measure: count {
