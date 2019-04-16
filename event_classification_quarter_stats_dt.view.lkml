@@ -5,7 +5,7 @@ view: event_classification_quarter_stats_dt {
   derived_table: {
     explore_source: event_classification_month_stats_dt {
       column: date_created_quarter {}
-      column: count_alert_limit_exceeded {}
+      column: count_alert_limit_exceeded_without_links  {}
       column: event_class_key {}
       column: event_classification {}
       column: site_name {}
@@ -26,6 +26,7 @@ view: event_classification_quarter_stats_dt {
     group_label: "Category Quarterly Facts"
     description: "Count of months in quarter per category where deviations exceeded"
     type: number
+    sql: ${TABLE}.count_alert_limit_exceeded_without_links  ;;
   }
   dimension: event_class_key {
     hidden: yes
