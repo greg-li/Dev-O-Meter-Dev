@@ -6,16 +6,6 @@ connection: "edm"
 include: "*.view"
 
 include: "*.dashboard.lookml"
-#include: "*.dashboard"
-
-# access_grant: test {
-#   user_attribute: test
-#   allowed_values: ["greg"]
-# }
-
-
-# explore: deviation_goal  {
-# }
 
 explore: fact_deviations {
   label: "Deviations"
@@ -31,19 +21,12 @@ explore: fact_deviations {
     }
   }
 
-#access_filter: {
-#  field: dim_site.site_name
-#  user_attribute:site
-#}
-
   join: dim_site {
     view_label: "Site"
     sql_on: ${fact_deviations.site_key} =${dim_site.site_key}
     ;;relationship: many_to_one
   }
-#   join:  dim_customers {
-#     sql_on: ${fact_deviations.customer_key} = ${dim_customers.customer_key} ;;relationship: many_to_one
-#   }
+
   join: bridge_customers_dev {
     sql_on: ${fact_deviations.parent_record_id} = ${bridge_customers_dev.parent_record_id};;
     relationship: many_to_one
@@ -154,25 +137,30 @@ explore: fact_deviations {
   join: event_classification_month_stats_dt {
     view_label: "Events"
     sql_on: ${dim_event_classification.event_class_key} = ${event_classification_month_stats_dt.event_class_key}
-            and ${fact_deviations.date_created_month} = ${event_classification_month_stats_dt.date_created_month};;
+            and ${fact_deviations.date_created_month} = ${event_classification_month_stats_dt.date_created_month}
+            and ${dim_site.site_name} = ${event_classification_month_stats_dt.site_name}
+            and ${dim_bus_sec.bus_sec_name} = ${event_classification_month_stats_dt.bus_sec_name}
+            ;;
             relationship: many_to_one
   }
   join: event_classification_year_stats_dt {
     view_label: "Events"
     sql_on: ${dim_event_classification.event_classification} = ${event_classification_year_stats_dt.event_classification}
-      and ${fact_deviations.date_created_year} = ${event_classification_year_stats_dt.date_created_year};;
+      and ${fact_deviations.date_created_year} = ${event_classification_year_stats_dt.date_created_year}
+      and ${dim_site.site_name} = ${event_classification_year_stats_dt.site_name}
+      and ${dim_bus_sec.bus_sec_name} = ${event_classification_year_stats_dt.bus_sec_name}
+            ;;
       relationship: many_to_one
   }
   join: event_classification_quarter_stats_dt {
     view_label: "Events"
     sql_on: ${dim_event_classification.event_class_key} =  ${event_classification_quarter_stats_dt.event_class_key}
-      and ${fact_deviations.date_created_quarter} = ${event_classification_quarter_stats_dt.date_created_quarter};;
+      and ${fact_deviations.date_created_quarter} = ${event_classification_quarter_stats_dt.date_created_quarter}
+      and ${dim_site.site_name} = ${event_classification_quarter_stats_dt.site_name}
+      and ${dim_bus_sec.bus_sec_name} = ${event_classification_quarter_stats_dt.bus_sec_name}
+            ;;
       relationship:many_to_one
   }
-  # join: dashboard_headers {
-  #   sql_on: 1=1;;
-  #   relationship: many_to_many
-  # }
 }
 
 ##Suggest Explores

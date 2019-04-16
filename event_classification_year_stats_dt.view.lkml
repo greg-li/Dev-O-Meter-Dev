@@ -9,6 +9,8 @@ view: event_classification_year_stats_dt {
       column: event_classification { field: dim_event_classification.event_classification }
       column: action_limit { field: dim_event_classification.action_limit }
       column: count {}
+      column: site_name {field: dim_site.site_name}
+      column: bus_sec_name {field: dim_bus_sec.bus_sec_name}
       filters: {
         field: dim_deviation_type.deviation_type
         value: "Unplanned,Customer Complaint - Product quality complaints,Customer Complaint - Packaging and shipping complaints"
@@ -34,7 +36,7 @@ view: event_classification_year_stats_dt {
   dimension: pk {
     hidden: yes
     primary_key: yes
-    sql: concat(${event_classification}, '-', ${date_created_year}) ;;
+    sql: concat(${event_classification}, '-', ${date_created_year},'-',${site_name},'-',${bus_sec_name}) ;;
   }
   dimension: date_created_year {
     hidden: yes
@@ -74,6 +76,16 @@ view: event_classification_year_stats_dt {
     type: yesno
     description: "Annual limit to deviations hit or exceeded"
     sql: ${action_limit}<=${category_yearly_deviation_count} ;;
+  }
+
+  dimension: site_name {
+    type: string
+    sql: ${TABLE}.site_name ;;
+  }
+
+  dimension: bus_sec_name {
+    type: string
+    sql: ${TABLE}.bus_sec_name ;;
   }
 
   ##### The link here doesn't work yeat #####

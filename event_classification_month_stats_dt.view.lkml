@@ -11,32 +11,34 @@ view: event_classification_month_stats_dt {
       column: count {field: fact_deviations.count}
       column: alert_limit { field: dim_event_classification.alert_limit }
       column: event_classification {field:dim_event_classification.event_classification}
+      column: site_name {field: dim_site.site_name}
+      column: bus_sec_name {field: dim_bus_sec.bus_sec_name}
       filters: {
         field: dim_deviation_type.deviation_type
         value: "Unplanned,Customer Complaint - Product quality complaints,Customer Complaint - Packaging and shipping complaints"
       }
-      filters: {
-        field: fact_deviations.timezone_selection
-        value: "Eastern Standard Time"
-      }
-      filters: {
-        field: dim_site.site_name
-        value: "Portsmouth"
-      }
+#       filters: {
+#         field: fact_deviations.timezone_selection
+#         value: "Eastern Standard Time"
+#       }
+#       filters: {
+#         field: dim_site.site_name
+#         value: "Portsmouth"
+#       }
       filters: {
         field: dim_deviation_status.deviation_status
         value: "-Closed - Aborted,-Closed - Cancelled,-Closed - Voided"
       }
-      filters: {
-        field: dim_bus_sec.bus_sec_name
-        value: "LPB Portsmouth MM"
-      }
+#       filters: {
+#         field: dim_bus_sec.bus_sec_name
+#         value: "LPB Portsmouth MM"
+#       }
     }
   }
   dimension: pk {
     hidden: yes
     primary_key: yes
-    sql: concat(${event_class_key}, '-', ${date_created_month}) ;;
+    sql: concat(${event_class_key}, '-', ${date_created_month}, '-', ${site_name}, '-', ${bus_sec_name}) ;;
   }
   dimension: event_class_key {
     hidden: yes
@@ -75,6 +77,18 @@ view: event_classification_month_stats_dt {
     description: "Monthly limit to deviations hit or exceeded"
     sql: ${alert_limit}<${category_monthly_deviation_count} ;;
   }
+
+  dimension: site_name {
+    type: string
+    sql: ${TABLE}.site_name ;;
+  }
+
+  dimension: bus_sec_name {
+    type: string
+    sql: ${TABLE}.bus_sec_name ;;
+  }
+
+
   measure: count {
     type:count
     hidden:yes

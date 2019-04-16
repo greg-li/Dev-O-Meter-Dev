@@ -8,12 +8,14 @@ view: event_classification_quarter_stats_dt {
       column: count_alert_limit_exceeded {}
       column: event_class_key {}
       column: event_classification {}
+      column: site_name {}
+      column: bus_sec_name {}
     }
   }
   dimension: pk {
     hidden: yes
     primary_key: yes
-    sql: concat(${event_class_key},'-',${date_created_quarter}) ;;
+    sql: concat(${event_class_key},'-',${date_created_quarter},'-',${site_name},'-',${bus_sec_name}) ;;
   }
   dimension: date_created_quarter {
     hidden: yes
@@ -62,6 +64,16 @@ view: event_classification_quarter_stats_dt {
       #       icon_url: "http://www.looker.com/favicon.ico"
       #     }
     }
+
+  dimension: site_name {
+    type: string
+    sql: ${TABLE}.site_name ;;
+  }
+
+  dimension: bus_sec_name {
+    type: string
+    sql: ${TABLE}.bus_sec_name ;;
+  }
 
 
   dimension: sa_investigation_required {
