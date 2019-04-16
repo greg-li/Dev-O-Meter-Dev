@@ -1,6 +1,6 @@
 # Purpose: Get count of SA Investigation Required
 # This builds from event_classification_month_stats_dt and aggregates at the quarter
-explore: event_classification_quarter_stats_dt {hidden:yes}
+# explore: event_classification_quarter_stats_dt {hidden:yes}
 view: event_classification_quarter_stats_dt {
   derived_table: {
     explore_source: event_classification_month_stats_dt {
@@ -38,9 +38,9 @@ view: event_classification_quarter_stats_dt {
     type: string
     sql: (SELECT STRING_AGG(CAST(${event_classification_greg_test} AS VARCHAR(MAX)), ',')
     WITHIN GROUP ( ORDER BY ${event_classification_greg_test} ) from ${event_classification_quarter_stats_dt.SQL_TABLE_NAME}
-    where ${count_alert_limit_exceeded}>=2 and ${date_created_quarter} = concat(case datepart(q,getdate()) when 4 then datepart(year,getdate())-1 else datepart(year,getdate()) END ,'-0',  case   (case datepart(q,getdate()) when 1 then 4 when 2 then 1 when 3 then 2 when 4 then 3 END) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END));;
+    where ${count_alert_limit_exceeded}>=2 and ${date_created_quarter} = concat(case datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) when 4 then datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2))-1 else datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) END ,'-0',  case   (case datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) when 1 then 4 when 2 then 1 when 3 then 2 when 4 then 3 END) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END));;
 
-    ## concat(datepart(year,getdate()),'-0',  datepart(q,getdate())) need to cut over to this logic to get current quarterx
+    ## concat(datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)),'-0',  datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2))) need to cut over to this logic to get current quarterx
 #     link: {
 #       label: "Pass Categories to Dashboard 25"
 #       url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}"
@@ -53,9 +53,9 @@ view: event_classification_quarter_stats_dt {
     type: string
     sql: (SELECT STRING_AGG(CAST(${event_classification_greg_test} AS VARCHAR(MAX)), ',')
           WITHIN GROUP ( ORDER BY ${event_classification_greg_test} ) from ${event_classification_quarter_stats_dt.SQL_TABLE_NAME}
-          where ${count_alert_limit_exceeded}>=2 and ${date_created_quarter} = concat(datepart(year,getdate()),'-0',  case datepart(q,getdate()) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END));;
+          where ${count_alert_limit_exceeded}>=2 and ${date_created_quarter} = concat(datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)),'-0',  case datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END));;
 
-          ## concat(datepart(year,getdate()),'-0',  datepart(q,getdate())) need to cut over to this logic to get current quarterx
+          ## concat(datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)),'-0',  datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2))) need to cut over to this logic to get current quarterx
       #     link: {
       #       label: "Pass Categories to Dashboard 25"
       #       url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}"

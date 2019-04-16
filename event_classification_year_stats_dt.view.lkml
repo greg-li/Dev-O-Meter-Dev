@@ -104,7 +104,7 @@ view: event_classification_year_stats_dt {
     sql: (SELECT STRING_AGG(CAST(${event_classification} AS VARCHAR(MAX)), ',')
           WITHIN GROUP ( ORDER BY ${event_classification} ) from ${event_classification_year_stats_dt.SQL_TABLE_NAME}
           where ${action_limit}<=${category_yearly_deviation_count}
-          and ${date_created_year} = datepart(year,getdate())
+          and ${date_created_year} = datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2))
           ) ;;
 #     html: <a href="/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}">{{ value }}</a>  ;;
   }
@@ -115,7 +115,7 @@ view: event_classification_year_stats_dt {
     sql: (SELECT STRING_AGG(CAST(${event_classification} AS VARCHAR(MAX)), ',')
     WITHIN GROUP ( ORDER BY ${event_classification} ) from ${event_classification_year_stats_dt.SQL_TABLE_NAME}
     where ${action_limit}<=${category_yearly_deviation_count}
-    and cast(${date_created_quarter} as varchar) = cast(concat(datepart(year,getdate()),'-0',  case datepart(q,getdate()) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END) as varchar)
+    and cast(${date_created_quarter} as varchar) = cast(concat(datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)),'-0',  case datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END) as varchar)
     );;
     html: <a href="/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}">{{ value }}</a>  ;;
     }
@@ -123,7 +123,7 @@ view: event_classification_year_stats_dt {
 }
 
 
-#    and ${date_created_quarter} = concat(datepart(year,getdate()),'-0',  case datepart(q,getdate()) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END)
+#    and ${date_created_quarter} = concat(datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)),'-0',  case datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END)
 
 
 
@@ -154,7 +154,7 @@ view: event_classification_year_stats_dt {
 #     type: string
 #     sql: (SELECT STRING_AGG(CAST(${event_classification} AS VARCHAR(MAX)), ',')
 #     WITHIN GROUP ( ORDER BY ${event_classification} ) from ${event_classification_year_stats_dt.SQL_TABLE_NAME}
-#     wher ${event_classification_year_stats_dt.action_limit_exceeded} = 'Yes' and ${event_classification_year_stats_dt.date_created_year} = datepart(year,getdate()) ) ;;
+#     wher ${event_classification_year_stats_dt.action_limit_exceeded} = 'Yes' and ${event_classification_year_stats_dt.date_created_year} = datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) ) ;;
 #     html: <a href="/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}">{{ value }}</a>  ;;
 #   }
 # }
