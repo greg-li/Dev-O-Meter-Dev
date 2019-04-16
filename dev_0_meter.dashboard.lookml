@@ -522,17 +522,17 @@
     explore: fact_deviations
     type: looker_column
     fields:
-    - fact_deviations.Closed_to_Due_Diff
+    - fact_deviations.closed_to_due_diff
     - fact_deviations.count
     - dim_causal.causal_name
     pivots:
     - dim_causal.causal_name
     filters:
-      fact_deviations.Closed_to_Due_Diff: "<0"
+      fact_deviations.closed_to_due_diff: "<0"
       fact_deviations.date_closed_date: NOT NULL
       fact_deviations.deviation_key: '230,319,323'
     sorts:
-    - fact_deviations.Closed_to_Due_Diff desc
+    - fact_deviations.closed_to_due_diff desc
     - dim_causal.causal_name 0
     limit: 500
     column_limit: 50
@@ -872,17 +872,17 @@
     explore: fact_deviations
     type: looker_column
     fields:
-    - fact_deviations.Closed_to_Due_Diff
+    - fact_deviations.closed_to_due_diff
     - fact_deviations.count
     - fact_deviations.quality_rating
     pivots:
     - fact_deviations.quality_rating
     filters:
-      fact_deviations.Closed_to_Due_Diff: "<0"
+      fact_deviations.closed_to_due_diff: "<0"
       fact_deviations.date_closed_date: NOT NULL
       fact_deviations.deviation_key: '230'
     sorts:
-    - fact_deviations.Closed_to_Due_Diff desc
+    - fact_deviations.closed_to_due_diff desc
     - fact_deviations.quality_rating 0
     limit: 500
     column_limit: 50
@@ -945,17 +945,17 @@
     explore: fact_deviations
     type: looker_column
     fields:
-    - fact_deviations.Closed_to_Due_Diff
+    - fact_deviations.closed_to_due_diff
     - fact_deviations.count
     - dim_risk_category.risk_category_name
     pivots:
     - dim_risk_category.risk_category_name
     filters:
-      fact_deviations.Closed_to_Due_Diff: "<0"
+      fact_deviations.closed_to_due_diff: "<0"
       fact_deviations.date_closed_date: NOT NULL
       fact_deviations.deviation_key: '230'
     sorts:
-    - fact_deviations.Closed_to_Due_Diff desc
+    - fact_deviations.closed_to_due_diff desc
     - dim_risk_category.risk_category_name 0
     limit: 500
     column_limit: 50

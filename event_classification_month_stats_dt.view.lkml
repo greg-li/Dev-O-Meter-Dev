@@ -10,6 +10,7 @@ view: event_classification_month_stats_dt {
       column: date_created_month {field:fact_deviations.date_created_month}
       column: count {field: fact_deviations.count}
       column: alert_limit { field: dim_event_classification.alert_limit }
+      column: event_classification {field:dim_event_classification.event_classification}
       filters: {
         field: dim_deviation_type.deviation_type
         value: "Unplanned,Customer Complaint - Product quality complaints,Customer Complaint - Packaging and shipping complaints"
@@ -44,6 +45,9 @@ view: event_classification_month_stats_dt {
     type: date_month
     hidden: yes
   }
+
+  dimension: event_classification {}
+
   dimension: date_created_quarter {
     hidden: yes
     type: date_quarter

@@ -10,8 +10,8 @@
     fields:
     - dim_event_classification.event_classification
     - fact_deviations.date_created_month
-    - dim_event_classification.Action_Limit
-    - dim_event_classification.Alert_Limit
+    - dim_event_classification.action_limit
+    - dim_event_classification.alert_limit
     - fact_deviations.count_event
     pivots:
     - fact_deviations.date_created_month

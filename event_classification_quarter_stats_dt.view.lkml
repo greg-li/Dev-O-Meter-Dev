@@ -7,6 +7,7 @@ view: event_classification_quarter_stats_dt {
       column: date_created_quarter {}
       column: count_alert_limit_exceeded {}
       column: event_class_key {}
+      column: event_classification {}
     }
   }
   dimension: pk {
@@ -27,6 +28,42 @@ view: event_classification_quarter_stats_dt {
   dimension: event_class_key {
     hidden: yes
   }
+
+  dimension: event_classification_greg_test{
+    sql: ${TABLE}.event_classification ;;
+  }
+
+  measure: list_of_categories_last_quarter {
+    description: "A list of categories that have a result for the selected dimensions. Categories repeat."
+    type: string
+    sql: (SELECT STRING_AGG(CAST(${event_classification_greg_test} AS VARCHAR(MAX)), ',')
+    WITHIN GROUP ( ORDER BY ${event_classification_greg_test} ) from ${event_classification_quarter_stats_dt.SQL_TABLE_NAME}
+    where ${count_alert_limit_exceeded}>=2 and ${date_created_quarter} = concat(case datepart(q,getdate()) when 4 then datepart(year,getdate())-1 else datepart(year,getdate()) END ,'-0',  case   (case datepart(q,getdate()) when 1 then 4 when 2 then 1 when 3 then 2 when 4 then 3 END) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END));;
+
+    ## concat(datepart(year,getdate()),'-0',  datepart(q,getdate())) need to cut over to this logic to get current quarterx
+#     link: {
+#       label: "Pass Categories to Dashboard 25"
+#       url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}"
+#       icon_url: "http://www.looker.com/favicon.ico"
+#     }
+  }
+
+  measure: list_of_categories_current_quarter {
+    description: "A list of categories that have a result for the selected dimensions. Categories repeat."
+    type: string
+    sql: (SELECT STRING_AGG(CAST(${event_classification_greg_test} AS VARCHAR(MAX)), ',')
+          WITHIN GROUP ( ORDER BY ${event_classification_greg_test} ) from ${event_classification_quarter_stats_dt.SQL_TABLE_NAME}
+          where ${count_alert_limit_exceeded}>=2 and ${date_created_quarter} = concat(datepart(year,getdate()),'-0',  case datepart(q,getdate()) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END));;
+
+          ## concat(datepart(year,getdate()),'-0',  datepart(q,getdate())) need to cut over to this logic to get current quarterx
+      #     link: {
+      #       label: "Pass Categories to Dashboard 25"
+      #       url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}"
+      #       icon_url: "http://www.looker.com/favicon.ico"
+      #     }
+    }
+
+
   dimension: sa_investigation_required {
     label: "SA Investigation Required"
     group_label: "Category Quarterly Facts"
@@ -40,6 +77,16 @@ view: event_classification_quarter_stats_dt {
     filters: {
       field: sa_investigation_required
       value: "Yes"
+    }
+    link: {
+      label: "Last Quarter: View Deviation Detailed Analysis Dashboard"
+      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_last_quarter._value }}"
+      icon_url: "http://www.looker.com/favicon.ico"
+    }
+    link: {
+      label: "This Quarter: View Deviation Detailed Analysis Dashboard"
+      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_current_quarter._value }}"
+      icon_url: "http://www.looker.com/favicon.ico"
     }
     drill_fields: [detail*]
 
