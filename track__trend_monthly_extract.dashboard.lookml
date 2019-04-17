@@ -10,7 +10,7 @@
     fields:
     - dim_event_classification.event_area
     - dim_event_classification.event_classification
-    - dim_event_classification.Alert_Limit
+    - dim_event_classification.alert_limit
     - fact_deviations.count_event
     - fact_deviations.count
     filters:
@@ -22,7 +22,7 @@
     dynamic_fields:
     - table_calculation: alert_limit_hit
       label: Alert Limit Hit
-      expression: "${fact_deviations.count}>${dim_event_classification.Alert_Limit}"
+      expression: "${fact_deviations.count}>${dim_event_classification.alert_limit}"
       value_format:
       value_format_name:
       _kind_hint: measure
@@ -83,13 +83,13 @@
     - dim_event_classification.event_area
     - dim_event_classification.event_classification
     - dim_event_classification.action_limit
-    - fact_deviations.action_count
+    # - fact_deviations.action_count
     - fact_deviations.count
     filters:
       dim_event_classification.event_class_key: NOT NULL
       fact_deviations.deviation_key: '230,323,319'
-    sorts:
-    - fact_deviations.action_count desc
+    # sorts:
+    # - fact_deviations.action_count desc
     limit: 500
     column_limit: 50
     dynamic_fields:
@@ -165,7 +165,7 @@
     - dim_risk_category.risk_category_name
     - fact_deviations.quality_rating
     - dim_deviation_status.deviation_status
-    - dim_event_classification.Alert_Limit
+    - dim_event_classification.alert_limit
     - alert_limit_check.alert_flag
     - fact_deviations.date_created_month
     filters:
@@ -207,7 +207,7 @@
     totals_color: "#808080"
     series_types: {}
     hidden_fields:
-    - dim_event_classification.Alert_Limit
+    - dim_event_classification.alert_limit
     - alert_limit_check.alert_flag
     hidden_points_if_no:
     - alert_limit_check.alert_flag
@@ -230,7 +230,7 @@
     - dim_event_classification.event_classification
     - fact_deviations.date_created_month
     - dim_event_classification.action_limit
-    - dim_event_classification.Alert_Limit
+    - dim_event_classification.alert_limit
     - fact_deviations.count_event
     pivots:
     - fact_deviations.date_created_month
@@ -327,7 +327,7 @@
     fields:
     - dim_event_classification.event_classification
     - dim_event_classification.action_limit
-    - fact_deviations.action_count
+    # - fact_deviations.action_count
     - fact_deviations.date_created_year
     pivots:
     - fact_deviations.date_created_year

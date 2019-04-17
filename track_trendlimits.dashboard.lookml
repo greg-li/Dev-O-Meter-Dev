@@ -12,8 +12,8 @@
     - dim_bus_sec.bus_sec_name
     - dim_event_classification.event_area
     - dim_event_classification.event_classification
-    - dim_event_classification.Action_Limit
-    - dim_event_classification.Alert_Limit
+    - dim_event_classification.action_limit
+    - dim_event_classification.alert_limit
     - dim_event_classification.effective_year
     filters:
       dim_event_classification.event_area: "-NULL"

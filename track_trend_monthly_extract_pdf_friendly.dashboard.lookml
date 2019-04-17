@@ -10,7 +10,7 @@
     fields:
     - dim_event_classification.event_area
     - dim_event_classification.event_classification
-    - dim_event_classification.Alert_Limit
+    - dim_event_classification.alert_limit
     - fact_deviations.count_event
     - fact_deviations.count
     filters:
@@ -22,7 +22,7 @@
     dynamic_fields:
     - table_calculation: alert_limit_hit
       label: Alert Limit Hit
-      expression: "${fact_deviations.count}>${dim_event_classification.Alert_Limit}"
+      expression: "${fact_deviations.count}>${dim_event_classification.alert_limit}"
       value_format:
       value_format_name:
       _kind_hint: measure
@@ -82,20 +82,20 @@
     fields:
     - dim_event_classification.event_area
     - dim_event_classification.event_classification
-    - dim_event_classification.Action_Limit
-    - fact_deviations.action_count
+    - dim_event_classification.action_limit
+    # - fact_deviations.action_count
     - fact_deviations.count
     filters:
       dim_event_classification.event_class_key: NOT NULL
       fact_deviations.deviation_key: '230'
     sorts:
-    - fact_deviations.action_count desc
+    # - fact_deviations.action_count desc
     limit: 500
     column_limit: 50
     dynamic_fields:
     - table_calculation: action_limit_hit
       label: Action Limit Hit
-      expression: "${fact_deviations.count}>${dim_event_classification.Action_Limit}"
+      expression: "${fact_deviations.count}>${dim_event_classification.action_limit}"
       value_format:
       value_format_name:
       _kind_hint: measure
@@ -155,8 +155,8 @@
     fields:
     - dim_event_classification.event_classification
     - fact_deviations.date_created_month
-    - dim_event_classification.Action_Limit
-    - dim_event_classification.Alert_Limit
+    - dim_event_classification.action_limit
+    - dim_event_classification.alert_limit
     - fact_deviations.count_event
     pivots:
     - fact_deviations.date_created_month
@@ -252,8 +252,8 @@
     type: table
     fields:
     - dim_event_classification.event_classification
-    - dim_event_classification.Action_Limit
-    - fact_deviations.action_count
+    - dim_event_classification.action_limit
+    # - fact_deviations.action_count
     - fact_deviations.date_created_year
     pivots:
     - fact_deviations.date_created_year
