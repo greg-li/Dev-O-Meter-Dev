@@ -359,7 +359,8 @@ dimension: deviation_age_days{
   dimension: quality_rating {  ##keep
     group_label: " Quality Rating"
     type: string
-    sql: ${TABLE}.QUALITY_RATING ;;
+    sql: case when ${TABLE}.QUALITY_RATING = '' then 'No Rating' else ${TABLE}.QUALITY_RATING END
+    ;;
   }
   dimension: parent_record_id {
     hidden: yes
