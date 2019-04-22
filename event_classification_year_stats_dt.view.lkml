@@ -75,7 +75,7 @@ view: event_classification_year_stats_dt {
     group_label: "Category Yearly Facts"
     type: yesno
     description: "Annual limit to deviations hit or exceeded"
-    sql: ${action_limit}<=${category_yearly_deviation_count} ;;
+    sql: ${action_limit}<${category_yearly_deviation_count} ;;
   }
 
   dimension: site_name {
