@@ -115,7 +115,7 @@ view: event_classification_year_stats_dt {
     type: string
     sql: (SELECT STRING_AGG(CAST(${event_classification} AS VARCHAR(MAX)), ',')
           WITHIN GROUP ( ORDER BY ${event_classification} ) from ${event_classification_year_stats_dt.SQL_TABLE_NAME}
-          where ${action_limit}<=${category_yearly_deviation_count}
+          where {% condition dim_site.site_name %} ${site_name} {% endcondition %} and {% condition dim_bus_sec.bus_sec_name %} ${bus_sec_name} {% endcondition %} and ${action_limit}<=${category_yearly_deviation_count}
           and ${date_created_year} = datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2))
           ) ;;
 #     html: <a href="/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}">{{ value }}</a>  ;;

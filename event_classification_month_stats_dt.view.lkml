@@ -104,7 +104,7 @@ view: event_classification_month_stats_dt {
     type: string
     sql: (SELECT STRING_AGG(CAST(${event_classification} AS VARCHAR(MAX)), ',')
           WITHIN GROUP ( ORDER BY ${event_classification} ) from ${event_classification_month_stats_dt.SQL_TABLE_NAME}
-          where ${alert_limit}<${category_monthly_deviation_count}
+          where {% condition dim_site.site_name %} ${site_name} {% endcondition %} and {% condition dim_bus_sec.bus_sec_name %} ${bus_sec_name} {% endcondition %} and ${alert_limit}<${category_monthly_deviation_count}
      and cast(${date_created_quarter} as varchar) = cast(concat(datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)),'-0',  case datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END) as varchar)
           );;
   }
