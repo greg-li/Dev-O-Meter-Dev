@@ -17,13 +17,9 @@ include: "*.view.lkml"                       # include all views in this project
 #   }
 # }
 
-week_start_day: monday
-
-explore: e_safety_sharepoint_e_incident_list {
-  label: "Safety Incidents"
-  view_label: "Incidents"
+explore: combined_metrics {
   join: asset_mapping_excel {
     relationship: many_to_one
-    sql_on: ${e_safety_sharepoint_e_incident_list.asset_of_event} = ${asset_mapping_excel.safety};;
+    sql_on: ${combined_metrics.asset_function} = ${asset_mapping_excel.excel} ;;
   }
 }
