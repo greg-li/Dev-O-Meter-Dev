@@ -124,6 +124,11 @@ explore: fact_deviations {
     sql_on: ${fact_deviations.area_occured_key} = ${vw_asset_to_area.area_key} ;;
     relationship: many_to_one
   }
+  join: asset_mapping_excel {
+    view_label: "Function / Asset Filter"
+    relationship: many_to_one
+    sql_on: ${vw_asset_to_area.asset}=${asset_mapping_excel.deviations};;
+  }
   join:lkp_shift {
     sql_on: ${fact_deviations.date_created_date} = ${lkp_shift.schedule_date} ;;
     relationship: many_to_one
@@ -160,6 +165,16 @@ explore: fact_deviations {
       and ${dim_bus_sec.bus_sec_name} = ${event_classification_quarter_stats_dt.bus_sec_name}
             ;;
       relationship:many_to_one
+  }
+  join: deviations_target {
+    view_label: "Deviations"
+    fields: [deviations_target.deviation_target]
+    relationship: many_to_one
+    sql_on:
+      ${deviations_target.fact_deviations_date_created_year} = (${fact_deviations.date_created_year}-1)
+      and ${asset_mapping_excel.master} = ${deviations_target.asset_mapping_excel_master}
+      and (${fact_deviations.date_created_day_of_week} = 'Monday')
+    ;;
   }
 }
 
