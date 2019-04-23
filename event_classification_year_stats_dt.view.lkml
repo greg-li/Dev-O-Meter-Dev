@@ -5,7 +5,7 @@ view: event_classification_year_stats_dt {
   derived_table: {
     explore_source: fact_deviations {
       column: date_created_year {}
-      column: date_created_quarter {}
+#       column: date_created_quarter {}
       column: event_classification { field: dim_event_classification.event_classification }
       column: action_limit { field: dim_event_classification.action_limit }
       column: count {}
@@ -43,12 +43,12 @@ view: event_classification_year_stats_dt {
     label: " Deviations  Created Year"
     type: date_year
   }
-
-  dimension: date_created_quarter {
-    hidden: yes
-    label: " Deviations  Created Year"
-    type: date_year
-  }
+#
+#   dimension: date_created_quarter {
+#     hidden: yes
+#     label: " Deviations  Created Year"
+#     type: date_year
+#   }
 
 
   dimension: event_classification {
@@ -75,7 +75,7 @@ view: event_classification_year_stats_dt {
     group_label: "Category Yearly Facts"
     type: yesno
     description: "Annual limit to deviations hit or exceeded"
-    sql: ${action_limit}<=${category_yearly_deviation_count} ;;
+    sql: ${action_limit}<${category_yearly_deviation_count} ;;
   }
 
   dimension: site_name {
@@ -101,38 +101,38 @@ view: event_classification_year_stats_dt {
     drill_fields: [fact_deviations.date_created_year, event_classification, action_limit, percent_action_limit_reached, fact_deviations.count]
     link: {
       label: "Current Year: View Deviation Detailed Analysis Dashboard"
-      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_for_link_action_limit_this_year._value }}"
+      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_for_link_action_limit_this_year._value }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] }}&Timezone={{ _filters['fact_deviations.timezone_selection'] }}&Site={{ _filters['dim_site.site_name'] }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] }}"
       icon_url: "http://www.looker.com/favicon.ico"
     }
-     link: {
-       label: "This Quarter: View Deviation Detailed Analysis Dashboard"
-       url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_for_link_action_limit_by_quarter._value }}"
-       icon_url: "http://www.looker.com/favicon.ico"
-     }
+#      link: {
+#        label: "This Quarter: View Deviation Detailed Analysis Dashboard"
+#        url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_for_link_action_limit_by_quarter._value }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] }}&Timezone={{ _filters['fact_deviations.timezone_selection'] }}&Site={{ _filters['dim_site.site_name'] }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] }}"
+#        icon_url: "http://www.looker.com/favicon.ico"
+#      }
   }
   measure: list_of_categories_for_link_action_limit_this_year {
     description: "A list of categories with action_limit_exceeded. Categories repeat."
     type: string
     sql: (SELECT STRING_AGG(CAST(${event_classification} AS VARCHAR(MAX)), ',')
           WITHIN GROUP ( ORDER BY ${event_classification} ) from ${event_classification_year_stats_dt.SQL_TABLE_NAME}
-          where ${action_limit}<=${category_yearly_deviation_count}
+          where {% condition dim_site.site_name %} ${site_name} {% endcondition %} and {% condition dim_bus_sec.bus_sec_name %} ${bus_sec_name} {% endcondition %} and ${action_limit}<=${category_yearly_deviation_count}
           and ${date_created_year} = datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2))
           ) ;;
 #     html: <a href="/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}">{{ value }}</a>  ;;
   }
 
-  measure: list_of_categories_for_link_action_limit_by_quarter {
-    description: "A list of categories with action_limit_exceeded. Categories repeat."
-    type: string
-    sql: (SELECT STRING_AGG(CAST(${event_classification} AS VARCHAR(MAX)), ',')
-    WITHIN GROUP ( ORDER BY ${event_classification} ) from ${event_classification_year_stats_dt.SQL_TABLE_NAME}
-    where ${action_limit}<=${category_yearly_deviation_count}
-    and cast(${date_created_quarter} as varchar) = cast(concat(datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)),'-0',  case datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END) as varchar)
-    );;
-    html: <a href="/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}">{{ value }}</a>  ;;
-    }
-
-}
+#   measure: list_of_categories_for_link_action_limit_by_quarter {
+#     description: "A list of categories with action_limit_exceeded. Categories repeat."
+#     type: string
+#     sql: (SELECT STRING_AGG(CAST(${event_classification} AS VARCHAR(MAX)), ',')
+#     WITHIN GROUP ( ORDER BY ${event_classification} ) from ${event_classification_year_stats_dt.SQL_TABLE_NAME}
+#     where ${action_limit}<=${category_yearly_deviation_count}
+#     and cast(${date_created_quarter} as varchar) = cast(concat(datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)),'-0',  case datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END) as varchar)
+#     );;
+#     html: <a href="/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}">{{ value }}</a>  ;;
+#     }
+#
+# }
 
 
 #    and ${date_created_quarter} = concat(datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)),'-0',  case datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END)
@@ -187,7 +187,7 @@ view: event_classification_year_stats_dt {
 #     sql_on: ${event_classification_year_stats_dt.event_classification} = ${dt1.event_classification} ;;
 #     relationship: many_to_one
 #   }
-# }
+}
 
 
 

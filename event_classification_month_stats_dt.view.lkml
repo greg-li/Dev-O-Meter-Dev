@@ -104,7 +104,7 @@ view: event_classification_month_stats_dt {
     type: string
     sql: (SELECT STRING_AGG(CAST(${event_classification} AS VARCHAR(MAX)), ',')
           WITHIN GROUP ( ORDER BY ${event_classification} ) from ${event_classification_month_stats_dt.SQL_TABLE_NAME}
-          where ${alert_limit}<${category_monthly_deviation_count}
+          where {% condition dim_site.site_name %} ${site_name} {% endcondition %} and {% condition dim_bus_sec.bus_sec_name %} ${bus_sec_name} {% endcondition %} and ${alert_limit}<${category_monthly_deviation_count}
      and cast(${date_created_quarter} as varchar) = cast(concat(datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)),'-0',  case datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END) as varchar)
           );;
   }
@@ -120,7 +120,7 @@ view: event_classification_month_stats_dt {
     }
     link: {
       label: "This Quarter: View Deviation Detailed Analysis Dashboard"
-      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_for_link_alert_limit_by_quarter._value }}"
+      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_for_link_alert_limit_by_quarter._value }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] }}&Timezone={{ _filters['fact_deviations.timezone_selection'] }}&Site={{ _filters['dim_site.site_name'] }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] }}"
       icon_url: "http://www.looker.com/favicon.ico"
     }
     drill_fields: [fact_deviations.date_created_month, dim_event_classification.event_classification, alert_limit, percent_alert_limit_reached, fact_deviations.count]
