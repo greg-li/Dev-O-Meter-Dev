@@ -23,7 +23,7 @@ view: safety_union {
 #     drill_fields: [detail*]
   }
 
-  measure: count_incidents {
+  measure: count_incidents_non_osha {
     label: "Number of Non-OSHA Incidents"
     filters: {
       field: incident_or_nearmiss
@@ -50,6 +50,15 @@ view: safety_union {
     filters: {
       field: incident_or_nearmiss
       value: "nearmiss"
+    }
+    type: count
+  }
+
+  measure: count_incidents {
+    label: "Number of Incidents"
+    filters: {
+      field: incident_or_nearmiss
+      value: "incident"
     }
     type: count
   }
@@ -146,7 +155,7 @@ dimension: is_osha_recordable  {
 
   dimension_group: closure_date {
     label: "Closure"
-    timeframes: [date,week,month_name,year]
+    timeframes: [date,week,month_name,month,year]
     type: time
     sql: ${TABLE}.closuredate ;;
   }
@@ -158,7 +167,7 @@ dimension: is_osha_recordable  {
 
   dimension_group: incident_date {
     label: "Incident"
-    timeframes: [date,week,month_name,year]
+    timeframes: [date,week,month_name, month,year]
     type: time
     sql: ${TABLE}.incidentdate ;;
   }
@@ -197,6 +206,16 @@ dimension: is_osha_recordable  {
   dimension: incident_or_nearmiss {
     type: string
     sql: ${TABLE}.incident_or_nearmiss ;;
+  }
+
+  measure: last_incident_date {
+    type: date
+    sql: max(case when ${incident_or_nearmiss} = 'incident' then ${date_of_incidentreport_date} else null end) ;;
+  }
+
+  measure: days_since_last_incident {
+    type: number
+    sql: datediff(day,  ${last_incident_date},  GETDATE()) ;;
   }
 
 

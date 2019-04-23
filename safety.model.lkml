@@ -27,4 +27,8 @@ explore: safety_union {
     relationship: many_to_one
     sql_on: ${safety_union.asset_of_event} = ${asset_mapping_excel.safety};;
   }
+  join: last_incident {
+    relationship: one_to_one
+    sql_on: ${last_incident.id} = ${safety_union.id} ;;
+  }
 }
