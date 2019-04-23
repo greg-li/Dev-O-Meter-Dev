@@ -198,7 +198,8 @@ dimension: deviation_age_days{
       month,
       month_name,
       quarter,
-      year
+      year,
+      day_of_week
     ]
     convert_tz: no
     datatype: date

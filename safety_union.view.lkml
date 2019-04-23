@@ -2,11 +2,14 @@ view: safety_union {
   derived_table: {
     sql: select id as incidentid, null as nearmissid, incidentcause, assetofevent, createdby, createdbyid, affectedbodypart, building, correctiveaction, created, dateofincidentreport, generalarea, closuredate, employeeid, incidentdate, incidentdescription, LOB, natureofincident, responsiblesupervisor, status, typeofincident, 'incident' as incident_or_nearmiss
       from dataLake.eSafety_Sharepoint_eIncident_List
+      where loadid = (select max(loadid) from dataLake.eSafety_Sharepoint_eIncident_List)
 
       union all
 
       select null as incidentid, id as nearmissid, RootCause as incidentcause, assetofevent, createdby, createdbyid, null as affectedbodypart, building, CorrectiveActionsCompleted as correctiveaction, created, null as dateofincidentreport, generalarea, DateCompleted as closuredate, cast(submitterID as nvarchar) as employeeid, DateAndTimeOfNearMiss as incidentdate, NearMissSafetyObservation as incidentdescription, SubmitterLOB as LOB, null as natureofincident,   ResponsibleParty as responsiblesupervisor, null as status, hazardtype as typeofincident, 'nearmiss' as incident_or_nearmiss
       from dataLake.eSafety_Sharepoint_eSafety_List
+      where loadid = (select max(loadid) from dataLake.eSafety_Sharepoint_eSafety_List)
+
        ;;
 
       persist_for: "24 hours"
@@ -21,10 +24,14 @@ view: safety_union {
   }
 
   measure: count_incidents {
-    label: "Number of All Incidents"
+    label: "Number of Non-OSHA Incidents"
     filters: {
       field: incident_or_nearmiss
       value: "incident"
+    }
+    filters: {
+      field: is_osha_recordable
+      value: "no"
     }
     type: count
   }
@@ -47,8 +54,13 @@ view: safety_union {
     type: count
   }
 
+#   measure: safety_goal {
+#     sql: 1 ;;
+#     type: average
+#   }
+
   dimension: id {
-    hidden: yes
+    hidden: no
     primary_key: yes
     type: number
     sql: concat(cast(${incident_id} as nvarchar),cast(${nearmiss_id} as nvarchar)) ;;
@@ -100,6 +112,13 @@ dimension: is_osha_recordable  {
   dimension: building {
     type: string
     sql: ${TABLE}.building ;;
+  }
+
+  dimension: building_abbreviated {
+    type: string
+    sql: case when lower(${building}) like '%international%'
+          then left(${building},4)
+        else ${building} end ;;
   }
 
   dimension: corrective_action {
@@ -179,6 +198,8 @@ dimension: is_osha_recordable  {
     type: string
     sql: ${TABLE}.incident_or_nearmiss ;;
   }
+
+
 
 #   set: detail {
 #     fields: [
