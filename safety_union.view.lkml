@@ -10,11 +10,41 @@ view: safety_union {
        ;;
 
       persist_for: "24 hours"
+
+      indexes: ["incidentid","nearmissid"]
   }
 
   measure: count {
+    label: "Number of Incidents and Near Misses"
     type: count
-    drill_fields: [detail*]
+#     drill_fields: [detail*]
+  }
+
+  measure: count_incidents {
+    label: "Number of All Incidents"
+    filters: {
+      field: incident_or_nearmiss
+      value: "incident"
+    }
+    type: count
+  }
+
+  measure: count_of_osha {
+    label: "Number of OSHA Recordables"
+    filters: {
+      field: is_osha_recordable
+      value: "yes"
+    }
+    type: count
+  }
+
+  measure: count_nearmiss {
+    label: "Number of Near Misses"
+    filters: {
+      field: incident_or_nearmiss
+      value: "nearmiss"
+    }
+    type: count
   }
 
   dimension: id {
@@ -24,37 +54,45 @@ view: safety_union {
     sql: concat(cast(${incident_id} as nvarchar),cast(${nearmiss_id} as nvarchar)) ;;
   }
 
-   dimension: incident_id {
+  dimension: incident_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.incidentid ;;
   }
 
   dimension: nearmiss_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.nearmissid ;;
   }
 
-  dimension: incidentcause {
+dimension: is_osha_recordable  {
+  type:  yesno
+  sql: lower(${type_of_incident}) like '%osha%' ;;
+
+}
+
+  dimension: incident_cause {
     type: string
     sql: ${TABLE}.incidentcause ;;
   }
 
-  dimension: assetofevent {
+  dimension: asset_of_event {
     type: string
     sql: ${TABLE}.assetofevent ;;
   }
 
-  dimension: createdby {
+  dimension: created_by {
     type: string
     sql: ${TABLE}.createdby ;;
   }
 
-  dimension: createdbyid {
+  dimension: created_by_id {
     type: number
     sql: ${TABLE}.createdbyid ;;
   }
 
-  dimension: affectedbodypart {
+  dimension: affected_bodypart {
     type: string
     sql: ${TABLE}.affectedbodypart ;;
   }
@@ -64,57 +102,65 @@ view: safety_union {
     sql: ${TABLE}.building ;;
   }
 
-  dimension: correctiveaction {
+  dimension: corrective_action {
     type: string
     sql: ${TABLE}.correctiveaction ;;
   }
 
   dimension_group: created {
     type: time
+    timeframes: [date,week,month_name,year]
     sql: ${TABLE}.created ;;
   }
 
-  dimension_group: dateofincidentreport {
+  dimension_group: date_of_incidentreport {
+    label: "Inicident Report"
     type: time
+    timeframes: [date,week,month_name,year]
     sql: ${TABLE}.dateofincidentreport ;;
   }
 
-  dimension: generalarea {
+  dimension: general_area {
     type: string
     sql: ${TABLE}.generalarea ;;
   }
 
-  dimension_group: closuredate {
+  dimension_group: closure_date {
+    label: "Closure"
+    timeframes: [date,week,month_name,year]
     type: time
     sql: ${TABLE}.closuredate ;;
   }
 
-  dimension: employeeid {
+  dimension: employee_id {
     type: string
     sql: ${TABLE}.employeeid ;;
   }
 
-  dimension_group: incidentdate {
+  dimension_group: incident_date {
+    label: "Incident"
+    timeframes: [date,week,month_name,year]
     type: time
     sql: ${TABLE}.incidentdate ;;
   }
 
-  dimension: incidentdescription {
+  dimension: incident_description {
     type: string
     sql: ${TABLE}.incidentdescription ;;
   }
 
   dimension: lob {
+    label: "Line of Business"
     type: string
     sql: ${TABLE}.LOB ;;
   }
 
-  dimension: natureofincident {
+  dimension: nature_of_incident {
     type: string
     sql: ${TABLE}.natureofincident ;;
   }
 
-  dimension: responsiblesupervisor {
+  dimension: responsible_supervisor {
     type: string
     sql: ${TABLE}.responsiblesupervisor ;;
   }
@@ -124,7 +170,7 @@ view: safety_union {
     sql: ${TABLE}.status ;;
   }
 
-  dimension: typeofincident {
+  dimension: type_of_incident {
     type: string
     sql: ${TABLE}.typeofincident ;;
   }
@@ -134,29 +180,29 @@ view: safety_union {
     sql: ${TABLE}.incident_or_nearmiss ;;
   }
 
-  set: detail {
-    fields: [
-      id,
-      incidentcause,
-      assetofevent,
-      createdby,
-      createdbyid,
-      affectedbodypart,
-      building,
-      correctiveaction,
-      created_time,
-      dateofincidentreport_time,
-      generalarea,
-      closuredate_time,
-      employeeid,
-      incidentdate_time,
-      incidentdescription,
-      lob,
-      natureofincident,
-      responsiblesupervisor,
-      status,
-      typeofincident,
-      incident_or_nearmiss
-    ]
-  }
+#   set: detail {
+#     fields: [
+#       id,
+#       incidentcause,
+#       assetofevent,
+#       createdby,
+#       createdbyid,
+#       affectedbodypart,
+#       building,
+#       correctiveaction,
+#       created_time,
+#       dateofincidentreport_time,
+#       generalarea,
+#       closuredate_time,
+#       employeeid,
+#       incidentdate_time,
+#       incidentdescription,
+#       lob,
+#       natureofincident,
+#       responsiblesupervisor,
+#       status,
+#       typeofincident,
+#       incident_or_nearmiss
+#     ]
+#   }
 }

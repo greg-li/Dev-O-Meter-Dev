@@ -4,6 +4,7 @@ view: asset_mapping_excel {
     sql: SELECT * FROM dataLake.AssetMapping_Excel
       where loadid = (select max(loadid) from dataLake.AssetMapping_Excel) ;;
     persist_for: "24 hours"
+    indexes: ["loadid","master","loaddate"]
   }
 
   dimension: primary_key {
