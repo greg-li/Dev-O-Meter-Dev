@@ -41,7 +41,8 @@ view: event_classification_quarter_stats_dt {
     type: string
     sql: (SELECT STRING_AGG(CAST(${event_classification_greg_test} AS VARCHAR(MAX)), ',')
     WITHIN GROUP ( ORDER BY ${event_classification_greg_test} ) from ${event_classification_quarter_stats_dt.SQL_TABLE_NAME}
-    where ${count_alert_limit_exceeded}>=2 and ${date_created_quarter} = concat(case datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) when 4 then datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2))-1 else datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) END ,'-0',  case   (case datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) when 1 then 4 when 2 then 1 when 3 then 2 when 4 then 3 END) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END));;
+    where ${count_alert_limit_exceeded}>=2 and ${date_created_quarter} = concat(case datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) when 4 then datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2))-1 else datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) END ,'-0',  case   (case datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)) when 1 then 4 when 2 then 1 when 3 then 2 when 4 then 3 END) when 1 then 1 when 2 then 4 when 3 then 7 when 4 then 10 END))
+    ;;
 
     ## concat(datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)),'-0',  datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2))) need to cut over to this logic to get current quarterx
 #     link: {
@@ -93,12 +94,12 @@ view: event_classification_quarter_stats_dt {
     }
     link: {
       label: "Last Quarter: View Deviation Detailed Analysis Dashboard"
-      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_last_quarter._value }}"
+      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_last_quarter._value }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] }}&Timezone={{ _filters['fact_deviations.timezone_selection'] }}&Site={{ _filters['dim_site.site_name'] }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] }}"
       icon_url: "http://www.looker.com/favicon.ico"
     }
     link: {
       label: "This Quarter: View Deviation Detailed Analysis Dashboard"
-      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_current_quarter._value }}"
+      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_current_quarter._value }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] }}&Timezone={{ _filters['fact_deviations.timezone_selection'] }}&Site={{ _filters['dim_site.site_name'] }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] }}"
       icon_url: "http://www.looker.com/favicon.ico"
     }
     drill_fields: [detail*]

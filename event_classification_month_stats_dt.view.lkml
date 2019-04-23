@@ -120,7 +120,7 @@ view: event_classification_month_stats_dt {
     }
     link: {
       label: "This Quarter: View Deviation Detailed Analysis Dashboard"
-      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_for_link_alert_limit_by_quarter._value }}"
+      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_for_link_alert_limit_by_quarter._value }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] }}&Timezone={{ _filters['fact_deviations.timezone_selection'] }}&Site={{ _filters['dim_site.site_name'] }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] }}"
       icon_url: "http://www.looker.com/favicon.ico"
     }
     drill_fields: [fact_deviations.date_created_month, dim_event_classification.event_classification, alert_limit, percent_alert_limit_reached, fact_deviations.count]
