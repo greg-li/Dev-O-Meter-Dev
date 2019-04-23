@@ -1,4 +1,3 @@
-connection: "edm"
 
 include: "*.view.lkml"                       # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
@@ -20,11 +19,12 @@ include: "*.view.lkml"                       # include all views in this project
 
 week_start_day: monday
 
-explore: e_safety_sharepoint_e_incident_list {
+explore: safety_union {
   label: "Safety Incidents"
-  view_label: "Incidents"
+  view_label: "Incidents and Near Misses"
   join: asset_mapping_excel {
+    view_label: "Asset/Function Filters"
     relationship: many_to_one
-    sql_on: ${e_safety_sharepoint_e_incident_list.asset_of_event} = ${asset_mapping_excel.safety};;
+    sql_on: ${safety_union.asset_of_event} = ${asset_mapping_excel.safety};;
   }
 }
