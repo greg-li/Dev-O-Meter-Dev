@@ -34,6 +34,7 @@ view: safety_union {
       value: "no"
     }
     type: count
+    drill_fields: [incident_date_date,employee_id,type_of_incident,status]
   }
 
   measure: count_of_osha {

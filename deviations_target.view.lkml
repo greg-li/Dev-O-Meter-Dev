@@ -3,8 +3,8 @@ view: deviations_target {
     sql: -- use existing asset_mapping_excel in looker_scratch.LR$MZCRVN2H2O06MKVJTN1EC_asset_mapping_excel
 
       SELECT
-        asset_mapping_excel.Master  AS "asset_mapping_excel.master",
-        YEAR(cast(fact_deviations.DATE_CREATED AT TIME ZONE 'UTC' AT TIME ZONE 'Eastern Standard Time' as datetime2)) AS "fact_deviations.date_created_year",
+        asset_mapping_excel.Master  AS "master",
+        YEAR(cast(fact_deviations.DATE_CREATED AT TIME ZONE 'UTC' AT TIME ZONE 'Eastern Standard Time' as datetime2)) AS "date_created_year",
         ((COUNT(DISTINCT fact_deviations.PARENT_RECORD_ID ))*.8)/52 AS "deviation target"
       FROM ${fact_deviations.SQL_TABLE_NAME} as fact_deviations
       LEFT JOIN dbo.DIM_DEVIATION_TYPE  AS dim_deviation_type ON fact_deviations.DEVIATION_KEY = dim_deviation_type.DEVIATION_KEY
@@ -17,6 +17,7 @@ view: deviations_target {
        ;;
 
       persist_for: "4000 hours"
+      indexes: ["master","date_created_year"]
   }
 
   measure: count {
@@ -25,18 +26,22 @@ view: deviations_target {
     drill_fields: [detail*]
   }
 
+  dimension: primary_key {
+    hidden: yes
+    primary_key: yes
+    sql: concat(${asset_mapping_excel_master},${fact_deviations_date_created_year}) ;;
+  }
+
   dimension: asset_mapping_excel_master {
     label: "Master Asset"
-    hidden: yes
     type: string
-    sql: ${TABLE}."asset_mapping_excel.master" ;;
+    sql: ${TABLE}."master" ;;
   }
 
   dimension: fact_deviations_date_created_year {
     label: "Prior Year"
-    hidden: yes
     type: number
-    sql: ${TABLE}."fact_deviations.date_created_year" ;;
+    sql: ${TABLE}."date_created_year" ;;
   }
 
   dimension: deviation_target {
@@ -45,9 +50,19 @@ view: deviations_target {
     sql: ${TABLE}."deviation target" ;;
   }
 
-  measure: total_deviation_target {
+  dimension: yearly_deviation_target {
+    type: number
+    sql: ${deviation_target}*52 ;;
+  }
+
+  measure: weekly_target_deviations {
     type: sum
     sql: ${deviation_target};;
+  }
+
+  measure: yearly_target_deviations {
+    type: average
+    sql: ${yearly_deviation_target};;
   }
 
   set: detail {
