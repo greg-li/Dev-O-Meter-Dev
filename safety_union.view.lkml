@@ -21,10 +21,19 @@ view: safety_union {
   }
 
   measure: count_incidents {
-    label: "Number of Incidents"
+    label: "Number of All Incidents"
     filters: {
       field: incident_or_nearmiss
       value: "incident"
+    }
+    type: count
+  }
+
+  measure: count_of_osha {
+    label: "Number of OSHA Recordables"
+    filters: {
+      field: is_osha_recordable
+      value: "yes"
     }
     type: count
   }
@@ -56,6 +65,12 @@ view: safety_union {
     type: number
     sql: ${TABLE}.nearmissid ;;
   }
+
+dimension: is_osha_recordable  {
+  type:  yesno
+  sql: lower(${type_of_incident}) like '%osha%' ;;
+
+}
 
   dimension: incident_cause {
     type: string
