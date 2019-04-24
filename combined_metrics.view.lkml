@@ -38,7 +38,6 @@ view: combined_metrics {
         , OpenReqsActual
         , OpenReqsTarget
         , WeekEndingDate
-    , LoadDate
       from dataLake.SLTWeeklyDataEntry_Excel_PPL
     where LoadID = (
     select max(loadID) from dataLake.SLTWeeklyDataEntry_Excel_PPL
@@ -54,10 +53,10 @@ view: combined_metrics {
         , OpenReqsActual
         , OpenReqsTarget
         , WeekEndingDate
-    , LoadDate
       from datalake.SLTWeeklyDataEntry_Excel_QC
     where LoadID = (
     select max(loadID) from dataLake.SLTWeeklyDataEntry_Excel_QC
+    )
     )
        ;;
   }
