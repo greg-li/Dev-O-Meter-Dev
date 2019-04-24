@@ -1,5 +1,29 @@
 view: sltweekly_data_entry_excel_ppl {
-  sql_table_name: dataLake.SLTWeeklyDataEntry_Excel_PPL ;;
+  derived_table: {
+    sql: SELECT [WeekEndingDate]
+      ,[AssetFunction]
+      ,[ReceiptNumberActual]
+      ,[ReceiptNumberTarget]
+      ,[OTIFActual]
+      ,[OTIFTarget]
+      ,[RightFirstTimeActual]
+      ,[RightFirstTimeTarget]
+      ,[SamplingQueueActual]
+      ,[SamplingQueueTarget]
+      ,[ResamplingActual]
+      ,[ResamplingTarget]
+      ,[StockOutsActual]
+      ,[StockOutsTarget]
+      ,[OpenReqsActual]
+      ,[OpenReqsTarget]
+      ,[ActiveFTEActual]
+      ,[ActiveFTETarget]
+      ,[Commentary]
+  FROM [dataLake].[SLTWeeklyDataEntry_Excel_PPL]
+  WHERE LoadID = (
+  select max(LoadID) maxLoadID from dataLake.SLTWeeklyDataEntry_Excel_PPL
+  ) ;;
+  }
 
   dimension: active_fteactual {
     label: "Active FTE Actual"

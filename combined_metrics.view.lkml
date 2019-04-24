@@ -106,7 +106,9 @@ view: combined_metrics {
 
   dimension: commentary {
     type: string
+    html: <font size="10">{{ value }}</font> ;;
     sql: ${TABLE}.Commentary ;;
+
   }
 
   dimension_group: week_ending_date {
