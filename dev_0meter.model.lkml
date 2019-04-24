@@ -1,6 +1,6 @@
 #test line
 
-connection: "edm"
+#connection: "edm"
 
 # include all the views
 include: "*.view"

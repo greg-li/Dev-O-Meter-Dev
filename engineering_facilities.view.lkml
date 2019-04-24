@@ -45,7 +45,7 @@ view: engineering_facilities {
   where p.loadid = (select max(loadid) from [EDM].[dataLake].[PMOP_txt_EngAndFacilities])
  ;;
 
- #persist_for: "24 hours"
+ persist_for: "24 hours"
   indexes: ["orderno"]
   }
 
