@@ -11,7 +11,17 @@ view: engineering_facilities {
     ,null as Equipment
       ,r.[Priority]
     ,r.[CreatedOn]
-    ,null as PlanDate
+      ,case when r.Priority = 1
+    then dateadd(d,1,r.createdon)
+    when r.Priority=2
+    then dateadd(d,2,r.createdon)
+    when r.Priority=3
+    then dateadd(d,10,r.createdon)
+    when r.Priority=4
+    then dateadd(d,30,r.createdon)
+    when r.Priority=5
+    then dateadd(d,180,r.createdon)
+    end as PlanDate
     ,null as LateDate
     ,'Engineering/Faciitites' as Function_Mapping
     ,r.[LoadID]
