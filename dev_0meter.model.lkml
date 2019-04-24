@@ -7,6 +7,8 @@ include: "*.view"
 
 include: "*.dashboard.lookml"
 
+week_start_day: monday
+
 explore: fact_deviations {
   label: "Deviations"
   view_label: " Deviations"
