@@ -39,6 +39,7 @@ view: safety_union {
 
   measure: count_of_osha {
     label: "Number of OSHA Recordables"
+    html: <p style="color: red; font-size: 30px"> {{ value }} </p> ;;
     filters: {
       field: is_osha_recordable
       value: "yes"
@@ -57,6 +58,7 @@ view: safety_union {
 
   measure: count_incidents {
     label: "Number of Incidents"
+    html: <p style="font-size: 30px"> {{ value }} </p> ;;
     filters: {
       field: incident_or_nearmiss
       value: "incident"
