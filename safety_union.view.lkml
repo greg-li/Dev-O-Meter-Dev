@@ -34,7 +34,7 @@ view: safety_union {
       value: "no"
     }
     type: count
-    drill_fields: [incident_date_date,employee_id,type_of_incident,status]
+    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
   }
 
   measure: count_of_osha {
@@ -45,6 +45,7 @@ view: safety_union {
       value: "yes"
     }
     type: count
+    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
   }
 
   measure: count_nearmiss {
@@ -64,6 +65,11 @@ view: safety_union {
       value: "incident"
     }
     type: count
+    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
+    link: {
+      label: "Drill Dashboard"
+      url: "/dashboards/34?Asset - Function={{ value }} | url_encode }}"
+    }
   }
 
 #   measure: safety_goal {
@@ -82,6 +88,10 @@ view: safety_union {
     hidden: yes
     type: number
     sql: ${TABLE}.incidentid ;;
+    link: {
+      label: "Drill Dashboard"
+      url: "/dashboards/34?Asset-Function Filter={{ _filters['asset_mapping_excel.Master'] | url_encode }}"
+      }
   }
 
   dimension: nearmiss_id {
@@ -104,6 +114,7 @@ dimension: is_osha_recordable  {
   dimension: asset_of_event {
     type: string
     sql: ${TABLE}.assetofevent ;;
+    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
   }
 
   dimension: created_by {
@@ -131,6 +142,7 @@ dimension: is_osha_recordable  {
     sql: case when lower(${building}) like '%international%'
           then left(${building},4)
         else ${building} end ;;
+    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
   }
 
   dimension: corrective_action {
@@ -214,6 +226,7 @@ dimension: is_osha_recordable  {
   measure: last_incident_date {
     type: date
     sql: max(case when ${incident_or_nearmiss} = 'incident' then ${date_of_incidentreport_date} else null end) ;;
+    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
   }
 
   measure: days_since_last_incident {

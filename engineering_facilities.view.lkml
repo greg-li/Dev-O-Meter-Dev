@@ -11,8 +11,28 @@ view: engineering_facilities {
     ,null as Equipment
       ,r.[Priority]
     ,r.[CreatedOn]
-    ,null as PlanDate
-    ,null as LateDate
+    ,case when r.Priority = 1
+    then dateadd(d,1,r.createdon)
+    when r.Priority=2
+    then dateadd(d,2,r.createdon)
+    when r.Priority=3
+    then dateadd(d,10,r.createdon)
+    when r.Priority=4
+    then dateadd(d,30,r.createdon)
+    when r.Priority=5
+    then dateadd(d,180,r.createdon)
+    end as PlanDate
+    ,case when r.Priority = 1
+    then dateadd(d,1,r.createdon)
+    when r.Priority=2
+    then dateadd(d,2,r.createdon)
+    when r.Priority=3
+    then dateadd(d,10,r.createdon)
+    when r.Priority=4
+    then dateadd(d,30,r.createdon)
+    when r.Priority=5
+    then dateadd(d,180,r.createdon)
+    end as LateDate
     ,'Engineering/Faciitites' as Function_Mapping
     ,r.[LoadID]
     ,r.[LoadDate]
@@ -45,7 +65,7 @@ view: engineering_facilities {
   where p.loadid = (select max(loadid) from [EDM].[dataLake].[PMOP_txt_EngAndFacilities])
  ;;
 
- #persist_for: "24 hours"
+ persist_for: "24 hours"
   indexes: ["orderno"]
   }
 
