@@ -17,6 +17,8 @@ include: "*.view.lkml"                       # include all views in this project
 #   }
 # }
 
+week_start_day: monday
+
 explore: combined_metrics {
   join: asset_mapping_excel {
     relationship: many_to_one
