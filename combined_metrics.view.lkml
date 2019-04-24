@@ -151,5 +151,12 @@ view: combined_metrics {
     sql: ${open_reqs_target} ;;
   }
 
+  measure: target_delivery {
+    type: sum
+    sql: Case When (${ytdrelease_target}-${ytdrelease_actual})<0
+         then 0
+         else ${ytdrelease_target}-${ytdrelease_actual} end;;
+  }
+
 
 }
