@@ -1,61 +1,61 @@
 view: engineering_facilities {
   derived_table: {
     sql:
-    with orders as
-(SELECT [OrderNo]
-      ,[OrderType]
-      ,[MaintActivType]
-      ,[Description]
-      ,[MaintenancePlan]
-      ,[MainWorkCenter]
-      ,[FunctionalLocation]
+  SELECT r.[OrderNo]
+      ,r.[OrderType]
+      ,r.[MaintActivType]
+      ,r.[Description]
+      ,r.[MaintenancePlan]
+      ,r.[MainWorkCenter]
+      ,r.[FunctionalLocation]
     ,null as Equipment
-      ,[Priority]
-    ,[CreatedOn]
-    ,null as Release
+      ,r.[Priority]
+    ,r.[CreatedOn]
     ,null as PlanDate
     ,null as LateDate
     ,'Engineering/Faciitites' as Function_Mapping
-    ,[LoadID]
-    ,[LoadDate]
-  FROM [EDM].[dataLake].[RequestedWork_Excel_EngAndFacilities]
-  where loadid = (select max(loadid) from [EDM].[dataLake].[RequestedWork_Excel_EngAndFacilities])
+    ,r.[LoadID]
+    ,r.[LoadDate]
+  ,t.TechCompletion
+  FROM [EDM].[dataLake].[RequestedWork_Excel_EngAndFacilities] r
+  LEFT JOIN edm.datalake.TECO_Excel_EngAndFacilities t
+  on r.orderno = t.orderno
+  where r.loadid = (select max(loadid) from [EDM].[dataLake].[RequestedWork_Excel_EngAndFacilities])
   union all
   SELECT
-       [OrderNo]
-    ,[Type] as OrderType
+     p.[OrderNo]
+    ,p.[Type] as OrderType
     ,null as MaintActivType
-      ,[Description]
-    ,[MaintenancePlan]
-    ,[MainWorkCenter]
-    ,[FunctionalLocation]
-      ,[Equipment]
+    ,p.[Description]
+    ,p.[MaintenancePlan]
+    ,p.[MainWorkCenter]
+    ,p.[FunctionalLocation]
+    ,p.[Equipment]
     ,null as Priority
-    ,null as CreatedOn
-      ,[Release]
-      ,[PlanDate]
-      ,[LateDate]
+    ,p.[Release] as CreatedOn
+    ,p.[PlanDate]
+    ,p.[LateDate]
     ,'Engineering/Faciitites' as Function_Mapping
-    ,[LoadID]
-    ,[LoadDate]
-  FROM [EDM].[dataLake].[PMOP_txt_EngAndFacilities]
-    where loadid = (select max(loadid) from [EDM].[dataLake].[PMOP_txt_EngAndFacilities])
-  )
-
-  select
-  orders.*
-  ,t.TechCompletion
-  from  orders
-  left join [EDM].[dataLake].TECO_Excel_EngAndFacilities t
-  on orders.OrderNo = t.OrderNo
-
-
+    ,p.[LoadID]
+    ,p.[LoadDate]
+    ,t.TechCompletion
+  FROM [EDM].[dataLake].[PMOP_txt_EngAndFacilities] p
+  LEFT JOIN edm.datalake.TECO_Excel_EngAndFacilities t
+  on p.orderno = t.orderno
+  where p.loadid = (select max(loadid) from [EDM].[dataLake].[PMOP_txt_EngAndFacilities])
  ;;
+
+ #persist_for: "24 hours"
+  indexes: ["orderno"]
   }
 
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: count_of_wo {
+    type: count_distinct
   }
 
   measure: count_PMOP {
@@ -102,20 +102,6 @@ view: engineering_facilities {
       }
       type: count
       }
-
-  measure: PM_Percentage {
-    label: "Pct of PMOP Over Total"
-    type: number
-    value_format_name: percent_2
-    sql: ${count_PMOP}/ NULLIF(${count},0) ;;
-  }
-
-  measure: BDOP_Percentage {
-    label: "Pct of BDOP Over Total"
-    type: number
-    value_format_name: percent_2
-    sql: ${count_BDOP}/ NULLIF(${count},0) ;;
-  }
 
   dimension:  TechCompletion {
     type: date
@@ -177,11 +163,6 @@ view: engineering_facilities {
     sql: ${TABLE}.CreatedOn ;;
   }
 
-  dimension_group: release {
-    type: time
-    sql: ${TABLE}.Release ;;
-  }
-
   dimension_group: plan_date {
     type: time
     sql: ${TABLE}.PlanDate ;;
@@ -203,8 +184,7 @@ view: engineering_facilities {
       functional_location,
       equipment,
       priority,
-      created_on_time,
-      release_time,
+      created_on_date,
       plan_date_time,
       late_date_time,
       Function_Mapping
