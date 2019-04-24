@@ -9,9 +9,9 @@ view: combined_metrics {
         , OpenReqsTarget
         , WeekEndingDate
       from dataLake.SLTWeeklyDataEntry_Excel_Mfg
-    where LoadID = (
-    select max(loadID) from dataLake.SLTWeeklyDataEntry_Excel_Mfg
-    )
+      where LoadID = (
+      select max(loadID) from dataLake.SLTWeeklyDataEntry_Excel_Mfg
+      )
 
       union all
 
@@ -24,9 +24,9 @@ view: combined_metrics {
         , OpenReqsTarget
         , WeekEndingDate
       from datalake.SLTWeeklyDataEntry_Excel_MSAT
-    where LoadID = (
-    select max(loadID) from dataLake.SLTWeeklyDataEntry_Excel_MSAT
-    )
+      where LoadID = (
+      select max(loadID) from dataLake.SLTWeeklyDataEntry_Excel_MSAT
+      )
 
       union all
 
@@ -39,9 +39,9 @@ view: combined_metrics {
         , OpenReqsTarget
         , WeekEndingDate
       from dataLake.SLTWeeklyDataEntry_Excel_PPL
-    where LoadID = (
-    select max(loadID) from dataLake.SLTWeeklyDataEntry_Excel_PPL
-    )
+      where LoadID = (
+      select max(loadID) from dataLake.SLTWeeklyDataEntry_Excel_PPL
+      )
 
       union all
 
@@ -54,10 +54,9 @@ view: combined_metrics {
         , OpenReqsTarget
         , WeekEndingDate
       from datalake.SLTWeeklyDataEntry_Excel_QC
-    where LoadID = (
-    select max(loadID) from dataLake.SLTWeeklyDataEntry_Excel_QC
-    )
-    )
+      where LoadID = (
+      select max(loadID) from dataLake.SLTWeeklyDataEntry_Excel_QC
+      )
        ;;
   }
 
