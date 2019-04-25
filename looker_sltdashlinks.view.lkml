@@ -24,16 +24,31 @@ view: looker_sltdashlinks {
   dimension: asset_function {
     type: string
     sql: ${TABLE}.AssetFunction ;;
+    link: {
+      label: "Next Dashboard"
+      url: "{{${TABLE}.next_page_url._value}}"
+      icon_url: "https://www.freeiconspng.com/uploads/white-arrow-transparent-png-27.png"
+    }
   }
 
   dimension: next_page {
     type: string
     sql: ${TABLE}.NextPage ;;
+    link: {
+      label: "Next Dashboard"
+      url: "{{${TABLE}.next_page_url._value}}"
+      icon_url: "https://www.freeiconspng.com/uploads/white-arrow-transparent-png-27.png"
+    }
   }
 
   dimension: next_page_url {
     type: string
     sql: ${TABLE}.NextPageURL ;;
+    link: {
+      label: "Next Dashboard"
+      url: "{{${TABLE}.next_page_url._value}}"
+      icon_url: "https://www.freeiconspng.com/uploads/white-arrow-transparent-png-27.png"
+    }
   }
 
   set: detail {
