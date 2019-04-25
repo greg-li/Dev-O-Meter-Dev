@@ -101,12 +101,12 @@ view: event_classification_year_stats_dt {
     drill_fields: [fact_deviations.date_created_year, event_classification, action_limit, percent_action_limit_reached, fact_deviations.count]
     link: {
       label: "Current Year: View Deviation Detailed Analysis Dashboard"
-      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_for_link_action_limit_this_year._value }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] }}&Timezone={{ _filters['fact_deviations.timezone_selection'] }}&Site={{ _filters['dim_site.site_name'] }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] }}"
+      url: "/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_for_link_action_limit_this_year._value }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] }}&Timezone={{ _filters['fact_deviations.timezone_selection'] }}&Site={{ _filters['dim_site.site_name'] }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] }}"
       icon_url: "http://www.looker.com/favicon.ico"
     }
 #      link: {
 #        label: "This Quarter: View Deviation Detailed Analysis Dashboard"
-#        url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_for_link_action_limit_by_quarter._value }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] }}&Timezone={{ _filters['fact_deviations.timezone_selection'] }}&Site={{ _filters['dim_site.site_name'] }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] }}"
+#        url: "/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_for_link_action_limit_by_quarter._value }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] }}&Timezone={{ _filters['fact_deviations.timezone_selection'] }}&Site={{ _filters['dim_site.site_name'] }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] }}"
 #        icon_url: "http://www.looker.com/favicon.ico"
 #      }
   }

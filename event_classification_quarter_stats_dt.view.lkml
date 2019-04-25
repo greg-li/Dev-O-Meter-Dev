@@ -47,7 +47,7 @@ view: event_classification_quarter_stats_dt {
     ## concat(datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)),'-0',  datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2))) need to cut over to this logic to get current quarterx
 #     link: {
 #       label: "Pass Categories to Dashboard 25"
-#       url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}"
+#       url: "/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}"
 #       icon_url: "http://www.looker.com/favicon.ico"
 #     }
   }
@@ -62,7 +62,7 @@ view: event_classification_quarter_stats_dt {
           ## concat(datepart(year,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2)),'-0',  datepart(q,cast(getdate() AT TIME ZONE 'UTC' AT TIME ZONE {% parameter fact_deviations.timezone_selection %} as datetime2))) need to cut over to this logic to get current quarterx
       #     link: {
       #       label: "Pass Categories to Dashboard 25"
-      #       url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}"
+      #       url: "/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}"
       #       icon_url: "http://www.looker.com/favicon.ico"
       #     }
     }
@@ -94,12 +94,12 @@ view: event_classification_quarter_stats_dt {
     }
     link: {
       label: "Last Quarter: View Deviation Detailed Analysis Dashboard"
-      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_last_quarter._value }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] }}&Timezone={{ _filters['fact_deviations.timezone_selection'] }}&Site={{ _filters['dim_site.site_name'] }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] }}"
+      url: "/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_last_quarter._value }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] }}&Timezone={{ _filters['fact_deviations.timezone_selection'] }}&Site={{ _filters['dim_site.site_name'] }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] }}"
       icon_url: "http://www.looker.com/favicon.ico"
     }
     link: {
       label: "This Quarter: View Deviation Detailed Analysis Dashboard"
-      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_current_quarter._value }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] }}&Timezone={{ _filters['fact_deviations.timezone_selection'] }}&Site={{ _filters['dim_site.site_name'] }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] }}"
+      url: "/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ list_of_categories_current_quarter._value }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] }}&Timezone={{ _filters['fact_deviations.timezone_selection'] }}&Site={{ _filters['dim_site.site_name'] }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] }}"
       icon_url: "http://www.looker.com/favicon.ico"
     }
     drill_fields: [detail*]
