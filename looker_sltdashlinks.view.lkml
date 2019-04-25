@@ -1,4 +1,4 @@
-view: looker_sltdashboardlinks {
+view: looker_sltdashlinks {
   derived_table: {
     sql: select * from looker_sltdashboardlinks
       ;;

@@ -16,7 +16,7 @@ include: "*.view.lkml"                       # include all views in this project
 #   }
 # }
 
-explore: looker_sltdashboardlinks {
+explore: looker_sltdashlinks {
   join: asset_mapping_excel {
   relationship: one_to_one
   sql_on:  ${asset_mapping_excel.master}=${looker_sltdashlinks.asset_function} ;;
