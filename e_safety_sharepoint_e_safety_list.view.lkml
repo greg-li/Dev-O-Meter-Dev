@@ -1,5 +1,9 @@
 view: e_safety_sharepoint_e_safety_list {
-  sql_table_name: dataLake.eSafety_Sharepoint_eSafety_List ;;
+  derived_table: {
+    sql: SELECT * FROM dataLake.eSafety_Sharepoint_eSafety_List
+      where loadid = (select max(loadid) from dataLake.eSafety_Sharepoint_eSafety_List) ;;
+    persist_for: "24 hours"
+  }
 
   dimension: id {
     primary_key: yes
