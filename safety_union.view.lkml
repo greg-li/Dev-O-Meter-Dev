@@ -67,8 +67,9 @@ view: safety_union {
     type: count
     drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
     link: {
-      label: "Drill Dashboard"
-      url: "/dashboards/34?Asset - Function={{ value }} | url_encode }}"
+      label: "Safety Detail Dashboard"
+      url: "/dashboards/34?&Function={{ _filters['asset_mapping_excel.master'] | url_encode }}"
+    icon_url: "https://www.chichester-hockey.co.uk/wp-content/uploads/2013/09/safety-first-icon.png"
     }
   }
 
@@ -109,6 +110,7 @@ dimension: is_osha_recordable  {
   dimension: incident_cause {
     type: string
     sql: ${TABLE}.incidentcause ;;
+    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
   }
 
   dimension: asset_of_event {
@@ -135,6 +137,7 @@ dimension: is_osha_recordable  {
   dimension: building {
     type: string
     sql: ${TABLE}.building ;;
+    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
   }
 
   dimension: building_abbreviated {
@@ -143,6 +146,11 @@ dimension: is_osha_recordable  {
           then left(${building},4)
         else ${building} end ;;
     drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
+    link: {
+      label: "Safety Detail Dashboard"
+      url: "/dashboards/34?&Building={{ value }}"
+      icon_url: "https://www.chichester-hockey.co.uk/wp-content/uploads/2013/09/safety-first-icon.png"
+    }
   }
 
   dimension: corrective_action {

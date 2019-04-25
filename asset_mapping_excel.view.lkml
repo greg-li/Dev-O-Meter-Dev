@@ -51,6 +51,11 @@ view: asset_mapping_excel {
     label: "Asset - Function"
     type: string
     sql: ${TABLE}.Master ;;
+    link: {
+      label: "Safety Detail Dashboard"
+      url: "/dashboards/34?&Function={{ value }}"
+      icon_url: "https://www.chichester-hockey.co.uk/wp-content/uploads/2013/09/safety-first-icon.png"
+    }
   }
 
   dimension: record_source {
