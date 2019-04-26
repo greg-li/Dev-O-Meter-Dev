@@ -25,3 +25,10 @@ explore: combined_metrics {
     sql_on: ${combined_metrics.asset_function} = ${asset_mapping_excel.excel} ;;
   }
 }
+
+explore: msat_weekly_data {
+  join: asset_mapping_excel {
+    relationship: many_to_one
+    sql_on: ${msat_weekly_data.asset_function}=${asset_mapping_excel.excel} ;;
+  }
+}
