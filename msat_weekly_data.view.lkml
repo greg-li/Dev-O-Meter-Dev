@@ -11,7 +11,9 @@ view: msat_weekly_data {
         where LoadID = (
           select max(loadID) from dataLake.SLTWeeklyDataEntry_Excel_MSAT)
        ;;
+    persist_for: "24 hours"
   }
+
 
   measure: count {
     type: count
@@ -40,6 +42,13 @@ view: msat_weekly_data {
     label: "Total Deliverables"
     type:  sum
     sql: ${TABLE}.deliverable_total ;;
+  }
+
+  measure: remaining_deliverables {
+    label: "Remaining Deliverables"
+    type: number
+    sql: ${total_deliverables}-${ttl_at_risk}-${ttl_on_track}-${ttl_projected_to_be_late};;
+
   }
 
   dimension: asset_function {
