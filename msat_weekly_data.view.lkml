@@ -3,10 +3,10 @@ view: msat_weekly_data {
     sql: select
         'MSAT' as AssetFunction
           ,WeekEndingDate
-        ,ProjectedToBeLate
-          ,AtRisk
-        ,OnTrack
-        ,ProjectedToBeLate+AtRisk+OnTrack as DeliverableTotal
+        ,ProjectedToBeLate as Projected_To_Be_Late
+          ,AtRisk as At_Risk
+        ,OnTrack as On_Track
+        ,ProjectedToBeLate+AtRisk+OnTrack as Deliverable_Total
          from datalake.SLTWeeklyDataEntry_Excel_MSAT
         where LoadID = (
           select max(loadID) from dataLake.SLTWeeklyDataEntry_Excel_MSAT)
@@ -46,8 +46,8 @@ view: msat_weekly_data {
 
   measure: remaining_deliverables {
     label: "Remaining Deliverables"
-    type: number
-    sql: ${total_deliverables}-${ttl_at_risk}-${ttl_on_track}-${ttl_projected_to_be_late};;
+    type: sum
+    sql: ${deliverable_total}-${on_track}-${projected_to_be_late}-${at_risk};;
 
   }
 
@@ -63,22 +63,22 @@ view: msat_weekly_data {
 
   dimension: projected_to_be_late {
     type: number
-    sql: ${TABLE}.ProjectedToBeLate ;;
+    sql: ${TABLE}.Projected_To_Be_Late ;;
   }
 
   dimension: at_risk {
     type: number
-    sql: ${TABLE}.AtRisk ;;
+    sql: ${TABLE}.At_Risk ;;
   }
 
   dimension: on_track {
     type: number
-    sql: ${TABLE}.OnTrack ;;
+    sql: ${TABLE}.On_Track ;;
   }
 
   dimension: deliverable_total {
     type: number
-    sql: ${TABLE}.DeliverableTotal ;;
+    sql: ${TABLE}.Deliverable_Total ;;
   }
 
   set: detail {
