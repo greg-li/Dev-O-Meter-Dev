@@ -16,10 +16,3 @@ include: "*.view.lkml"                       # include all views in this project
 #     sql_on: ${users.id} = ${orders.user_id} ;;
 #   }
 # }
-
-week_start_day: monday
-
-explore: sltweekly_data_entry_excel_ppl {
-  label: "PPL Manufacturing"
-  view_label: "SLT Weekly PPL"
-}
