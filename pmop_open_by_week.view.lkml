@@ -84,6 +84,11 @@ view: pmop_open_by_week {
     sql: ${open_total} ;;
   }
 
+  measure: sum_past_due {
+    type: sum
+    sql: ${open_total}-${open_on_time} ;;
+  }
+
   set: detail {
     fields: [sunday_time, open_on_time, open_total]
   }
