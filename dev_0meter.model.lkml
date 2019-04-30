@@ -189,3 +189,7 @@ explore: available_timezones {
 explore: deviations_target {
 
 }
+
+explore: incident_word_count {
+
+}

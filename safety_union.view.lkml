@@ -166,7 +166,7 @@ dimension: is_osha_recordable  {
   }
 
   dimension_group: date_of_incidentreport {
-    label: "Inicident Report"
+    label: "Incident Report"
     type: time
     timeframes: [date,week,month_name,year]
     sql: ${TABLE}.dateofincidentreport ;;
@@ -191,7 +191,7 @@ dimension: is_osha_recordable  {
 
   dimension_group: incident_date {
     label: "Incident"
-    timeframes: [date,week,month_name, month,year]
+    timeframes: [date,hour_of_day,week,week_of_year,day_of_week,day_of_month,month_name, month,quarter,quarter_of_year,year]
     type: time
     sql: ${TABLE}.incidentdate ;;
   }
