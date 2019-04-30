@@ -58,3 +58,11 @@ explore: looker_sltdashlinks {
     sql_on:  ${asset_mapping_excel.master}=${looker_sltdashlinks.asset_function} ;;
   }
 }
+
+explore: sltweekly_data_entry_excel_qc {
+  label: "QC Weekly Data"
+  join: asset_mapping_excel {
+    relationship: many_to_one
+    sql_on: ${sltweekly_data_entry_excel_qc.asset_function}=${asset_mapping_excel.excel} ;;
+  }
+}
