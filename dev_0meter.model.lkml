@@ -169,16 +169,16 @@ explore: fact_deviations {
             ;;
       relationship:many_to_one
   }
-  # join: deviations_target {
-  #   view_label: "Deviations"
-  #   type: full_outer
-  #   fields: [deviations_target.weekly_target_deviations,deviations_target.yearly_target_deviations ]
-  #   relationship: many_to_one
-  #   sql_on:
-  #     ${deviations_target.fact_deviations_date_created_year} = (${fact_deviations.date_created_year}-1)
-  #     and ${asset_mapping_excel.master} = ${deviations_target.asset_mapping_excel_master}
-  #   ;;
-  # }
+  join: deviations_target {
+    type: full_outer
+    relationship: many_to_one
+    sql_on: (
+                ${asset_mapping_excel.deviations} = ${deviations_target.asset_mapping_excel_master}
+                -- OR ${deviations_target.asset_mapping_excel_master} IS NULL
+            )
+      AND ${fact_deviations.date_created_week} = ${deviations_target.weekly_list_deviation_week}
+    ;;
+  }
 }
 
 ##Suggest Explores
@@ -186,6 +186,5 @@ explore: available_timezones {
  hidden: yes
 }
 
-explore: deviations_target {
-
-}
+explore: deviations_target {}
+explore: annual_fact_deviations {}
