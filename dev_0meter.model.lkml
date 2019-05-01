@@ -190,6 +190,6 @@ explore: deviations_target {
 
 }
 
-explore: incident_word_count {
+explore: nearmiss_word_count {
 
 }
