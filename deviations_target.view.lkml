@@ -41,6 +41,7 @@ view: deviations_target {
   }
 
   dimension_group: weekly_list_deviation {
+    label: "Target"
     type: time
     timeframes: [week]
     sql: ${TABLE}.deviation_week ;;
@@ -49,6 +50,11 @@ view: deviations_target {
   dimension: baseline_year {
     type: number
     sql: ${TABLE}.baseline_year ;;
+  }
+
+  dimension: following_year {
+    type: number
+    sql: ${TABLE}.following_year ;;
   }
 
   dimension: baseline_annual_asset_deviations {
@@ -61,8 +67,9 @@ view: deviations_target {
     sql: ${TABLE}.following_year_weekly_target ;;
   }
 
-  measure: total_deviation_target {
+  measure: total_weekly_deviations_target {
     type: sum
     sql: ${asset_weekly_deviation_target} ;;
+    value_format_name: decimal_2
   }
 }

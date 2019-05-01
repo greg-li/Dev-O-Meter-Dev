@@ -23,6 +23,26 @@ view: safety_union {
 #     drill_fields: [detail*]
   }
 
+  measure: count_last_12_months{
+    label: "Number of Incidents and Near Misses in the past 12 months"
+    type: count
+    filters: {
+      field: incident_date_date
+      value: "12 months"
+    }
+#     drill_fields: [detail*]
+  }
+
+  measure: count_last_24_months_ago_for_12_months{
+    label: "Number of Incidents and Near Misses in the previous 12 months"
+    type: count
+#     drill_fields: [detail*]
+    filters: {
+      field: incident_date_date
+      value: "24 months ago for 12 months"
+    }
+  }
+
   measure: count_incidents_non_osha {
     label: "Number of Non-OSHA Incidents"
     filters: {
@@ -131,9 +151,112 @@ dimension: is_osha_recordable  {
   }
 
   dimension: affected_bodypart {
+    # hidden: yes
+    map_layer_name: injured_bodypart
     type: string
     sql: ${TABLE}.affectedbodypart ;;
   }
+
+  # dimension: affected_bodypart_case {
+  #   map_layer_name: injured_bodypart
+  #   label: "Bodypart Affected"
+  #   case: {
+  #     when: {
+  #       label: "NO body part injured"
+  #       sql: ${affected_bodypart} = 'NO body part injured' ;;
+  #     }
+  #     when: {
+  #       label: "Fingers"
+  #       sql: ${affected_bodypart} = 'Fingers' ;;
+  #     }
+  #     when: {
+  #       label: "Face"
+  #       sql: ${affected_bodypart} = 'Face' ;;
+  #     }
+  #     when: {
+  #       label: "Head (except eyes)"
+  #       sql: ${affected_bodypart} = 'Head (except eyes)' ;;
+  #     }
+  #     when: {
+  #       label: "Generalized Body"
+  #       sql: ${affected_bodypart} = 'Generalized Body' ;;
+  #     }
+  #     when: {
+  #       label: "Respiratory System"
+  #       sql: ${affected_bodypart} = 'Respiratory System' ;;
+  #     }
+  #     when: {
+  #       label: "Arms"
+  #       sql: ${affected_bodypart} = 'Arms' ;;
+  #     }
+  #     when: {
+  #       label: "Back"
+  #       sql: ${affected_bodypart} = 'Back' ;;
+  #     }
+  #     when: {
+  #       label: "Knee"
+  #       sql: ${affected_bodypart} = 'Knee' ;;
+  #     }
+  #     when: {
+  #       label: "Shoulder"
+  #       sql: ${affected_bodypart} = 'Shoulder' ;;
+  #     }
+  #     when: {
+  #       label: "Wrist"
+  #       sql: ${affected_bodypart} = 'Wrist' ;;
+  #     }
+  #     when: {
+  #       label: "Eyes"
+  #       sql: ${affected_bodypart} = 'Eyes' ;;
+  #     }
+  #     when: {
+  #       label: "Feet"
+  #       sql: ${affected_bodypart} = 'Feet' ;;
+  #     }
+  #     when: {
+  #       label: "Ankle"
+  #       sql: ${affected_bodypart} = 'Ankle' ;;
+  #     }
+  #     when: {
+  #       label: "Buttocks/tailbone"
+  #       sql: ${affected_bodypart} = 'Buttocks/tailbone' ;;
+  #     }
+  #     when: {
+  #       label: "Neck"
+  #       sql: ${affected_bodypart} = 'Neck' ;;
+  #     }
+  #     when: {
+  #       label: "Elbow"
+  #       sql: ${affected_bodypart} = 'Elbow' ;;
+  #     }
+  #     when: {
+  #       label: "Trunk (except back)"
+  #       sql: ${affected_bodypart} = 'Trunk (except back)' ;;
+  #     }
+  #     when: {
+  #       label: "Ear"
+  #       sql: ${affected_bodypart} = 'Ear' ;;
+  #     }
+  #     when: {
+  #       label: "Mouth/Teeth"
+  #       sql: ${affected_bodypart} = 'Mouth/Teeth' ;;
+  #     }
+  #     when: {
+  #       label: "Groin"
+  #       sql: ${affected_bodypart} = 'Groin' ;;
+  #     }
+  #     when: {
+  #       label: "Toes"
+  #       sql: ${affected_bodypart} = 'Toes' ;;
+  #     }
+  #     when: {
+  #       label: "Hip"
+  #       sql: ${affected_bodypart} = 'Hip' ;;
+  #     }
+
+  #   }
+
+  # }
 
   dimension: building {
     type: string
@@ -166,7 +289,7 @@ dimension: is_osha_recordable  {
   }
 
   dimension_group: date_of_incidentreport {
-    label: "Inicident Report"
+    label: "Incident Report"
     type: time
     timeframes: [date,week,month_name,year]
     sql: ${TABLE}.dateofincidentreport ;;
@@ -191,7 +314,7 @@ dimension: is_osha_recordable  {
 
   dimension_group: incident_date {
     label: "Incident"
-    timeframes: [date,week,month_name, month,year]
+    timeframes: [date,hour_of_day,week,week_of_year,day_of_week,day_of_month,month_name, month,quarter,quarter_of_year,year]
     type: time
     sql: ${TABLE}.incidentdate ;;
   }

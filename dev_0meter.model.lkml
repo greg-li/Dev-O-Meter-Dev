@@ -170,11 +170,13 @@ explore: fact_deviations {
       relationship:many_to_one
   }
   join: deviations_target {
+#     from: annual_fact_deviations
     type: full_outer
     relationship: many_to_one
-    sql_on: ${asset_mapping_excel.deviations} = ${deviations_target.asset_mapping_excel_master}
-      AND ${dim_site.site_name} = ${deviations_target.site_name}
-      AND ${fact_deviations.date_created_week} = ${deviations_target.weekly_list_deviation_week}
+    sql_on: ${fact_deviations.date_created_week} = ${deviations_target.weekly_list_deviation_week} ;;
+    sql_where:
+      {% condition dim_site.site_name %} ${deviations_target.site_name} {% endcondition %}
+      AND {% condition asset_mapping_excel.master %} ${deviations_target.asset_mapping_excel_master} {% endcondition %}
     ;;
   }
 }
@@ -184,6 +186,10 @@ explore: available_timezones {
  hidden: yes
 }
 
-explore: deviations_target {}
+
+
 explore: annual_fact_deviations {}
 explore: weekly_calendar {}
+explore: deviations_target {}
+
+explore: incident_word_count {}

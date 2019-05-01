@@ -17,6 +17,12 @@ include: "*.view.lkml"                       # include all views in this project
 #   }
 # }
 
+map_layer: injured_bodypart {
+  file: "body7.topojson"
+  property_key: "bodypart"
+}
+
+
 week_start_day: monday
 
 explore: safety_union {

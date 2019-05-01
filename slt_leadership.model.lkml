@@ -66,3 +66,7 @@ explore: sltweekly_data_entry_excel_qc {
     sql_on: ${sltweekly_data_entry_excel_qc.asset_function}=${asset_mapping_excel.excel} ;;
   }
 }
+
+explore: pmop_open_by_week {
+  label: "PMOP Open Order Counts"
+}

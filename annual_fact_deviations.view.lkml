@@ -1,11 +1,14 @@
 view: annual_fact_deviations {
+  label: "Annual Deviations"
   derived_table: {
     sql: SELECT
         dim_site.site_name AS "site_name",
-        asset_mapping_excel.Master  AS "master",
+        CASE WHEN asset_mapping_excel.Master IS NULL THEN 'Unassigned' ELSE asset_mapping_excel.Master END AS "master",
         YEAR(fact_deviations.DATE_CREATED) AS "deviation_created_year",
         YEAR(fact_deviations.DATE_CREATED) + 1 AS "following_year",
         COUNT(DISTINCT fact_deviations.PARENT_RECORD_ID ) as "annual_deviations",
+        COUNT(DISTINCT fact_deviations.PARENT_RECORD_ID ) * 0.8 as "following_year_annual_target",
+        COUNT(DISTINCT fact_deviations.PARENT_RECORD_ID ) / 12.0 * 0.8 as "following_year_monthly_target",
         COUNT(DISTINCT fact_deviations.PARENT_RECORD_ID ) / 52.0 * 0.8 as "following_year_weekly_target"
       FROM ${fact_deviations.SQL_TABLE_NAME} AS fact_deviations
       LEFT JOIN dbo.DIM_SITE AS dim_site ON fact_deviations.SITE_KEY = dim_site.SITE_KEY
@@ -40,11 +43,13 @@ view: annual_fact_deviations {
   }
 
   dimension: deviation_created_year {
+    label: "Baseline Year"
     type: number
     sql: ${TABLE}.deviation_created_year ;;
   }
 
   dimension: following_year {
+    label: "Target Year"
     type: number
     sql: ${TABLE}.following_year ;;
   }
@@ -54,8 +59,36 @@ view: annual_fact_deviations {
     sql: ${TABLE}.annual_deviations ;;
   }
 
+  dimension: following_year_annual_target {
+    type: number
+    sql: ${TABLE}.following_year_annual_target ;;
+  }
+
+  dimension: following_year_monthly_target {
+    type: number
+    sql: ${TABLE}.following_year_monthly_target ;;
+  }
+
   dimension: following_year_weekly_target {
     type: number
     sql: ${TABLE}.following_year_weekly_target ;;
+  }
+
+  measure: total_annual_deviations_target {
+    type: sum
+    sql: ${following_year_annual_target} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: total_monthly_deviations_target {
+    type: sum
+    sql: ${following_year_monthly_target} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: total_weekly_deviations_target {
+    type: sum
+    sql: ${following_year_weekly_target} ;;
+    value_format_name: decimal_2
   }
 }
