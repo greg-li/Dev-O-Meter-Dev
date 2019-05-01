@@ -2,14 +2,16 @@ view: msat_weekly_data {
   derived_table: {
     sql: select
         'MSAT' as AssetFunction
-          ,WeekEndingDate
+        ,MonthEndingDate
         ,ProjectedToBeLate as Projected_To_Be_Late
-          ,AtRisk as At_Risk
+        ,AtRisk as At_Risk
         ,OnTrack as On_Track
         ,ProjectedToBeLate+AtRisk+OnTrack as Deliverable_Total
-         from datalake.SLTWeeklyDataEntry_Excel_MSAT
+        ,YTDReleaseTarget
+        ,YTDReleaseActual
+        from datalake.SLTWeeklyDataEntry_Excel_MSAT
         where LoadID = (
-          select max(loadID) from dataLake.SLTWeeklyDataEntry_Excel_MSAT)
+        select max(loadID) from dataLake.SLTWeeklyDataEntry_Excel_MSAT)
        ;;
     persist_for: "24 hours"
   }
@@ -51,14 +53,20 @@ view: msat_weekly_data {
 
   }
 
+  measure: releases {
+    label: "Actual Releases"
+    type:  sum
+    sql: ${TABLE}.;;
+  }
+
   dimension: asset_function {
     type: string
     sql: ${TABLE}.AssetFunction ;;
   }
 
-  dimension_group: week_ending_date {
+  dimension_group: month_ending_date {
     type: time
-    sql: ${TABLE}.WeekEndingDate ;;
+    sql: ${TABLE}.MonthEndingDate ;;
   }
 
   dimension: projected_to_be_late {
@@ -84,7 +92,7 @@ view: msat_weekly_data {
   set: detail {
     fields: [
       asset_function,
-      week_ending_date_time,
+      month_ending_date_time,
       projected_to_be_late,
       at_risk,
       on_track,
