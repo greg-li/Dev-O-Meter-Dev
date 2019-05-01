@@ -23,6 +23,26 @@ view: safety_union {
 #     drill_fields: [detail*]
   }
 
+  measure: count_last_12_months{
+    label: "Number of Incidents and Near Misses in the past 12 months"
+    type: count
+    filters: {
+      field: incident_date_date
+      value: "12 months"
+    }
+#     drill_fields: [detail*]
+  }
+
+  measure: count_last_24_months_ago_for_12_months{
+    label: "Number of Incidents and Near Misses in the previous 12 months"
+    type: count
+#     drill_fields: [detail*]
+    filters: {
+      field: incident_date_date
+      value: "24 months ago for 12 months"
+    }
+  }
+
   measure: count_incidents_non_osha {
     label: "Number of Non-OSHA Incidents"
     filters: {
