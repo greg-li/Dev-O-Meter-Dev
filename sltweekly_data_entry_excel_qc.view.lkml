@@ -135,19 +135,19 @@ view: sltweekly_data_entry_excel_qc{
 
   measure: release_testing_pct {
     type: average
-    sql: ${release_testing_actual}/${release_testing_target};;
+    sql: case when ${release_testing_target} = 0 then 1 else ${release_testing_actual}/${release_testing_target} end;;
     value_format_name: percent_0
   }
 
   measure: stability_testing_pct {
     type: average
-    sql: ${stability_testing_actual}/${stability_testing_target} ;;
+    sql: case when ${stability_testing_target} = 0 then 1 else ${stability_testing_actual}/${stability_testing_target} end;;
     value_format_name: percent_0
   }
 
   measure: raw_materials_testing_pct {
     type: average
-    sql: ${raw_materials_testing_actual}/${raw_materials_testing_target} ;;
+    sql: case when ${raw_materials_testing_target} = 0 then 1 else ${raw_materials_testing_actual}/${raw_materials_testing_target} end;;
     value_format_name: percent_0
   }
 

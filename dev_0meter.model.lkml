@@ -186,10 +186,6 @@ explore: available_timezones {
  hidden: yes
 }
 
-
-
-explore: annual_fact_deviations {}
-explore: weekly_calendar {}
-explore: deviations_target {}
+explore: nearmiss_word_count {}
 
 explore: incident_word_count {}
