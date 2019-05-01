@@ -68,6 +68,8 @@ view: deviations_target {
   }
 
   measure: total_weekly_deviations_target {
+    label: "Weekly Deviations Target"
+    description: "Sum of all individual deviation targets by Site and Asset for the week"
     type: sum
     sql: ${asset_weekly_deviation_target} ;;
     value_format_name: decimal_2
