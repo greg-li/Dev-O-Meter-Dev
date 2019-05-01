@@ -23,7 +23,7 @@ view: combined_metrics {
         , YTDReleaseTarget
         , OpenReqsActual
         , OpenReqsTarget
-        , WeekEndingDate
+        , MonthEndingDate
     , Commentary
       from datalake.SLTWeeklyDataEntry_Excel_MSAT
     where LoadID = (

@@ -1,5 +1,6 @@
 #test line
 
+
 #connection: "edm"
 
 # include all the views
@@ -186,5 +187,9 @@ explore: available_timezones {
 }
 
 explore: deviations_target {
+
+}
+
+explore: incident_word_count {
 
 }

@@ -68,7 +68,7 @@ view: safety_union {
     drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
     link: {
       label: "Safety Detail Dashboard"
-      url: "/dashboards/34?&Function={{ _filters['asset_mapping_excel.master'] | url_encode }}"
+      url: "/dashboards/vfUrxckmNvw6zZr7tKSfnH?&Function={{ _filters['asset_mapping_excel.master'] | url_encode }}"
     icon_url: "https://www.chichester-hockey.co.uk/wp-content/uploads/2013/09/safety-first-icon.png"
     }
   }
@@ -90,8 +90,9 @@ view: safety_union {
     type: number
     sql: ${TABLE}.incidentid ;;
     link: {
-      label: "Drill Dashboard"
-      url: "/dashboards/34?Asset-Function Filter={{ _filters['asset_mapping_excel.Master'] | url_encode }}"
+      label: "Safety Detail Dashboard"
+      url: "/dashboards/vfUrxckmNvw6zZr7tKSfnH?Asset-Function Filter={{ _filters['asset_mapping_excel.Master'] | url_encode }}"
+      icon_url: "https://www.chichester-hockey.co.uk/wp-content/uploads/2013/09/safety-first-icon.png"
       }
   }
 
@@ -149,7 +150,7 @@ dimension: is_osha_recordable  {
     drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
     link: {
       label: "Safety Detail Dashboard"
-      url: "/dashboards/34?&Building={{ value }}"
+      url: "/dashboards/vfUrxckmNvw6zZr7tKSfnH?&Building={{ value }}"
       icon_url: "https://www.chichester-hockey.co.uk/wp-content/uploads/2013/09/safety-first-icon.png"
     }
   }
@@ -166,7 +167,7 @@ dimension: is_osha_recordable  {
   }
 
   dimension_group: date_of_incidentreport {
-    label: "Inicident Report"
+    label: "Incident Report"
     type: time
     timeframes: [date,week,month_name,year]
     sql: ${TABLE}.dateofincidentreport ;;
@@ -191,7 +192,7 @@ dimension: is_osha_recordable  {
 
   dimension_group: incident_date {
     label: "Incident"
-    timeframes: [date,week,month_name, month,year]
+    timeframes: [date,hour_of_day,week,week_of_year,day_of_week,day_of_month,month_name, month,quarter,quarter_of_year,year]
     type: time
     sql: ${TABLE}.incidentdate ;;
   }

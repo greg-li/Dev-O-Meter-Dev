@@ -27,7 +27,7 @@ view: dim_event_classification {
     sql: ${TABLE}.EVENT_CLASSIFICATION ;;
     link: {
       label: "View Category in Deviation Detailed Dashboard"
-      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Site={{ _filters['dim_site.site_name'] | url_encode }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] | url_encode }}&Event%20Classification={{ value }}"
+      url: "/dashboards/WBJNwY7xAFoFQwejYLdET3?Site={{ _filters['dim_site.site_name'] | url_encode }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] | url_encode }}&Event%20Classification={{ value }}"
       icon_url: "http://www.looker.com/favicon.ico"
     }
   }
@@ -44,7 +44,7 @@ view: dim_event_classification {
     sql: STRING_AGG(CAST(${event_classification} AS VARCHAR(MAX)), ',') ;;
     link: {
       label: "Pass Categories to Dashboard 25"
-      url: "https://lonzadev.looker.com/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}"
+      url: "/dashboards/WBJNwY7xAFoFQwejYLdET3?Event%20Classification={{ value }}"
       icon_url: "http://www.looker.com/favicon.ico"
     }
   }
