@@ -1,16 +1,56 @@
 view: safety_union {
   derived_table: {
-    sql: select id as incidentid, null as nearmissid, incidentcause, assetofevent, createdby, createdbyid, affectedbodypart, building, correctiveaction, created, dateofincidentreport, generalarea, closuredate, employeeid, incidentdate, incidentdescription, LOB, natureofincident, responsiblesupervisor, status, typeofincident, 'incident' as incident_or_nearmiss
+    sql: select id as incidentid
+        , null as nearmissid
+        , incidentcause
+        , assetofevent
+        , createdby
+        , createdbyid
+        , affectedbodypart
+        , building
+        , correctiveaction
+        , created
+        , dateofincidentreport
+        , generalarea
+        , closuredate
+        , employeeid
+        , incidentdate
+        , incidentdescription
+        , LOB
+        , natureofincident
+        , responsiblesupervisor
+        , status
+        , typeofincident
+        , 'incident' as incident_or_nearmiss
       from dataLake.eSafety_Sharepoint_eIncident_List
       where loadid = (select max(loadid) from dataLake.eSafety_Sharepoint_eIncident_List)
 
       union all
 
-      select null as incidentid, id as nearmissid, RootCause as incidentcause, assetofevent, createdby, createdbyid, null as affectedbodypart, building, CorrectiveActionsCompleted as correctiveaction, created, null as dateofincidentreport, generalarea, DateCompleted as closuredate, cast(submitterID as nvarchar) as employeeid, DateAndTimeOfNearMiss as incidentdate, NearMissSafetyObservation as incidentdescription, SubmitterLOB as LOB, null as natureofincident,   ResponsibleParty as responsiblesupervisor, null as status, hazardtype as typeofincident, 'nearmiss' as incident_or_nearmiss
+      select null as incidentid
+        , id as nearmissid
+        , RootCause as incidentcause
+        , assetofevent
+        , createdby
+        , createdbyid
+        , null as affectedbodypart
+        , building
+        , CorrectiveActionsCompleted as correctiveaction
+        , created
+        , null as dateofincidentreport
+        , generalarea
+        , DateCompleted as closuredate
+        , cast(submitterID as nvarchar) as employeeid
+        , DateAndTimeOfNearMiss as incidentdate
+        , NearMissSafetyObservation as incidentdescription
+        , SubmitterLOB as LOB
+        , null as natureofincident
+        , ResponsibleParty as responsiblesupervisor
+        , null as status
+        , hazardtype as typeofincident
+        , 'nearmiss' as incident_or_nearmiss
       from dataLake.eSafety_Sharepoint_eSafety_List
-      where loadid = (select max(loadid) from dataLake.eSafety_Sharepoint_eSafety_List)
-
-       ;;
+      where loadid = (select max(loadid) from dataLake.eSafety_Sharepoint_eSafety_List) ;;
 
       persist_for: "24 hours"
 
