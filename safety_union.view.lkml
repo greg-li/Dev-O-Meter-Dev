@@ -131,6 +131,7 @@ dimension: is_osha_recordable  {
   }
 
   dimension: affected_bodypart {
+    map_layer_name: injured_bodypart
     type: string
     sql: ${TABLE}.affectedbodypart ;;
   }
