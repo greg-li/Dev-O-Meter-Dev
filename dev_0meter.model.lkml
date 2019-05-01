@@ -6,7 +6,7 @@
 # include all the views
 include: "*.view"
 
-include: "*.dashboard.lookml"
+#include: "*.dashboard.lookml"
 
 week_start_day: monday
 
@@ -190,6 +190,6 @@ explore: deviations_target {
 
 }
 
-explore: nearmiss_word_count {
-
-}
+#explore: nearmiss_word_count {
+#
+#}
