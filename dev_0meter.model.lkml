@@ -172,10 +172,8 @@ explore: fact_deviations {
   join: deviations_target {
     type: full_outer
     relationship: many_to_one
-    sql_on: (
-                ${asset_mapping_excel.deviations} = ${deviations_target.asset_mapping_excel_master}
-                -- OR ${deviations_target.asset_mapping_excel_master} IS NULL
-            )
+    sql_on: ${asset_mapping_excel.deviations} = ${deviations_target.asset_mapping_excel_master}
+      AND ${dim_site.site_name} = ${deviations_target.site_name}
       AND ${fact_deviations.date_created_week} = ${deviations_target.weekly_list_deviation_week}
     ;;
   }
@@ -188,3 +186,4 @@ explore: available_timezones {
 
 explore: deviations_target {}
 explore: annual_fact_deviations {}
+explore: weekly_calendar {}

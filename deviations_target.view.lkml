@@ -1,6 +1,7 @@
 view: deviations_target {
   derived_table: {
     sql: SELECT
+        annual_fact_deviations.site_name  AS "site_name",
         annual_fact_deviations.master  AS "master",
         annual_fact_deviations.deviation_created_year  AS "deviation_created_year",
         annual_fact_deviations.annual_deviations  AS "annual_deviations",
@@ -20,7 +21,12 @@ view: deviations_target {
   dimension: primary_key {
     hidden: yes
     primary_key: yes
-    sql: concat(${asset_mapping_excel_master},${baseline_year},${weekly_list_deviation_week}) ;;
+    sql: concat(${site_name}, ${asset_mapping_excel_master}, ${baseline_year}, ${weekly_list_deviation_week}) ;;
+  }
+
+  dimension: site_name {
+    type: string
+    sql: ${TABLE}.site_name ;;
   }
 
   dimension: asset_mapping_excel_master {
@@ -34,8 +40,9 @@ view: deviations_target {
     sql: ${TABLE}.deviation_created_year ;;
   }
 
-  dimension: weekly_list_deviation_week {
-    type: string
+  dimension_group: weekly_list_deviation {
+    type: time
+    timeframes: [week]
     sql: ${TABLE}.deviation_week ;;
   }
 
