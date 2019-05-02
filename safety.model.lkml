@@ -39,8 +39,8 @@ explore: safety_union {
   }
   join: incident_type_pctg_last6months {
     relationship: many_to_one
-    sql_on: ${safety_union.type_of_incident} = ${incident_type_pctg_last6months.type_of_incident}
-      and ${safety_union.incident_or_nearmiss} = ${incident_type_pctg_last6months.incident_or_neamiss};;
+    sql_on: ${safety_union.hazard} = ${incident_type_pctg_last6months.hazard}
+      and ${safety_union.incident_or_nearmiss} = ${incident_type_pctg_last6months.incident_or_nearmiss};;
   }
 }
 

@@ -21,6 +21,7 @@ view: safety_union {
         , responsiblesupervisor
         , status
         , typeofincident
+        , incidentcause as hazard
         , 'incident' as incident_or_nearmiss
       from dataLake.eSafety_Sharepoint_eIncident_List
       where loadid = (select max(loadid) from dataLake.eSafety_Sharepoint_eIncident_List)
@@ -47,7 +48,8 @@ view: safety_union {
         , null as natureofincident
         , ResponsibleParty as responsiblesupervisor
         , null as status
-        , hazardtype as typeofincident
+        , null as typeofincident
+        , hazardtype as hazard
         , 'nearmiss' as incident_or_nearmiss
       from dataLake.eSafety_Sharepoint_eSafety_List
       where loadid = (select max(loadid) from dataLake.eSafety_Sharepoint_eSafety_List) ;;
@@ -388,6 +390,11 @@ dimension: is_osha_recordable  {
   dimension: type_of_incident {
     type: string
     sql: ${TABLE}.typeofincident ;;
+  }
+
+  dimension: hazard {
+    type: string
+    sql: ${TABLE}.hazard ;;
   }
 
   dimension: incident_or_nearmiss {
