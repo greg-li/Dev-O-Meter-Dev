@@ -187,9 +187,6 @@ explore: available_timezones {
 }
 
 
-explore: nearmiss_word_count {}
-
-explore: incident_word_count {}
 
 explore: deviations_target {
 
