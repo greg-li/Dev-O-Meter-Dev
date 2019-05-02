@@ -13,7 +13,7 @@ view: msat_weekly_data {
         where LoadID = (
         select max(loadID) from dataLake.SLTWeeklyDataEntry_Excel_MSAT)
        ;;
-    persist_for: "24 hours"
+    #persist_for: "24 hours"
   }
 
 
