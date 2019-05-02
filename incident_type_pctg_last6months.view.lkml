@@ -1,9 +1,9 @@
 view: incident_type_pctg_last6months {
   derived_table: {
-    sql: select hazardType as type_of_incident
+    sql: select hazardType as hazard
         , Pctg
         , sum(Pctg) over (order by pctg desc, hazardType) runningTotal
-    , 'nearmiss' as incident_or_neamiss
+    , 'nearmiss' as incident_or_nearmiss
       from (
         select hazardtype
           , cast((count(*) * 100 / (sum(count(*)) over ())) as float) / 100 as Pctg
@@ -17,19 +17,19 @@ view: incident_type_pctg_last6months {
 
 union all
 
-select typeofincident as type_of_incident
+select incidentcause as hazard
         , Pctg
-        , sum(Pctg) over (order by pctg desc, typeofincident) runningTotal
-    , 'incident' as incident_or_neamiss
+        , sum(Pctg) over (order by pctg desc, incidentcause) runningTotal
+    , 'incident' as incident_or_nearmiss
       from (
-        select TypeOfIncident
+        select incidentcause
           , cast((count(*) * 100 / (sum(count(*)) over ())) as float) / 100 as Pctg
           from datalake.eSafety_Sharepoint_eIncident_List incd
                 where IncidentDate > dateadd(MM,-6,IncidentDate)
           and incd.LoadID = (
             select max(LoadID) from datalake.eSafety_Sharepoint_eSafety_List
           )
-        group by TypeOfIncident
+        group by incidentcause
       ) IncdPctg
  ;;
   }
@@ -39,9 +39,9 @@ select typeofincident as type_of_incident
     drill_fields: [detail*]
   }
 
-  dimension: type_of_incident {
+  dimension: hazard {
     type: string
-    sql: ${TABLE}.type_of_incident ;;
+    sql: ${TABLE}.hazard ;;
   }
 
   dimension: pctg {
@@ -54,12 +54,12 @@ select typeofincident as type_of_incident
     sql: ${TABLE}.runningTotal ;;
   }
 
-  dimension: incident_or_neamiss {
+  dimension: incident_or_nearmiss {
     type: string
-    sql: ${TABLE}.incident_or_neamiss ;;
+    sql: ${TABLE}.incident_or_nearmiss ;;
   }
 
   set: detail {
-    fields: [type_of_incident, pctg, running_total, incident_or_neamiss]
+    fields: [hazard, pctg, running_total, incident_or_nearmiss]
   }
 }
