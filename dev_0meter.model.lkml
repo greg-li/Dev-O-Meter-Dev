@@ -189,7 +189,3 @@ explore: available_timezones {
 explore: deviations_target {
 
 }
-
-#explore: nearmiss_word_count {
-#
-#}

@@ -42,3 +42,7 @@ explore: safety_union {
     sql_on: ${safety_union.type_of_incident} = ${near_miss_hazard_type_last6months.hazard_type} ;;
   }
 }
+
+explore: nearmiss_word_count {
+
+}
