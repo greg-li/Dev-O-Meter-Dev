@@ -6,7 +6,7 @@
 # include all the views
 include: "*.view"
 
-include: "*.dashboard.lookml"
+#include: "*.dashboard.lookml"
 
 week_start_day: monday
 
@@ -186,6 +186,11 @@ explore: available_timezones {
  hidden: yes
 }
 
+
 explore: nearmiss_word_count {}
 
 explore: incident_word_count {}
+
+explore: deviations_target {
+
+}
