@@ -56,7 +56,20 @@ view: msat_weekly_data {
   measure: releases {
     label: "Actual Releases"
     type:  sum
-    sql: ${TABLE}.;;
+    sql: ${TABLE}.YTDReleaseActual;;
+  }
+
+  measure: releases_target {
+    label: "Target Releases"
+    type:  sum
+    sql: ${TABLE}.YTDReleaseTarget;;
+  }
+
+  measure: remaining_releases {
+    label: "Remaining Releases"
+    type: number
+    sql: ${releases_target}-${releases} ;;
+
   }
 
   dimension: asset_function {
@@ -89,6 +102,24 @@ view: msat_weekly_data {
     sql: ${TABLE}.Deliverable_Total ;;
   }
 
+  dimension: ytdrelease_target {
+    type: number
+    sql: ${TABLE}.YTDReleaseTarget ;;
+  }
+
+  dimension: ytdrelease_actual {
+    type: number
+    sql: ${TABLE}.YTDReleaseActual ;;
+  }
+
+  dimension_group: msat_date {
+    label: "MSAT Month Date"
+    timeframes: [date,month_name, month,quarter,quarter_of_year,year]
+    type: time
+    sql: ${TABLE}.MonthEndingDate ;;
+  }
+
+
   set: detail {
     fields: [
       asset_function,
@@ -96,7 +127,9 @@ view: msat_weekly_data {
       projected_to_be_late,
       at_risk,
       on_track,
-      deliverable_total
+      deliverable_total,
+      ytdrelease_target,
+      ytdrelease_actual
     ]
   }
 }
