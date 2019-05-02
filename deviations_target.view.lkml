@@ -1,71 +1,77 @@
 view: deviations_target {
   derived_table: {
-    sql: -- use existing asset_mapping_excel in looker_scratch.LR$MZCRVN2H2O06MKVJTN1EC_asset_mapping_excel
+    sql: SELECT
+        annual_fact_deviations.site_name  AS "site_name",
+        annual_fact_deviations.master  AS "master",
+        annual_fact_deviations.deviation_created_year  AS "deviation_created_year",
+        annual_fact_deviations.annual_deviations  AS "annual_deviations",
+        annual_fact_deviations.following_year  AS "following_year",
+        annual_fact_deviations.following_year_weekly_target  AS "following_year_weekly_target",
+        weekly_calendar.prior_year AS baseline_year,
+        weekly_calendar.week AS deviation_week
+      FROM
+        ${annual_fact_deviations.SQL_TABLE_NAME} AS annual_fact_deviations
 
-      SELECT
-        asset_mapping_excel.Master  AS "master",
-        YEAR(cast(fact_deviations.DATE_CREATED AT TIME ZONE 'UTC' AT TIME ZONE 'Eastern Standard Time' as datetime2)) AS "date_created_year",
-        ((COUNT(DISTINCT fact_deviations.PARENT_RECORD_ID ))*.8)/52 AS "deviation target"
-      FROM ${fact_deviations.SQL_TABLE_NAME} as fact_deviations
-      LEFT JOIN dbo.DIM_DEVIATION_TYPE  AS dim_deviation_type ON fact_deviations.DEVIATION_KEY = dim_deviation_type.DEVIATION_KEY
-      LEFT JOIN dbo.VW_Asset_to_Area  AS vw_asset_to_area ON fact_deviations.AREA_OCCURED_KEY = vw_asset_to_area.AREA_KEY
-      LEFT JOIN ${asset_mapping_excel.SQL_TABLE_NAME} AS asset_mapping_excel ON vw_asset_to_area.Asset=asset_mapping_excel.Deviations
-
-      WHERE
-        (dim_deviation_type.DEVIATION_TYPE  IN ('Customer Complaint - Packaging and shipping complaints', 'Unplanned', 'Customer Complaint - Product quality complaints'))
-      GROUP BY asset_mapping_excel.Master ,YEAR(cast(fact_deviations.DATE_CREATED AT TIME ZONE 'UTC' AT TIME ZONE 'Eastern Standard Time' as datetime2))
-       ;;
-
-      persist_for: "4000 hours"
-      indexes: ["master","date_created_year"]
-  }
-
-  measure: count {
-    hidden: yes
-    type: count
-    drill_fields: [detail*]
+      LEFT OUTER JOIN
+        ${weekly_calendar.SQL_TABLE_NAME} AS weekly_calendar
+          ON weekly_calendar.prior_year = annual_fact_deviations.deviation_created_year
+      ;;
   }
 
   dimension: primary_key {
     hidden: yes
     primary_key: yes
-    sql: concat(${asset_mapping_excel_master},${fact_deviations_date_created_year}) ;;
+    sql: concat(${site_name}, ${asset_mapping_excel_master}, ${baseline_year}, ${weekly_list_deviation_week}) ;;
+  }
+
+  dimension: site_name {
+    type: string
+    sql: ${TABLE}.site_name ;;
   }
 
   dimension: asset_mapping_excel_master {
     label: "Master Asset"
     type: string
-    sql: ${TABLE}."master" ;;
+    sql: ${TABLE}.master ;;
   }
 
-  dimension: fact_deviations_date_created_year {
-    label: "Prior Year"
+  dimension: deviation_created_year {
     type: number
-    sql: ${TABLE}."date_created_year" ;;
+    sql: ${TABLE}.deviation_created_year ;;
   }
 
-  dimension: deviation_target {
+  dimension_group: weekly_list_deviation {
+    label: "Target"
+    type: time
+    timeframes: [week]
+    sql: ${TABLE}.deviation_week ;;
+  }
+
+  dimension: baseline_year {
     type: number
-    label: "Weekly Deviation Target"
-    sql: ${TABLE}."deviation target" ;;
+    sql: ${TABLE}.baseline_year ;;
   }
 
-  dimension: yearly_deviation_target {
+  dimension: following_year {
     type: number
-    sql: ${deviation_target}*52 ;;
+    sql: ${TABLE}.following_year ;;
   }
 
-  measure: weekly_target_deviations {
+  dimension: baseline_annual_asset_deviations {
+    type: number
+    sql: ${TABLE}.annual_deviations ;;
+  }
+
+  dimension: asset_weekly_deviation_target {
+    type: number
+    sql: ${TABLE}.following_year_weekly_target ;;
+  }
+
+  measure: total_weekly_deviations_target {
+    label: "Weekly Deviations Target"
+    description: "Sum of all individual deviation targets by Site and Asset for the week"
     type: sum
-    sql: ${deviation_target};;
-  }
-
-  measure: yearly_target_deviations {
-    type: average
-    sql: ${yearly_deviation_target};;
-  }
-
-  set: detail {
-    fields: [asset_mapping_excel_master, fact_deviations_date_created_year, deviation_target]
+    sql: ${asset_weekly_deviation_target} ;;
+    value_format_name: decimal_2
   }
 }

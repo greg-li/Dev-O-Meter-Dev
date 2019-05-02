@@ -17,7 +17,7 @@ view: asset_mapping_excel {
   dimension: deviations {
     hidden: yes
     type: string
-    sql: ${TABLE}.Deviations ;;
+    sql: CASE WHEN ${TABLE}.Deviations IS NULL THEN 'Unassigned' ELSE ${TABLE}.Deviations END ;;
   }
 
   dimension: excel {
@@ -50,7 +50,8 @@ view: asset_mapping_excel {
   dimension: master {
     label: "Asset - Function"
     type: string
-    sql: ${TABLE}.Master ;;
+#     sql: ${TABLE}.Master ;;
+    sql: CASE WHEN ${TABLE}.Master IS NULL THEN 'Unassigned' ELSE ${TABLE}.Master END ;;
     link: {
       label: "Safety Detail Dashboard"
       url: "/dashboards/34?&Function={{ value }}"
