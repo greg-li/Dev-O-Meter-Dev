@@ -1,7 +1,7 @@
 view: combined_metrics {
   derived_table: {
     sql: select AssetFunction
-        , case when ScheduleAdherenceActual = 0 then 100 else ScheduleAdherenceActual end as ScheduleAdherenceActual
+        , ScheduleAdherenceActual
         , ScheduleAdherenceTarget
         , YTDReleaseActual
         , YTDReleaseTarget
@@ -33,7 +33,7 @@ view: combined_metrics {
       union all
 
       select 'PP&L'
-        , case when OTIFActual = 0 then 100 else OTIFActual end
+        , OTIFActual
         , OTIFTarget
         , ReceiptNumberActual
         , ReceiptNumberTarget
@@ -49,7 +49,7 @@ view: combined_metrics {
       union all
 
       select 'QC'
-        , case when ScheduleAdherenceActual = 0 then 100 else ScheduleAdherenceActual end as ScheduleAdherenceActual
+        , ScheduleAdherenceActual
         , ScheduleAdherenceTarget
         , OTIFDeliverablesActual
         , OTIFDeliverablesTarget
