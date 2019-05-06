@@ -62,7 +62,7 @@ view: safety_union {
   measure: count {
     label: "Number of Incidents and Near Misses"
     type: count
-#     drill_fields: [detail*]
+    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
   }
 
   measure: count_last_12_months{
@@ -72,7 +72,7 @@ view: safety_union {
       field: incident_date_date
       value: "12 months"
     }
-#     drill_fields: [detail*]
+    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
   }
 
   measure: count_last_24_months_ago_for_12_months{
@@ -83,6 +83,7 @@ view: safety_union {
       field: incident_date_date
       value: "24 months ago for 12 months"
     }
+    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
   }
 
   measure: count_incidents_non_osha {
@@ -117,6 +118,7 @@ view: safety_union {
       value: "nearmiss"
     }
     type: count
+    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
   }
 
   measure: count_incidents {
@@ -128,11 +130,6 @@ view: safety_union {
     }
     type: count
     drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
-    link: {
-      label: "Safety Detail Dashboard"
-      url: "/dashboards/vfUrxckmNvw6zZr7tKSfnH?&Function={{ _filters['asset_mapping_excel.master'] | url_encode }}"
-    icon_url: "https://www.chichester-hockey.co.uk/wp-content/uploads/2013/09/safety-first-icon.png"
-    }
   }
 
 #   measure: safety_goal {
@@ -151,11 +148,6 @@ view: safety_union {
     hidden: yes
     type: number
     sql: ${TABLE}.incidentid ;;
-    link: {
-      label: "Safety Detail Dashboard"
-      url: "/dashboards/vfUrxckmNvw6zZr7tKSfnH?Asset-Function Filter={{ _filters['asset_mapping_excel.Master'] | url_encode }}"
-      icon_url: "https://www.chichester-hockey.co.uk/wp-content/uploads/2013/09/safety-first-icon.png"
-      }
   }
 
   dimension: nearmiss_id {
@@ -174,12 +166,22 @@ dimension: is_osha_recordable  {
     type: string
     sql: ${TABLE}.incidentcause ;;
     drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
+    link: {
+      label: "Safety Drill-Down Detail"
+      url: "/embed/dashboards/BT3mOTvoQJpHAPQOsRO1i5?&Hazard%20Type={{ value }}"
+      icon_url: "http://icons.iconarchive.com/icons/iconsmind/outline/512/Down-2-2-icon.png"
+      }
   }
 
   dimension: asset_of_event {
     type: string
     sql: ${TABLE}.assetofevent ;;
     drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
+    link: {
+      label: "Safety Drill-Down Detail"
+      url: "/embed/dashboards/BT3mOTvoQJpHAPQOsRO1i5?&Function={{ value }}"
+      icon_url: "http://icons.iconarchive.com/icons/iconsmind/outline/512/Down-2-2-icon.png"
+    }
   }
 
   dimension: created_by {
@@ -197,6 +199,17 @@ dimension: is_osha_recordable  {
     map_layer_name: injured_bodypart
     type: string
     sql: ${TABLE}.affectedbodypart ;;
+    link: {
+      label: "Safety Drill-Down Detail"
+      url: "/embed/dashboards/BT3mOTvoQJpHAPQOsRO1i5?&Affected%20Body%20Part={{ value }}"
+      icon_url: "http://icons.iconarchive.com/icons/iconsmind/outline/512/Down-2-2-icon.png"
+    }
+    link: {
+      label: "Safety Summary Dashboard"
+      url: "/embed/dashboards/vfUrxckmNvw6zZr7tKSfnH?&Affected%20Body%20Part={{ value }}"
+      icon_url: "https://www.chichester-hockey.co.uk/wp-content/uploads/2013/09/safety-first-icon.png"
+    }
+    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
   }
 
   # dimension: affected_bodypart_case {
@@ -313,10 +326,11 @@ dimension: is_osha_recordable  {
         else ${building} end ;;
     drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
     link: {
-      label: "Safety Detail Dashboard"
-      url: "/dashboards/vfUrxckmNvw6zZr7tKSfnH?&Building={{ value }}"
+      label: "Safety Summary Dashboard"
+      url: "/embed/dashboards/vfUrxckmNvw6zZr7tKSfnH?&Building={{ value }}"
       icon_url: "https://www.chichester-hockey.co.uk/wp-content/uploads/2013/09/safety-first-icon.png"
     }
+
   }
 
   dimension: corrective_action {
