@@ -70,3 +70,11 @@ explore: sltweekly_data_entry_excel_qc {
 explore: pmop_open_by_week {
   label: "PMOP Open Order Counts"
 }
+
+explore: qc_testing_union {
+  label: "QC Testing Data"
+  join: asset_mapping_excel {
+    relationship: many_to_one
+    sql_on: ${qc_testing_union.asset_function}=${asset_mapping_excel.excel} ;;
+  }
+}
