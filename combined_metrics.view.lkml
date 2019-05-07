@@ -106,7 +106,7 @@ view: combined_metrics {
 
   dimension: commentary {
     type: string
-    html: <font size="10">{{ value }}</font> ;;
+    html: <font size="5">{{ value }}</font> ;;
     sql: ${TABLE}.Commentary ;;
 
   }
