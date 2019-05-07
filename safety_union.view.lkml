@@ -59,10 +59,15 @@ view: safety_union {
       indexes: ["incidentid","nearmissid"]
   }
 
+  set: Safety_details {
+    fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
+  }
+
+
   measure: count {
     label: "Number of Incidents and Near Misses"
     type: count
-    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
+    drill_fields: [Safety_details*]
   }
 
   measure: count_last_12_months{
@@ -72,7 +77,7 @@ view: safety_union {
       field: incident_date_date
       value: "12 months"
     }
-    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
+    drill_fields: [Safety_details*]
   }
 
   measure: count_last_24_months_ago_for_12_months{
@@ -82,8 +87,9 @@ view: safety_union {
     filters: {
       field: incident_date_date
       value: "24 months ago for 12 months"
+
     }
-    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
+    drill_fields: [Safety_details*]
   }
 
   measure: count_incidents_non_osha {
@@ -97,18 +103,18 @@ view: safety_union {
       value: "no"
     }
     type: count
-    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
+    drill_fields: [Safety_details*]
   }
 
   measure: count_of_osha {
     label: "Number of OSHA Recordables"
-    html: <p style="color: red; font-size: 30px"> {{ value }} </p> ;;
+    html: <p style="color: red; font-size: 30px"> {{ linked_value }} </p> ;;
     filters: {
       field: is_osha_recordable
       value: "yes"
     }
     type: count
-    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
+    drill_fields: [Safety_details*]
   }
 
   measure: count_nearmiss {
@@ -118,18 +124,33 @@ view: safety_union {
       value: "nearmiss"
     }
     type: count
-    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
+    drill_fields: [Safety_details*]
   }
 
   measure: count_incidents {
     label: "Number of Incidents"
-    html: <p style="font-size: 30px"> {{ value }} </p> ;;
+    html: <p style="font-size: 30px"> {{ linked_value }} </p> ;;
     filters: {
       field: incident_or_nearmiss
       value: "incident"
     }
     type: count
-    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
+    drill_fields: [Safety_details*]
+  }
+
+  measure: count_incidents_one_week_ago {
+    label: "Number of Incidents One Week Ago"
+    filters: {
+      field: incident_or_nearmiss
+      value: "incident"
+    }
+    filters: {
+      field: incident_date_date
+      value: "2 weeks ago"
+
+    }
+    type: count
+    drill_fields: [Safety_details*]
   }
 
 #   measure: safety_goal {
