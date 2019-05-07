@@ -409,6 +409,7 @@ dimension: is_osha_recordable  {
   dimension: hazard {
     type: string
     sql: ${TABLE}.hazard ;;
+    drill_fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
   }
 
   dimension: incident_or_nearmiss {
