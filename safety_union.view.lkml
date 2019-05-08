@@ -187,6 +187,11 @@ dimension: is_osha_recordable  {
     sql: ${TABLE}.incidentcause ;;
     drill_fields: [Safety_details*]
     link: {
+      label: "Safety Summary Dashboard"
+      url: "/embed/dashboards/vfUrxckmNvw6zZr7tKSfnH?Function={{ _filters['asset_mapping_excel.master'] | url_encode }}&Incident%20Causes={{ value }}"
+      icon_url: "https://www.chichester-hockey.co.uk/wp-content/uploads/2013/09/safety-first-icon.png"
+    }
+    link: {
       label: "Safety Drill-Down Detail"
       url: "/embed/dashboards/BT3mOTvoQJpHAPQOsRO1i5?Function={{ _filters['asset_mapping_excel.master'] | url_encode }}&Hazard%20Type={{ value }}"
       icon_url: "http://icons.iconarchive.com/icons/iconsmind/outline/512/Down-2-2-icon.png"
@@ -225,14 +230,14 @@ dimension: is_osha_recordable  {
     type: string
     sql: ${TABLE}.affectedbodypart ;;
     link: {
-      label: "Safety Drill-Down Detail"
-      url: "/embed/dashboards/BT3mOTvoQJpHAPQOsRO1i5?Function={{ _filters['asset_mapping_excel.master'] | url_encode }}&Affected%20Body%20Part={{ value }}"
-      icon_url: "http://icons.iconarchive.com/icons/iconsmind/outline/512/Down-2-2-icon.png"
+      label: "Safety Summary Dashboard"
+      url: "/embed/dashboards/vfUrxckmNvw6zZr7tKSfnH?Function={{ _filters['asset_mapping_excel.master'] | url_encode }}&Incident%20Causes={{ _filters['safety_union.incident_cause'] | url_encode }}&Affected%20Body%20Part={{ value }}"
+      icon_url: "https://www.chichester-hockey.co.uk/wp-content/uploads/2013/09/safety-first-icon.png"
     }
     link: {
-      label: "Safety Summary Dashboard"
-      url: "/embed/dashboards/vfUrxckmNvw6zZr7tKSfnH?Function={{ _filters['asset_mapping_excel.master'] | url_encode }}&Affected%20Body%20Part={{ value }}"
-      icon_url: "https://www.chichester-hockey.co.uk/wp-content/uploads/2013/09/safety-first-icon.png"
+      label: "Safety Drill-Down Detail"
+      url: "/embed/dashboards/BT3mOTvoQJpHAPQOsRO1i5?Function={{ _filters['asset_mapping_excel.master'] | url_encode }}&Hazard%20Type={{ _filters['safety_union.incident_cause'] | url_encode }}&Affected%20Body%20Part={{ value }}"
+      icon_url: "http://icons.iconarchive.com/icons/iconsmind/outline/512/Down-2-2-icon.png"
     }
     drill_fields: [Safety_details*]
   }
