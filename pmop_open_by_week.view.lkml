@@ -12,9 +12,10 @@ view: pmop_open_by_week {
           where pmop.LoadID = (
           select max(LoadID) from dataLake.PMOP_txt_EngAndFacilities
           )
-          and (teco.TechCompletion is null or teco.TechCompletion < sun.Sunday)
+          and (teco.TechCompletion is null or teco.TechCompletion > sun.Sunday)
           and sun.Sunday >= pmop.Release
-          and sun.Sunday <= pmop.LateDate
+      and pmop.Release > '01/01/1950'
+          and (sun.Sunday <= pmop.LateDate or pmop.LateDate = '01/01/1900')
         ) openOnTime
         , (
           select count(*)
@@ -27,8 +28,9 @@ view: pmop_open_by_week {
           where pmop.LoadID = (
           select max(LoadID) from dataLake.PMOP_txt_EngAndFacilities
           )
-          and (teco.TechCompletion is null or teco.TechCompletion < sun.Sunday)
+          and (teco.TechCompletion is null or teco.TechCompletion > sun.Sunday)
           and sun.Sunday >= pmop.Release
+      and pmop.Release > '01/01/1950'
         ) openTotal
        from (
         select dateadd(dd,number,(
