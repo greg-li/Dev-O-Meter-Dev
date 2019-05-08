@@ -7,6 +7,7 @@ view: deviations_target {
         annual_fact_deviations.annual_deviations  AS "annual_deviations",
         annual_fact_deviations.following_year  AS "following_year",
         annual_fact_deviations.following_year_weekly_target  AS "following_year_weekly_target",
+        annual_fact_deviations.following_year_monthly_target AS "following_year_monthly_target",
         weekly_calendar.prior_year AS baseline_year,
         weekly_calendar.week AS deviation_week
       FROM
@@ -67,11 +68,24 @@ view: deviations_target {
     sql: ${TABLE}.following_year_weekly_target ;;
   }
 
+  dimension: asset_monthly_deviation_target{
+    type: number
+    sql: ${TABLE}.following_year_monthly_target ;;
+  }
+
   measure: total_weekly_deviations_target {
     label: "Weekly Deviations Target"
     description: "Sum of all individual deviation targets by Site and Asset for the week"
     type: sum
     sql: ${asset_weekly_deviation_target} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: total_monthly_deviations_target {
+    label: "Monthly Deviations Target"
+    description: "Sum of all individual deviation targets by Site and Asset for the Month"
+    type: sum
+    sql: ${asset_monthly_deviation_target} ;;
     value_format_name: decimal_2
   }
 }
