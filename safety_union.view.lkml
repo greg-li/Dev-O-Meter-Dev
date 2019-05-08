@@ -188,12 +188,12 @@ dimension: is_osha_recordable  {
     drill_fields: [Safety_details*]
     link: {
       label: "Safety Summary Dashboard"
-      url: "/embed/dashboards/vfUrxckmNvw6zZr7tKSfnH?Function={{ _filters['asset_mapping_excel.master'] | url_encode }}&Incident%20Causes={{ value }}"
+      url: "/embed/dashboards/vfUrxckmNvw6zZr7tKSfnH?Function={{ _filters['asset_mapping_excel.master'] | url_encode }}&Affected%20Body%20Part={{ _filters['safety_union.affected_bodypart'] | url_encode }}&Incident%20Causes={{ value }}"
       icon_url: "https://www.chichester-hockey.co.uk/wp-content/uploads/2013/09/safety-first-icon.png"
     }
     link: {
       label: "Safety Drill-Down Detail"
-      url: "/embed/dashboards/BT3mOTvoQJpHAPQOsRO1i5?Function={{ _filters['asset_mapping_excel.master'] | url_encode }}&Hazard%20Type={{ value }}"
+      url: "/embed/dashboards/BT3mOTvoQJpHAPQOsRO1i5?Function={{ _filters['asset_mapping_excel.master'] | url_encode }}&Affected%20Body%20Part={{ _filters['safety_union.affected_bodypart'] | url_encode }}&Hazard%20Type={{ value }}"
       icon_url: "http://icons.iconarchive.com/icons/iconsmind/outline/512/Down-2-2-icon.png"
       }
   }
