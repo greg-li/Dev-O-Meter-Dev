@@ -18,7 +18,7 @@ include: "*.view.lkml"                       # include all views in this project
 # }
 
 map_layer: injured_bodypart {
-  file: "body7.topojson"
+  file: "body11.topojson"
   property_key: "bodypart"
 }
 
