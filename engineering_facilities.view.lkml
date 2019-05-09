@@ -40,6 +40,7 @@ view: engineering_facilities {
   FROM [EDM].[dataLake].[RequestedWork_Excel_EngAndFacilities] r
   LEFT JOIN edm.datalake.TECO_Excel_EngAndFacilities t
   on r.orderno = t.orderno
+  and t.loadid = (select max(loadid) from datalake.TECO_Excel_EngAndFacilities)
   where r.loadid = (select max(loadid) from [EDM].[dataLake].[RequestedWork_Excel_EngAndFacilities])
   union all
   SELECT
@@ -62,6 +63,7 @@ view: engineering_facilities {
   FROM [EDM].[dataLake].[PMOP_txt_EngAndFacilities] p
   LEFT JOIN edm.datalake.TECO_Excel_EngAndFacilities t
   on p.orderno = t.orderno
+  and t.loadid = (select max(loadid) from datalake.TECO_Excel_EngAndFacilities)
   where p.loadid = (select max(loadid) from [EDM].[dataLake].[PMOP_txt_EngAndFacilities])
  ;;
 
