@@ -209,6 +209,58 @@ dimension: deviation_age_days{
       , date_created_week, date_created_date, count]
   }
 
+dimension: is_before_mtd{
+  type: yesno
+  sql:
+    (DATEPART(DAY, ${date_created_date}) < DATEPART(DAY, CURRENT_TIMESTAMP)
+      OR
+      (
+        DATEPART(DAY, ${date_created_date}) = DATEPART(DAY, CURRENT_TIMESTAMP) AND
+        DATEPART(HOUR, ${date_created_date}) < DATEPART(HOUR, CURRENT_TIMESTAMP)
+      )
+      OR
+      (
+        DATEPART(DAY, ${date_created_date}) = DATEPART(DAY, CURRENT_TIMESTAMP) AND
+        DATEPART(HOUR, ${date_created_date}) <= DATEPART(HOUR, CURRENT_TIMESTAMP) AND
+        DATEPART(MINUTE, ${date_created_date}) < DATEPART(MINUTE, CURRENT_TIMESTAMP)
+      )
+    );;
+   }
+
+  dimension: is_before_ytd{
+    type: yesno
+    sql:
+    (DATEPART(DAYOFYEAR, ${date_created_date}) < DATEPART(DAYOFYEAR, CURRENT_TIMESTAMP)
+      OR
+      (
+        DATEPART(DAYOFYEAR, ${date_created_date}) = DATEPART(DAYOFYEAR, CURRENT_TIMESTAMP) AND
+        DATEPART(HOUR, ${date_created_date}) < DATEPART(HOUR, CURRENT_TIMESTAMP)
+      )
+      OR
+      (
+        DATEPART(DAYOFYEAR, ${date_created_date}) = DATEPART(DAYOFYEAR, CURRENT_TIMESTAMP) AND
+        DATEPART(HOUR, ${date_created_date}) <= DATEPART(HOUR, CURRENT_TIMESTAMP) AND
+        DATEPART(MINUTE, ${date_created_date}) < DATEPART(MINUTE, CURRENT_TIMESTAMP)
+      )
+    );;
+  }
+
+  dimension: is_prior_ytd {
+    type:  yesno
+    hidden:  yes
+    sql:
+    ${date_created_raw} BETWEEN DATEADD(yy, DATEDIFF(yy,0,DATEADD(yy, -1, GETDATE())), 0) AND DATEADD(yy, -1, GETDATE());;
+  }
+
+  dimension: is_current_ytd {
+    type:  yesno
+    hidden:  yes
+    sql:
+    ${date_created_raw} BETWEEN DATEADD(yy, DATEDIFF(yy,0,GETDATE()), 0) AND GETDATE();;
+  }
+
+
+
   # last_12_months is used for the spark line viz only. Viz used in "DEVIATION DETAILED ANALYSIS DASHBOARD"
   # Reason: viz doesn't allow column renaming, and this should be the name of the trend line column.
   # Hide unless working on viz, andemember to hide again when you're done!
@@ -435,6 +487,39 @@ dimension: deviation_age_days{
       label: "Deviation Details"
       url: "/dashboards/WBJNwY7xAFoFQwejYLdET3?Site={{ _filters['dim_site.site_name'] | url_encode }}&Status={{ _filters['dim_deviation_status.deviation_status'] | url_encode }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] | url_encode }}&Asset={{ _filters['vw_asset_to_area.asset'] | url_encode }}&Root%20Category={{ _filters['dim_root_cause.root_cause_category'] | url_encode }}&Causal%20Factor={{ _filters['dim_causal.causal_name'] | url_encode }}&Event%20Area={{ _filters['alert_limit_check.event_area'] | url_encode }}&Batch={{ _filters['dim_lot_batch.lot_batch'] | url_encode }}&Customer={{ _filters['dim_customers.customer_name'] | url_encode }}&Event%20Classification={{ _filters['alert_limit_check.event_classification'] | url_encode }}&Area%20Where%20Occurred={{ _filters['dim_area.area_name'] | url_encode }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] | url_encode }}&Quality%20Impact%20Rating={{ _filters['fact_deviations.quality_rating'] | url_encode }}"
       icon_url: "https://looker.com/favicon.ico"
+    }
+  }
+
+  measure: count_ytd {
+    type: count_distinct
+    label: "Count of Deviations Year-to-Date"
+    sql: ${parent_record_id} ;;
+    drill_fields: [Deviation_details*]
+    link: {
+      label: "Deviation Details"
+      url: "/dashboards/WBJNwY7xAFoFQwejYLdET3?Site={{ _filters['dim_site.site_name'] | url_encode }}&Status={{ _filters['dim_deviation_status.deviation_status'] | url_encode }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] | url_encode }}&Asset={{ _filters['vw_asset_to_area.asset'] | url_encode }}&Root%20Category={{ _filters['dim_root_cause.root_cause_category'] | url_encode }}&Causal%20Factor={{ _filters['dim_causal.causal_name'] | url_encode }}&Event%20Area={{ _filters['alert_limit_check.event_area'] | url_encode }}&Batch={{ _filters['dim_lot_batch.lot_batch'] | url_encode }}&Customer={{ _filters['dim_customers.customer_name'] | url_encode }}&Event%20Classification={{ _filters['alert_limit_check.event_classification'] | url_encode }}&Area%20Where%20Occurred={{ _filters['dim_area.area_name'] | url_encode }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] | url_encode }}&Quality%20Impact%20Rating={{ _filters['fact_deviations.quality_rating'] | url_encode }}"
+      icon_url: "https://looker.com/favicon.ico"
+    }
+    filters: {
+      field: is_current_ytd
+      value: "yes"
+    }
+  }
+
+
+  measure: count_pytd {
+    type: count_distinct
+    label: "Count of Deviations Prior Year-to-Date"
+    sql: ${parent_record_id} ;;
+    drill_fields: [Deviation_details*]
+    link: {
+      label: "Deviation Details"
+      url: "/dashboards/WBJNwY7xAFoFQwejYLdET3?Site={{ _filters['dim_site.site_name'] | url_encode }}&Status={{ _filters['dim_deviation_status.deviation_status'] | url_encode }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] | url_encode }}&Asset={{ _filters['vw_asset_to_area.asset'] | url_encode }}&Root%20Category={{ _filters['dim_root_cause.root_cause_category'] | url_encode }}&Causal%20Factor={{ _filters['dim_causal.causal_name'] | url_encode }}&Event%20Area={{ _filters['alert_limit_check.event_area'] | url_encode }}&Batch={{ _filters['dim_lot_batch.lot_batch'] | url_encode }}&Customer={{ _filters['dim_customers.customer_name'] | url_encode }}&Event%20Classification={{ _filters['alert_limit_check.event_classification'] | url_encode }}&Area%20Where%20Occurred={{ _filters['dim_area.area_name'] | url_encode }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] | url_encode }}&Quality%20Impact%20Rating={{ _filters['fact_deviations.quality_rating'] | url_encode }}"
+      icon_url: "https://looker.com/favicon.ico"
+    }
+    filters: {
+      field: is_prior_ytd
+      value: "yes"
     }
   }
 
