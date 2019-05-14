@@ -179,6 +179,12 @@ explore: fact_deviations {
       AND {% condition asset_mapping_excel.master %} ${deviations_target.asset_mapping_excel_master} {% endcondition %}
     ;;
   }
+  join: all_deviation_customers_concat {
+    type: left_outer
+    view_label: "All Customers Concatenated"
+    sql_on: ${fact_deviations.parent_record_id}=${all_deviation_customers_concat.parent_record_id} ;;
+    relationship: one_to_one
+  }
 }
 
 ##Suggest Explores
