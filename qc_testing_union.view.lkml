@@ -1,6 +1,7 @@
 view: qc_testing_union {
   derived_table: {
-    sql: select WeekEndingDate
+    sql:
+      select WeekEndingDate
         , AssetFunction
         , 'Release Testing' as TestType
         , ReleaseTestingActual as Actual
@@ -25,6 +26,16 @@ view: qc_testing_union {
         , 'Raw Materials Testing' as TestType
         , RawMaterialsTestingActual as Actual
         , RawMaterialsTestingTarget as Target
+      from datalake.SLTWeeklyDataEntry_Excel_QC
+      where LoadID = (select max(LoadID) from datalake.SLTWeeklyDataEntry_Excel_QC)
+
+    UNION ALL
+
+      select WeekEndingDate
+        , AssetFunction
+        , 'S&OP OTIF' as TestType
+        , OTIFDeliverablesActual as Actual
+        , OTIFDeliverablesTarget as Target
       from datalake.SLTWeeklyDataEntry_Excel_QC
       where LoadID = (select max(LoadID) from datalake.SLTWeeklyDataEntry_Excel_QC)
        ;;
