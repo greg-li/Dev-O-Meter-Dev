@@ -738,7 +738,6 @@ dimension: is_before_mtd{
     primary_key: yes
     sql: CONCAT(${TABLE}.PARENT_RECORD_ID,
 ${TABLE}.SITE_KEY,
-${TABLE}.CUSTOMER_KEY,
 ${TABLE}.LOT_KEY,
 ${TABLE}.DOCUMENT_KEY,
 ${TABLE}.STEP_KEY,
