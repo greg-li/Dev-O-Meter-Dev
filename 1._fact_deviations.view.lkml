@@ -195,6 +195,7 @@ dimension: deviation_age_days{
       raw,
       date,
       week,
+      week_of_year,
       month,
       month_name,
       quarter,
