@@ -16,8 +16,10 @@ view: annual_fact_deviations {
       LEFT JOIN dbo.VW_Asset_to_Area  AS vw_asset_to_area ON fact_deviations.AREA_OCCURED_KEY = vw_asset_to_area.AREA_KEY
       LEFT JOIN ${asset_mapping_excel.SQL_TABLE_NAME} AS asset_mapping_excel ON vw_asset_to_area.Asset = asset_mapping_excel.Deviations
 
+
       WHERE
         (dim_deviation_type.DEVIATION_TYPE  IN ('Customer Complaint - Packaging and shipping complaints', 'Unplanned', 'Customer Complaint - Product quality complaints'))
+        and asset_mapping_excel.Master != 'P5'
       GROUP BY
         dim_site.site_name,
         asset_mapping_excel.Master,
