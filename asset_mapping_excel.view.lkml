@@ -54,7 +54,7 @@ view: asset_mapping_excel {
     sql: CASE WHEN ${TABLE}.Master IS NULL THEN 'Unassigned' ELSE ${TABLE}.Master END ;;
     link: {
       label: "Safety Summary Dashboard"
-      url: "/dashboards/34?&Function={{ value }}"
+      url: "/embed/dashboards/vfUrxckmNvw6zZr7tKSfnH?Function={{ value }}"
       icon_url: "https://www.chichester-hockey.co.uk/wp-content/uploads/2013/09/safety-first-icon.png"
     }
     link: {
