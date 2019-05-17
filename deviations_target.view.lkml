@@ -88,4 +88,5 @@ view: deviations_target {
     sql: ${asset_monthly_deviation_target} ;;
     value_format_name: decimal_2
   }
+
 }
