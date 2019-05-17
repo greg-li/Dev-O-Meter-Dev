@@ -62,11 +62,11 @@ view: deviations_target {
     sql: ${TABLE}.annual_deviations ;;
   }
 
-   measure: total_weekly_deviations_target {
-     label: "Weekly Deviations Target"
-     description: "Sum of all individual deviation targets by Site for the week"
-     type: number
-     sql: ${total_annual_deviations} / 52.0 * 0.8 ;;
-     value_format_name: decimal_2
-   }
+  measure: total_weekly_deviations_target {
+    label: "Weekly Deviations Target"
+    description: "Sum of all individual deviation targets by Site for the week"
+    type: number
+    sql: ${total_annual_deviations} / 52.0 * 0.8 ;;
+    value_format_name: decimal_2
+ }
 }
