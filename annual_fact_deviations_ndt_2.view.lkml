@@ -1,9 +1,10 @@
-view: annual_fact_deviations {
+view: annual_fact_deviations_ndt_2 {
   derived_table: {
     explore_source: fact_deviations {
-      column: baseline_year { field: fact_deviations.date_created_year }
-      column: annual_deviations { field: fact_deviations.count }
+      column: date_created_year {}
+      column: count {}
       column: site_name { field: dim_site.site_name }
+      column: master { field: asset_mapping_excel.master }
       filters: {
         field: fact_deviations.timezone_selection
         value: "Eastern Standard Time"
@@ -16,23 +17,24 @@ view: annual_fact_deviations {
         field: dim_site.site_name
         value: ""
       }
+      filters: {
+        field: asset_mapping_excel.master
+        value: ""
+      }
     }
   }
-  dimension: pk {
-    hidden: yes
-    primary_key: yes
-    sql: CONCAT(${baseline_year}, ${site_name})  ;;
+  dimension: date_created_year {
+    label: " Deviations  Created Year"
+    type: date_year
   }
-
-  dimension: baseline_year {
-    type: date_time
-  }
-
-  dimension: annual_deviations {
-    label: "Annual Deviations"
+  dimension: count {
+    label: " Deviations Count of Deviations"
     type: number
   }
   dimension: site_name {
-    label: "Site Name"
+    label: "Site Site Name"
+  }
+  dimension: master {
+    label: "Function / Asset Filter Asset - Function"
   }
 }
