@@ -1,8 +1,8 @@
 view: annual_fact_deviations_ndt_2 {
   derived_table: {
     explore_source: fact_deviations {
-      column: date_created_year {}
-      column: count {}
+      column: baseline_year { field: fact_deviations.date_created_year }
+      column: annual_deviations { field: fact_deviations.count }
       column: site_name { field: dim_site.site_name }
       column: master { field: asset_mapping_excel.master }
       filters: {
@@ -23,17 +23,20 @@ view: annual_fact_deviations_ndt_2 {
       }
     }
   }
-  dimension: date_created_year {
-    label: " Deviations  Created Year"
-    type: date_year
+
+  dimension: baseline_year {
+    type: date_time
   }
-  dimension: count {
-    label: " Deviations Count of Deviations"
+
+  dimension: annual_deviations {
+    label: "Annual Deviations"
     type: number
   }
+
   dimension: site_name {
-    label: "Site Site Name"
+    label: "Site Name"
   }
+
   dimension: master {
     label: "Function / Asset Filter Asset - Function"
   }

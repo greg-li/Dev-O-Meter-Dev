@@ -18,6 +18,7 @@ view: annual_fact_deviations {
       }
     }
   }
+
   dimension: pk {
     hidden: yes
     primary_key: yes
@@ -32,6 +33,7 @@ view: annual_fact_deviations {
     label: "Annual Deviations"
     type: number
   }
+
   dimension: site_name {
     label: "Site Name"
   }
