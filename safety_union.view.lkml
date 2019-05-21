@@ -1,57 +1,67 @@
 view: safety_union {
   derived_table: {
-    sql: select id as incidentid
-        , null as nearmissid
-        , incidentcause
-        , assetofevent
-        , createdby
-        , createdbyid
-        , affectedbodypart
-        , building
-        , correctiveaction
-        , created
-        , dateofincidentreport
-        , generalarea
-        , closuredate
-        , employeeid
-        , incidentdate
-        , incidentdescription
-        , LOB
-        , natureofincident
-        , responsiblesupervisor
-        , status
-        , typeofincident
-        , incidentcause as hazard
-        , 'incident' as incident_or_nearmiss
-      from dataLake.eSafety_Sharepoint_eIncident_List
-      where loadid = (select max(loadid) from dataLake.eSafety_Sharepoint_eIncident_List)
+    sql:  select el.id as incidentid
+          , null as nearmissid
+          , el.incidentcause
+          , case when el.IncidentDate < '01/01/2019' then isnull(am.Asset,am2.AssetOfEvent) else el.AssetOfEvent end as AssetOfEvent
+          , el.createdby
+          , el.createdbyid
+          , el.affectedbodypart
+          , el.building
+          , el.correctiveaction
+          , el.created
+          , el.dateofincidentreport
+          , el.generalarea
+          , el.closuredate
+          , el.employeeid
+          , el.incidentdate
+          , el.incidentdescription
+          , el.LOB
+          , el.natureofincident
+          , el.responsiblesupervisor
+          , el.status
+          , el.typeofincident
+          , el.incidentcause as hazard
+          , 'incident' as incident_or_nearmiss
+        from dataLake.eSafety_Sharepoint_eIncident_List el
+        left join datalake.PastRecordSafety_AssetMapping am
+        on el.generalarea = am.Area
+      and el.Building = am.[Building Full]
+      left join datalake.PastRecordSafety_AssetMapping2 am2
+      on am2.GeneralArea = el.GeneralArea
+        where loadid = (select max(loadid) from dataLake.eSafety_Sharepoint_eIncident_List)
 
-      union all
+        union
 
-      select null as incidentid
-        , id as nearmissid
-        , RootCause as incidentcause
-        , assetofevent
-        , createdby
-        , createdbyid
-        , null as affectedbodypart
-        , building
-        , CorrectiveActionsCompleted as correctiveaction
-        , created
-        , null as dateofincidentreport
-        , generalarea
-        , DateCompleted as closuredate
-        , cast(submitterID as nvarchar) as employeeid
-        , DateAndTimeOfNearMiss as incidentdate
-        , NearMissSafetyObservation as incidentdescription
-        , SubmitterLOB as LOB
-        , null as natureofincident
-        , ResponsibleParty as responsiblesupervisor
-        , null as status
-        , null as typeofincident
-        , hazardtype as hazard
-        , 'nearmiss' as incident_or_nearmiss
-      from dataLake.eSafety_Sharepoint_eSafety_List
+        select null as incidentid
+          , el.id as nearmissid
+          , el.RootCause as incidentcause
+          , case when el.DateAndTimeOfNearMiss < '01/01/2019' then isnull(am.Asset,am2.AssetOfEvent) else el.AssetOfEvent end as AssetOfEvent
+          , el.createdby
+          , el.createdbyid
+          , null as affectedbodypart
+          , el.building
+          , el.CorrectiveActionsCompleted as correctiveaction
+          , el.created
+          , null as dateofincidentreport
+          , el.generalarea
+          , el.DateCompleted as closuredate
+          , cast(el.submitterID as nvarchar) as employeeid
+          , el.DateAndTimeOfNearMiss as incidentdate
+          , el.NearMissSafetyObservation as incidentdescription
+          , el.SubmitterLOB as LOB
+          , null as natureofincident
+          , el.ResponsibleParty as responsiblesupervisor
+          , null as status
+          , null as typeofincident
+          , el.hazardtype as hazard
+          , 'nearmiss' as incident_or_nearmiss
+        from dataLake.eSafety_Sharepoint_eSafety_List el
+        left join datalake.PastRecordSafety_AssetMapping am
+        on el.generalarea = am.Area
+      and el.Building = am.[Building Full]
+      left join datalake.PastRecordSafety_AssetMapping2 am2
+      on am2.GeneralArea = el.GeneralArea
       where loadid = (select max(loadid) from dataLake.eSafety_Sharepoint_eSafety_List) ;;
 
       persist_for: "24 hours"
