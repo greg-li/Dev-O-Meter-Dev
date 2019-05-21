@@ -168,17 +168,20 @@ view: safety_union {
     hidden: yes
     type: number
     sql: ${TABLE}.incidentid ;;
+    drill_fields: [Safety_details*]
   }
 
   dimension: nearmiss_id {
     hidden: yes
     type: number
     sql: ${TABLE}.nearmissid ;;
+    drill_fields: [Safety_details*]
   }
 
 dimension: is_osha_recordable  {
   type:  yesno
   sql: lower(${type_of_incident}) like '%osha%' ;;
+  drill_fields: [Safety_details*]
 
 }
 
@@ -217,11 +220,13 @@ dimension: is_osha_recordable  {
   dimension: created_by {
     type: string
     sql: ${TABLE}.createdby ;;
+    drill_fields: [Safety_details*]
   }
 
   dimension: created_by_id {
     type: number
     sql: ${TABLE}.createdbyid ;;
+    drill_fields: [Safety_details*]
   }
 
   dimension: affected_bodypart {
@@ -371,12 +376,14 @@ dimension: is_osha_recordable  {
   dimension: corrective_action {
     type: string
     sql: ${TABLE}.correctiveaction ;;
+    drill_fields: [Safety_details*]
   }
 
   dimension_group: created {
     type: time
     timeframes: [date,week,month_name,year]
     sql: ${TABLE}.created ;;
+    drill_fields: [Safety_details*]
   }
 
   dimension_group: date_of_incidentreport {
@@ -384,6 +391,7 @@ dimension: is_osha_recordable  {
     type: time
     timeframes: [date,week,month_name,year]
     sql: ${TABLE}.dateofincidentreport ;;
+    drill_fields: [Safety_details*]
   }
 
   dimension: general_area {
@@ -408,6 +416,7 @@ dimension: is_osha_recordable  {
     timeframes: [date,week,month_name,month,year]
     type: time
     sql: ${TABLE}.closuredate ;;
+    drill_fields: [Safety_details*]
   }
 
   dimension: employee_id {
@@ -420,11 +429,13 @@ dimension: is_osha_recordable  {
     timeframes: [date,hour_of_day,week,week_of_year,day_of_week,day_of_month,month_name, month,quarter,quarter_of_year,year]
     type: time
     sql: ${TABLE}.incidentdate ;;
+    drill_fields: [Safety_details*]
   }
 
   dimension: incident_description {
     type: string
     sql: ${TABLE}.incidentdescription ;;
+    drill_fields: [Safety_details*]
   }
 
   dimension: lob {
@@ -436,21 +447,25 @@ dimension: is_osha_recordable  {
   dimension: nature_of_incident {
     type: string
     sql: ${TABLE}.natureofincident ;;
+    drill_fields: [Safety_details*]
   }
 
   dimension: responsible_supervisor {
     type: string
     sql: ${TABLE}.responsiblesupervisor ;;
+    drill_fields: [Safety_details*]
   }
 
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
+    drill_fields: [Safety_details*]
   }
 
   dimension: type_of_incident {
     type: string
     sql: ${TABLE}.typeofincident ;;
+    drill_fields: [Safety_details*]
   }
 
   dimension: hazard {
@@ -462,6 +477,7 @@ dimension: is_osha_recordable  {
   dimension: incident_or_nearmiss {
     type: string
     sql: ${TABLE}.incident_or_nearmiss ;;
+    drill_fields: [Safety_details*]
   }
 
   measure: last_incident_date {
@@ -473,6 +489,7 @@ dimension: is_osha_recordable  {
   measure: days_since_last_incident {
     type: number
     sql: datediff(day,  ${last_incident_date},  GETDATE()) ;;
+    drill_fields: [Safety_details*]
   }
 
 
