@@ -59,6 +59,11 @@ view: pmop_open_by_week {
   measure: count {
     type: count
     drill_fields: [detail*]
+    link: {
+      label: "Engineering & Facilities Details"
+      url: "/embed/dashboards/uo5bLXwHSFUbskkFeAidva"
+      icon_url: "https://img.icons8.com/metro/26/000000/maintenance.png"
+    }
   }
 
   dimension_group: sunday {
@@ -69,26 +74,51 @@ view: pmop_open_by_week {
   dimension: open_on_time {
     type: number
     sql: ${TABLE}.openOnTime ;;
+    link: {
+      label: "Engineering & Facilities Details"
+      url: "/embed/dashboards/uo5bLXwHSFUbskkFeAidva"
+      icon_url: "https://img.icons8.com/metro/26/000000/maintenance.png"
+    }
   }
 
   dimension: open_total {
     type: number
     sql: ${TABLE}.openTotal ;;
+    link: {
+      label: "Engineering & Facilities Details"
+      url: "/embed/dashboards/uo5bLXwHSFUbskkFeAidva"
+      icon_url: "https://img.icons8.com/metro/26/000000/maintenance.png"
+    }
   }
 
   measure: sum_open_on_time {
     type: sum
     sql: ${open_on_time} ;;
+    link: {
+      label: "Engineering & Facilities Details"
+      url: "/embed/dashboards/uo5bLXwHSFUbskkFeAidva"
+      icon_url: "https://img.icons8.com/metro/26/000000/maintenance.png"
+    }
   }
 
   measure: sum_open_total {
     type: sum
     sql: ${open_total} ;;
+    link: {
+      label: "Engineering & Facilities Details"
+      url: "/embed/dashboards/uo5bLXwHSFUbskkFeAidva"
+      icon_url: "https://img.icons8.com/metro/26/000000/maintenance.png"
+    }
   }
 
   measure: sum_past_due {
     type: sum
     sql: ${open_total}-${open_on_time} ;;
+    link: {
+      label: "Engineering & Facilities Details"
+      url: "/embed/dashboards/uo5bLXwHSFUbskkFeAidva"
+      icon_url: "https://img.icons8.com/metro/26/000000/maintenance.png"
+    }
   }
 
   set: detail {
