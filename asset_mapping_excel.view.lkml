@@ -62,6 +62,11 @@ view: asset_mapping_excel {
       url: "/embed/dashboards/BT3mOTvoQJpHAPQOsRO1i5?&Function={{ value }}"
       icon_url: "http://icons.iconarchive.com/icons/iconsmind/outline/512/Down-2-2-icon.png"
     }
+    link: {
+      label: "Engineering & Facilities Details"
+      url: "/embed/dashboards/uo5bLXwHSFUbskkFeAidva?Asset={{value}}"
+      icon_url: "https://img.icons8.com/metro/26/000000/maintenance.png"
+    }
   }
 
   dimension: record_source {

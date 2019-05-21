@@ -395,7 +395,7 @@ view: engineering_facilities {
   sql:  ${TABLE}.Function_Mapping;;
     link: {
       label: "Engineering & Facilities Details"
-      url: "/embed/dashboards/uo5bLXwHSFUbskkFeAidva"
+      url: "/embed/dashboards/uo5bLXwHSFUbskkFeAidva?Asset={{value}}"
       icon_url: "https://img.icons8.com/metro/26/000000/maintenance.png"
     }
   }
@@ -474,7 +474,7 @@ view: engineering_facilities {
     drill_fields: [workorder_details*]
     link: {
       label: "Engineering & Facilities Details"
-      url: "/embed/dashboards/uo5bLXwHSFUbskkFeAidva"
+      url: "/embed/dashboards/uo5bLXwHSFUbskkFeAidva?Work%20Center={{value}}"
       icon_url: "https://img.icons8.com/metro/26/000000/maintenance.png"
     }
   }
