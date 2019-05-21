@@ -8,7 +8,7 @@ view: e_safety_sharepoint_e_incident_list {
       , inc.AppCreatedByID
       , inc.AppModifiedBy
       , inc.AppModifiedByID
-      , case when inc.IncidentDate < '01/01/2019' then am.Asset else inc.AssetOfEvent end as AssetOfEvent
+      , case when inc.IncidentDate < '01/01/2019' then isnull(am.Asset,am2.AssetOfEvent) else inc.AssetOfEvent end as AssetOfEvent
       , inc.Attachments
       , inc.CreatedBy
       , inc.CreatedByID
@@ -46,13 +46,59 @@ view: e_safety_sharepoint_e_incident_list {
       , inc.LoadID
       , inc.RecordSource
 FROM dataLake.eSafety_Sharepoint_eIncident_List inc
-left join dataLake.PastRecordSafety_AssetMapping am
-on inc.Building = am.[Building Full]
-and inc.GeneralArea = am.Area
+left join datalake.PastRecordSafety_AssetMapping am
+on inc.generalarea = am.Area
+and inc.Building = am.[Building Full]
+left join datalake.PastRecordSafety_AssetMapping2 am2
+on am2.GeneralArea = inc.GeneralArea
 where loadid = (
   select max(loadid)
   from dataLake.eSafety_Sharepoint_eIncident_List
-) ;;
+) group by  inc.ID
+      , inc.IncidentCause
+      , inc.AppCreatedBy
+      , inc.AppCreatedByID
+      , inc.AppModifiedBy
+      , inc.AppModifiedByID
+      , inc.AssetOfEvent
+      , inc.Attachments
+      , inc.CreatedBy
+      , inc.CreatedByID
+      , inc.AffectedBodyPart
+      , inc.Building
+      , inc.ContentType
+      , inc.CorrectiveAction
+      , inc.Created
+      , inc.DateOfIncidentReport
+      , inc.GeneralArea
+      , inc.Type
+      , inc.ClosureDate
+      , inc.Edit
+      , inc.ModifiedBy
+      , inc.ModifiedByID
+      , inc.EmployeeID
+      , inc.FolderChildCount
+      , inc.FolderChildCountID
+      , inc.IncidentDate
+      , inc.IncidentDescription
+      , inc.ItemChildCount
+      , inc.ItemChildCountID
+      , inc.LOB
+      , inc.eIncident
+      , inc.eIncident2
+      , inc.Modified
+      , inc.NatureOfIncident
+      , inc.OriginalReport
+      , inc.ResponsibleSupervisor
+      , inc.Status
+      , inc.eIncident3
+      , inc.TypeOfIncident
+      , inc.Version
+      , inc.LoadDate
+      , inc.LoadID
+      , inc.RecordSource
+    , am.Asset
+    , am2.AssetOfEvent;;
     persist_for: "24 hours"
   }
 

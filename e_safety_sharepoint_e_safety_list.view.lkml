@@ -5,7 +5,7 @@ view: e_safety_sharepoint_e_safety_list {
           , esaf.AppCreatedByID
           , esaf.AppModifiedBy
           , esaf.AppModifiedByID
-          , case when esaf.DateAndTimeOfNearMiss < '01/01/2019' then am.Asset else esaf.AssetOfEvent end as AssetOfEvent
+          , case when esaf.DateAndTimeOfNearMiss < '01/01/2019' then isnull(am.Asset,am2.AssetOfEvent) else esaf.AssetOfEvent end as AssetOfEvent
           , esaf.Attachments
           , esaf.CreatedBy
           , esaf.CreatedByID
@@ -45,12 +45,59 @@ view: e_safety_sharepoint_e_safety_list {
           , esaf.RecordSource
         FROM dataLake.eSafety_Sharepoint_eSafety_List esaf
         left join datalake.PastRecordSafety_AssetMapping am
-        on esaf.Building = am.Building
-        and esaf.GeneralArea = am.Area
+        on esaf.generalarea = am.Area
+        and esaf.Building = am.[Building Full]
+        left join datalake.PastRecordSafety_AssetMapping2 am2
+        on am2.GeneralArea = esaf.GeneralArea
         where loadid = (
           select max(loadid)
           from dataLake.eSafety_Sharepoint_eSafety_List
-        ) ;;
+        )
+        group by esaf.ID
+          , esaf.AppCreatedBy
+          , esaf.AppCreatedByID
+          , esaf.AppModifiedBy
+          , esaf.AppModifiedByID
+          , am.Asset
+          , am2.AssetOfEvent
+          , esaf.AssetOfEvent
+          , esaf.Attachments
+          , esaf.CreatedBy
+          , esaf.CreatedByID
+          , esaf.Building
+          , esaf.SubmitterLOB
+          , esaf.ContentType
+          , esaf.CorrectiveActionsCompleted
+          , esaf.Created
+          , esaf.Timestamp
+          , esaf.DateAndTimeOfNearMiss
+          , esaf.DateCompleted
+          , esaf.Type
+          , esaf.Edit
+          , esaf.ModifiedBy
+          , esaf.ModifiedByID
+          , esaf.EmployeeSupervisor
+          , esaf.EmployeeSupervisorID
+          , esaf.FolderChildCount
+          , esaf.FolderChildCountID
+          , esaf.GeneralArea
+          , esaf.HazardType
+          , esaf.ItemChildCount
+          , esaf.ItemChildCountID
+          , esaf.Modified
+          , esaf.DateOfNearMiss
+          , esaf.NearMissSafetyObservation
+          , esaf.ResponsibleParty
+          , esaf.ResponsiblePartyID
+          , esaf.RootCause
+          , esaf.Submitter
+          , esaf.SubmitterID
+          , esaf.Title
+          , esaf.ReferenceNumber_WO_Notif_CC
+          , esaf.Version
+          , esaf.LoadDate
+          , esaf.LoadID
+          , esaf.RecordSource ;;
     persist_for: "24 hours"
   }
 
