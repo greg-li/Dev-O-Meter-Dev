@@ -149,7 +149,7 @@ view: engineering_facilities {
   }
 
   set: workorder_details {
-    fields: [order_no,order_type,description,maint_activ_type,main_work_center,functional_location,equipment,created_on_date,plan_date_date,late_date_date,ClosedDate_date,TechCompletion_date]
+    fields: [order_no,order_type,Function_Mapping,description,maint_activ_type,main_work_center,functional_location,equipment,created_on_date,plan_date_date,late_date_date,ClosedDate_date,TechCompletion_date]
   }
 
   measure: count {
