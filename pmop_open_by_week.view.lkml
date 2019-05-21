@@ -4,23 +4,31 @@ view: pmop_open_by_week {
         , (
           select count(*)
           FROM [dataLake].[PMOP_txt_EngAndFacilities] pmop
+          left join dataLake.TECO_Excel_EngAndFacilities teco
+          on pmop.OrderNo = teco.OrderNo
+          and teco.LoadID = (
+            select max(LoadID) from dataLake.TECO_Excel_EngAndFacilities
+          )
           where pmop.LoadID = (
           select max(LoadID) from dataLake.PMOP_txt_EngAndFacilities
           )
-          and pmop.SystemStatus not like 'CLSD%'
-          and pmop.SystemStatus not like 'TECO%'
+          and (teco.TechCompletion is null or teco.TechCompletion > sun.Sunday)
           and sun.Sunday >= pmop.Release
-          and pmop.Release > '01/01/1950'
+      and pmop.Release > '01/01/1950'
           and (sun.Sunday <= pmop.LateDate or pmop.LateDate = '01/01/1900')
         ) openOnTime
         , (
           select count(*)
           FROM [dataLake].[PMOP_txt_EngAndFacilities] pmop
+          left join dataLake.TECO_Excel_EngAndFacilities teco
+          on pmop.OrderNo = teco.OrderNo
+          and teco.LoadID = (
+            select max(LoadID) from dataLake.TECO_Excel_EngAndFacilities
+          )
           where pmop.LoadID = (
           select max(LoadID) from dataLake.PMOP_txt_EngAndFacilities
           )
-          and pmop.SystemStatus not like 'CLSD%'
-          and pmop.SystemStatus not like 'TECO%'
+          and (teco.TechCompletion is null or teco.TechCompletion > sun.Sunday)
           and sun.Sunday >= pmop.Release
       and pmop.Release > '01/01/1950'
         ) openTotal
