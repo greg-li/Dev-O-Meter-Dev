@@ -385,7 +385,7 @@ view: engineering_facilities {
 
   dimension: OrderStatus
   {
-    labe: "Work Order Status"
+    label: "Work Order Status"
     type: string
     sql: ${TABLE}.OrderStatus ;;
   }
