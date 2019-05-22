@@ -293,7 +293,7 @@ view: engineering_facilities {
     sql: ${order_no};;
     filters: {
       field: late_date_date
-      value: "before today"
+      value: "before today, today"
     }
     filters: {
       field: ClosedDate_date
