@@ -679,7 +679,7 @@ dimension: is_before_mtd{
             , all_deviation_customers_concat.all_customers,dim_lot_batch.lot_batch, dim_event_classification.event_classification
             , dim_event_classification.event_area, dim_risk_category.risk_category_name, quality_rating
             , dim_causal.causal_name, dim_root_cause.root_cause_category, dim_root_cause.root_cause_name
-            , DIM_DEVIATION_STATUS.deviation_status, date_created_date]
+            , DIM_DEVIATION_STATUS.deviation_status, date_created_date,date_due_date]
   }
 
   measure: count_closed {
