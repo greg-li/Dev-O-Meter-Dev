@@ -11,7 +11,7 @@ view: pmop_open_by_week {
       or (pmop.SystemStatus not like 'CLSD%' and pmop.SystemStatus not like 'TECO%'))
           and sun.Sunday >= pmop.Release
       and pmop.Release > '01/01/1950'
-          and (sun.Sunday <= pmop.LateDate or pmop.LateDate = '01/01/1900')
+          and (sun.Sunday < pmop.LateDate or pmop.LateDate = '01/01/1900')
         ) openOnTime
         , (
           select count(*)
