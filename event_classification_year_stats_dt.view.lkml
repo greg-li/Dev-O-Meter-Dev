@@ -11,26 +11,7 @@ view: event_classification_year_stats_dt {
       column: count {}
       column: site_name {field: dim_site.site_name}
       column: bus_sec_name {field: dim_bus_sec.bus_sec_name}
-      filters: {
-        field: dim_deviation_type.deviation_type
-        value: "Unplanned,Customer Complaint - Product quality complaints,Customer Complaint - Packaging and shipping complaints"
-      }
-      filters: {
-        field: fact_deviations.timezone_selection
-        value: "Eastern Standard Time"
-      }
-      filters: {
-        field: dim_site.site_name
-        value: "Portsmouth"
-      }
-      filters: {
-        field: dim_deviation_status.deviation_status
-        value: "-Closed - Aborted,-Closed - Cancelled,-Closed - Voided"
-      }
-      filters: {
-        field: dim_bus_sec.bus_sec_name
-        value: "LPB Portsmouth MM"
-      }
+
     }
   }
   dimension: pk {

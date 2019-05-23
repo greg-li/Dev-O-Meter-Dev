@@ -14,10 +14,10 @@ explore: fact_deviations {
   label: "Deviations"
   view_label: " Deviations"
  always_filter: {
-    filters: {
-      field: dim_deviation_type.deviation_type
-      value: "Customer Complaint - Packaging and shipping complaints"
-    }
+    #filters: {
+    #  field: dim_deviation_type.deviation_type
+    #  value: "Customer Complaint - Packaging and shipping complaints"
+    #}
     filters: {
       field: fact_deviations.timezone_selection
       value: "Eastern Standard Time"
