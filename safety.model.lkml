@@ -35,7 +35,8 @@ explore: safety_union {
   }
   join: last_incident {
     relationship: one_to_one
-    sql_on: ${last_incident.id} = ${safety_union.id} ;;
+    sql_on: ${last_incident.id} = ${safety_union.id}
+    and ${last_incident.asset_of_event} = ${safety_union.asset_of_event};;
   }
   join: incident_type_pctg_last6months {
     relationship: many_to_one

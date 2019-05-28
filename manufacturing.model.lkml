@@ -16,3 +16,7 @@ include: "*.view.lkml"                       # include all views in this project
 #     sql_on: ${users.id} = ${orders.user_id} ;;
 #   }
 # }
+explore: process_monitoring_data {
+  label: "Process Monitoring"
+  view_label: "Process Monitoring Data"
+  }

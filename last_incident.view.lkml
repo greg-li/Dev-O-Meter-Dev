@@ -7,8 +7,9 @@ view: last_incident {
       column: id {}
       column: incident_date_date {}
       column: incident_or_nearmiss {}
+      column: asset_of_event  {}
       derived_column: days_since_last_incident {
-        sql: datediff(day,  lag(cast(incident_date_date as date)) OVER (ORDER BY cast(incident_date_date as date)), incident_date_date) ;;
+        sql: datediff(day,  lag(cast(incident_date_date as date)) OVER (ORDER BY asset_of_event, cast(incident_date_date as date)), incident_date_date) ;;
       }
       filters: {
         field: safety_union.incident_or_nearmiss
@@ -23,6 +24,11 @@ view: last_incident {
   dimension: incident_date_date {
     label: "Last Incident Date"
     type: date
+  }
+
+  dimension: asset_of_event  {
+    type: string
+    label: "Asset of Event"
   }
 
   dimension: days_since_last_incident {
