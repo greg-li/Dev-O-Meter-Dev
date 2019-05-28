@@ -19,7 +19,7 @@ view: annual_fact_deviations {
 
       WHERE
         (dim_deviation_type.DEVIATION_TYPE  IN ('Customer Complaint - Packaging and shipping complaints', 'Unplanned', 'Customer Complaint - Product quality complaints'))
-        and asset_mapping_excel.Master != 'P5'
+        --and asset_mapping_excel.Master != 'P5'
       GROUP BY
         dim_site.site_name,
         asset_mapping_excel.Master,
