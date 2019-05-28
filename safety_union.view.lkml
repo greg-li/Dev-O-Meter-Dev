@@ -492,7 +492,7 @@ dimension: is_osha_recordable  {
 
   measure: last_incident_date {
     type: date
-    sql: max(case when ${incident_or_nearmiss} = 'incident' then ${date_of_incidentreport_date} else null end) ;;
+    sql: max(case when ${incident_or_nearmiss} = 'incident' then ${incident_date_date} else null end) ;;
     drill_fields: [Safety_details*]
   }
 
