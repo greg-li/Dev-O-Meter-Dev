@@ -7,6 +7,7 @@ view: vw_asset_to_area {
   }
 
   dimension: area_key {
+    hidden: yes
     type: number
     sql: ${TABLE}.AREA_KEY ;;
   }
@@ -20,12 +21,13 @@ view: vw_asset_to_area {
 
   dimension: unique_id {
 #     required_access_grants: [test]
-#     primary_key: yes
+    primary_key: yes
     hidden: yes
     sql: concat(${area},${area_key},${asset});;
   }
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: []
   }

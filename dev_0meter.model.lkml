@@ -169,21 +169,16 @@ explore: fact_deviations {
             ;;
       relationship:many_to_one
   }
-
   join: deviations_target {
+#     from: annual_fact_deviations
+    type: full_outer
     relationship: many_to_one
-    sql_on: ${fact_deviations.date_created_week} = ${deviations_target.target_week}
-      AND ${dim_site.site_name} = ${deviations_target.site_name}
-      ;;
+    sql_on: ${fact_deviations.date_created_week} = ${deviations_target.weekly_list_deviation_week} ;;
+    sql_where:
+      {% condition dim_site.site_name %} ${deviations_target.site_name} {% endcondition %}
+      AND {% condition asset_mapping_excel.master %} ${deviations_target.asset_mapping_excel_master} {% endcondition %}
+    ;;
   }
-
-  join: deviations_target_month {
-    relationship: many_to_one
-    sql_on: ${fact_deviations.date_created_month} = ${deviations_target_month.target_month}
-      AND ${dim_site.site_name} = ${deviations_target_month.site_name}
-      ;;
-  }
-
   join: all_deviation_customers_concat {
     type: left_outer
     view_label: "All Customers Concatenated"
@@ -195,4 +190,10 @@ explore: fact_deviations {
 ##Suggest Explores
 explore: available_timezones {
  hidden: yes
+}
+
+
+
+explore: deviations_target {
+
 }
