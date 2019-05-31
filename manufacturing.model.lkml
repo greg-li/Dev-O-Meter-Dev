@@ -20,3 +20,8 @@ explore: process_monitoring_data {
   label: "Process Monitoring"
   view_label: "Process Monitoring Data"
   }
+
+explore: schedule_adherence {
+  label: "Schedule Adherence"
+  view_label: "Orchestrate Schedule Adherence Data"
+}
