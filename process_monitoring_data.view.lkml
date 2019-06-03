@@ -296,6 +296,11 @@ from [dataLake].[USPO_10610] a
     ;;
   }
 
+  dimension: max_batch_id {
+    label: "Max Batch ID"
+    type: number
+    sql: max(${master_batch_number} ;;
+  }
 
   measure: count {
     type: count
