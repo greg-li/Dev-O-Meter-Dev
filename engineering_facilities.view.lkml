@@ -12,6 +12,7 @@ view: engineering_facilities {
     ,null as Equipment
       ,r.[Priority]
     ,r.[CreatedOn]
+    ,DATEDIFF(d,r.[CreatedOn],sysdatetime()) as age
     ,case when r.Priority = 1
     then dateadd(d,0,r.createdon)
     when r.Priority=2
@@ -94,6 +95,7 @@ view: engineering_facilities {
     ,p.[Equipment]
     ,null as Priority
     ,p.[Release] as CreatedOn
+    ,DATEDIFF(d,p.[Release] ,sysdatetime()) as age
     ,p.[PlanDate]
     ,p.[LateDate]
     ,p.[LoadID]
@@ -149,7 +151,8 @@ view: engineering_facilities {
   }
 
   set: workorder_details {
-    fields: [order_no,order_type,Function_Mapping,description,maint_activ_type,main_work_center,functional_location,equipment,created_on_date,plan_date_date,late_date_date,ClosedDate_date,TechCompletion_date]
+    fields: [order_no,order_type,Function_Mapping,description,maint_activ_type,main_work_center,functional_location,equipment,age,late_date_date,created_on_date,plan_date_date,ClosedDate_date,TechCompletion_date]
+
   }
 
   measure: count {
@@ -287,6 +290,30 @@ view: engineering_facilities {
     }
   }
 
+  measure: workorders_over_90_days_old {
+    label: "Work Orders >90 Days Old"
+    type: count_distinct
+    sql: ${order_no};;
+    filters: {
+      field: age
+      value: "> 90"
+    }
+    filters: {
+      field: ClosedDate_date
+      value: "NULL"
+    }
+    filters: {
+      field: OrderStatus
+      value: "OPEN"
+    }
+    drill_fields: [workorder_details*]
+    link: {
+      label: "Engineering & Facilities Details"
+      url: "/embed/dashboards/uo5bLXwHSFUbskkFeAidva"
+      icon_url: "https://img.icons8.com/metro/26/000000/maintenance.png"
+    }
+  }
+
   measure: workorders_late {
     label: "Number of Work Orders Late"
     type:  count_distinct
@@ -309,6 +336,13 @@ view: engineering_facilities {
       url: "/embed/dashboards/uo5bLXwHSFUbskkFeAidva"
       icon_url: "https://img.icons8.com/metro/26/000000/maintenance.png"
     }
+  }
+
+  dimension: age {
+    label: "Work Order Age"
+  #  hidden: yes
+    type: number
+    sql: ${TABLE}.age ;;
   }
 
   dimension: is_prior_ytd {
