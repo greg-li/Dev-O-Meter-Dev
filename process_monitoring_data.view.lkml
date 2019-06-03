@@ -214,6 +214,10 @@ from [dataLake].[USPO_10610] a
     type: string
     description: "This fields allow for dynamic dimension selection. It must be used in conjunction with the Reporting Dimension."
     allowed_value: {
+      label: "By Record Number"
+      value: "recordnum"
+    }
+    allowed_value: {
       label: "By Batch"
       value: "batch"
     }
@@ -224,6 +228,16 @@ from [dataLake].[USPO_10610] a
     allowed_value: {
       label: "By Vessel"
       value: "vessel"
+    }
+
+    allowed_value: {
+      label: "By Generation"
+      value: "generation"
+    }
+
+    allowed_value: {
+      label: "By Cell Bank ID"
+      value: "cellbank"
     }
     allowed_value: {
       label: "Yearly"
@@ -249,10 +263,16 @@ from [dataLake].[USPO_10610] a
     sql:
     {% if dimension_selector._parameter_value == "'batch'"%}
     ${batch_number}
+    {% elsif dimension_selector._parameter_value == "'recordnum'"%}
+    ${record_num}
     {% elsif dimension_selector._parameter_value == "'masterbatch'"%}
     ${master_batch_number}
     {% elsif dimension_selector._parameter_value == "'vessel'"%}
     ${vessel_size}
+    {% elsif dimension_selector._parameter_value == "'generation'"%}
+    ${generation_number}
+    {% elsif dimension_selector._parameter_value == "'cellbank'"%}
+    ${cell_bank_id}
     {% elsif dimension_selector._parameter_value == "'yearly'"%}
     ${sample_date_time_year}
     {% elsif dimension_selector._parameter_value == "'quarterly'"%}
@@ -348,15 +368,18 @@ from [dataLake].[USPO_10610] a
   dimension: record_num {
     type: string
     sql: ${TABLE}.RecordNum ;;
+    drill_fields: [detail*]
   }
 
   dimension: daynumber {
     type: number
     sql: ${TABLE}.DayNumber ;;
+    drill_fields: [detail*]
   }
   dimension: sample_id {
     type: number
     sql: ${TABLE}.SampleID ;;
+    drill_fields: [detail*]
   }
 
   dimension_group: sample_date_time {
@@ -364,56 +387,67 @@ from [dataLake].[USPO_10610] a
     type: time
     timeframes: [date,hour_of_day,week,week_of_year,day_of_week,day_of_month,month_name, month,quarter,quarter_of_year,year]
     sql: ${TABLE}.SampleDateTime ;;
+    drill_fields: [detail*]
   }
 
   dimension: culture_initiated_date_time {
     type: string
     sql: ${TABLE}.CultureInitiatedDateTime ;;
+    drill_fields: [detail*]
   }
 
   dimension: culture_duration_age {
     type: number
     sql: ${TABLE}.CultureDurationAge ;;
+    drill_fields: [detail*]
   }
 
   dimension: seeding_concentration {
     type: number
     sql: ${TABLE}.SeedingConcentration ;;
+    drill_fields: [detail*]
   }
 
   dimension: approve_status {
     type: number
     sql: ${TABLE}.ApproveStatus ;;
+    drill_fields: [detail*]
   }
 
   dimension: product_name {
     type: string
     sql: ${TABLE}.ProductName ;;
+    drill_fields: [detail*]
   }
 
   dimension: batch_number {
     type: string
     sql: ${TABLE}.BatchNumber ;;
+    drill_fields: [detail*]
   }
 
   dimension: master_batch_number {
     type: string
     sql: ${TABLE}.MasterBatchNumber ;;
+    drill_fields: [detail*]
   }
 
   dimension: cell_bank_id {
     type: string
     sql: ${TABLE}.CellBankID ;;
+    drill_fields: [detail*]
   }
 
   dimension: ampoule_id {
     type: string
     sql: ${TABLE}.Ampoule_ID ;;
+    drill_fields: [detail*]
   }
 
   dimension: piece_number {
     type: number
     sql: ${TABLE}.PieceNumber ;;
+    drill_fields: [detail*]
   }
 
 
@@ -431,66 +465,79 @@ from [dataLake].[USPO_10610] a
   dimension: generation_number {
     type: number
     sql: ${TABLE}.GenerationNumber ;;
+    drill_fields: [detail*]
   }
 
   dimension: final_volumem_l {
     type: number
     sql: ${TABLE}.FinalVolumemL ;;
+    drill_fields: [detail*]
   }
 
   dimension: inoc_room_number {
     type: string
     sql: ${TABLE}.InocRoomNumber ;;
+    drill_fields: [detail*]
   }
 
   dimension: media_use_by_date {
     type: string
     sql: ${TABLE}.MediaUseByDate ;;
+    drill_fields: [detail*]
   }
 
   dimension: thaw_start_date_time {
     type: string
     sql: ${TABLE}.ThawStartDateTime ;;
+    drill_fields: [detail*]
   }
 
   dimension: thaw_end_date_time {
     type: string
     sql: ${TABLE}.ThawEndDateTime ;;
+    drill_fields: [detail*]
   }
 
   dimension: vessel_size {
     type: string
     sql: ${TABLE}.VesselSize ;;
+    drill_fields: [detail*]
   }
 
   dimension: incubator_id {
     type: string
     sql: ${TABLE}.IncubatorID ;;
+    drill_fields: [detail*]
   }
 
   dimension: batch_record_id_sending {
     type: string
     sql: ${TABLE}.BatchRecordID_Sending ;;
+    drill_fields: [detail*]
   }
 
   dimension: batch_number_id_sending {
     type: string
     sql: ${TABLE}.BatchNumberID_Sending ;;
+    drill_fields: [detail*]
   }
 
   dimension: suspect_data_flag {
     type: number
     sql: ${TABLE}.SuspectDataFlag ;;
+    drill_fields: [detail*]
   }
 
   dimension: growth_rate {
     type: number
     sql: ${TABLE}.GrowthRate ;;
+    drill_fields: [detail*]
   }
 
   dimension: doubling_time {
     type: number
     sql: ${TABLE}.DoublingTime ;;
+    drill_fields: [detail*]
   }
 
   set: detail {
