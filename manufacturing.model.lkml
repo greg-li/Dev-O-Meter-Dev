@@ -19,7 +19,7 @@ include: "*.view.lkml"                       # include all views in this project
 explore: process_monitoring_data {
   label: "Process Monitoring"
   view_label: "Process Monitoring Data"
-  }
+}
 
 explore: schedule_adherence {
   label: "Schedule Adherence"
