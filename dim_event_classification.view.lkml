@@ -27,7 +27,7 @@ view: dim_event_classification {
     sql: ${TABLE}.EVENT_CLASSIFICATION ;;
     link: {
       label: "View Category in Deviation Detailed Dashboard"
-      url: "/dashboards/WBJNwY7xAFoFQwejYLdET3?Site={{ _filters['dim_site.site_name'] | url_encode }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] | url_encode }}&Event%20Classification={{ value }}"
+      url: "/dashboards/WBJNwY7xAFoFQwejYLdET3?Site={{ _filters['dim_site.site_name'] | url_encode }}&Deviation%20Date={{ _filters['fact_deviations.date_created_date'] | url_encode }}&Event%20Classification={{ value }}&Business%20Sector%20Unit={{ _filters['dim_bus_sec.bus_sec_name'] }}&Timezone={{ _filters['fact_deviations.timezone_selection'] }}"
       icon_url: "http://www.looker.com/favicon.ico"
     }
   }
