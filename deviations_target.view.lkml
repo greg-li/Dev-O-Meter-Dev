@@ -6,13 +6,12 @@ view: deviations_target {
         annual_fact_deviations.deviation_created_year  AS "deviation_created_year",
         annual_fact_deviations.annual_deviations  AS "annual_deviations",
         annual_fact_deviations.following_year  AS "following_year",
-        annual_fact_deviations.following_year_weekly_target  AS "following_year_weekly_target",
-        annual_fact_deviations.following_year_monthly_target AS "following_year_monthly_target",
-        weekly_calendar.prior_year AS baseline_year,
-        weekly_calendar.week AS deviation_week
-      FROM ${weekly_calendar.SQL_TABLE_NAME} AS weekly_calendar
-      LEFT OUTER JOIN    ${annual_fact_deviations.SQL_TABLE_NAME} AS annual_fact_deviations
-          ON weekly_calendar.prior_year = annual_fact_deviations.deviation_created_year
+        annual_fact_deviations.following_year_daily_target  AS "following_year_daily_target",
+        daily_calendar.prior_year AS baseline_year,
+        daily_calendar.date AS deviation_date
+      FROM ${daily_calendar.SQL_TABLE_NAME} AS daily_calendar
+      LEFT OUTER JOIN ${annual_fact_deviations.SQL_TABLE_NAME} AS annual_fact_deviations
+          ON daily_calendar.prior_year = annual_fact_deviations.deviation_created_year
       ;;
     persist_for: "48 hours"
   }
@@ -20,7 +19,7 @@ view: deviations_target {
   dimension: primary_key {
     hidden: yes
     primary_key: yes
-    sql: concat(${site_key}, ${area_occured_key}, ${site_key}, ${baseline_year}, ${weekly_list_deviation_week}) ;;
+    sql: concat(${site_key}, ${area_occured_key}, ${site_key}, ${baseline_year}, ${daily_list_deviation_date}) ;;
   }
 
   dimension: site_key {
@@ -38,7 +37,7 @@ view: deviations_target {
     sql: ${TABLE}.deviation_created_year ;;
   }
 
-  dimension_group: weekly_list_deviation {
+  dimension_group: daily_list_deviation {
     label: "Target"
     type: time
     timeframes: [
@@ -54,7 +53,7 @@ view: deviations_target {
     ]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}.deviation_week ;;
+    sql: ${TABLE}.deviation_date ;;
   }
 
   dimension: baseline_year {
@@ -72,9 +71,9 @@ view: deviations_target {
     sql: ${TABLE}.annual_deviations ;;
   }
 
-  dimension: asset_weekly_deviation_target {
+  dimension: asset_daily_deviation_target {
     type: number
-    sql: ${TABLE}.following_year_weekly_target ;;
+    sql: ${TABLE}.following_year_daily_target ;;
   }
 
 #   dimension: asset_monthly_deviation_target{
@@ -82,11 +81,11 @@ view: deviations_target {
 #     sql: ${TABLE}.following_year_monthly_target ;;
 #   }
 
-  measure: total_weekly_deviations_target {
-    label: "Weekly Deviations Target"
-    description: "Sum of all individual deviation targets by Site and Asset for the week"
+  measure: total_daily_deviations_target {
+    label: "Daily Deviations Target"
+    description: "Sum of all individual deviation targets by Site and Asset for the date"
     type: sum
-    sql: ${asset_weekly_deviation_target} ;;
+    sql: ${asset_daily_deviation_target} ;;
     value_format_name: decimal_2
   }
 
