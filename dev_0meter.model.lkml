@@ -174,7 +174,7 @@ explore: fact_deviations {
 #     from: annual_fact_deviations
   type: full_outer
   relationship: many_to_one
-  sql_on: ${fact_deviations.date_created_week} = ${deviations_target.weekly_list_deviation_week}
+  sql_on: ${fact_deviations.date_created_week} = ${deviations_target.daily_list_deviation_week}
         and ${fact_deviations.area_occured_key} = ${deviations_target.area_occured_key}
         and ${fact_deviations.site_key} = ${deviations_target.site_key};;
 #   sql_where:
@@ -208,6 +208,7 @@ explore: deviations_target {
       value: "Eastern Standard Time"
     }
   }
+  always_join: [dim_deviation_status,dim_deviation_type]
 
   join: dim_site {
     type: left_outer
@@ -236,8 +237,7 @@ explore: deviations_target {
   join: fact_deviations {
   type: left_outer
   relationship: one_to_many
-  sql_on: ${deviations_target.weekly_list_deviation_week} = ${fact_deviations.date_created_week}
-         -- and ${fact_deviations.date_created_year} = ${deviations_target.weekly_list_deviation_year}
+  sql_on: ${deviations_target.daily_list_deviation_date} = ${fact_deviations.date_created_date}
           and ${deviations_target.site_key} = ${fact_deviations.site_key}
           and ${deviations_target.area_occured_key} = ${fact_deviations.area_occured_key};;
 
@@ -247,8 +247,10 @@ explore: deviations_target {
     type: left_outer
     view_label: " Deviations"
     sql_on: ${fact_deviations.dev_status_key} = ${dim_deviation_status.dev_status_key} ;;
+    sql_where: (${dim_deviation_status.deviation_status} not in ('Closed - Aborted', 'Closed - Cancelled', 'Closed - Voided') OR dim_deviation_status.DEVIATION_STATUS IS NULL);;
     relationship: many_to_one
   }
+
   join:  dim_risk_category {
     type: left_outer
     view_label: "Risk Category"
@@ -258,9 +260,10 @@ explore: deviations_target {
 
   join: dim_deviation_type {
     type: left_outer
-    view_label: " Deviations"
-    sql_on: ${fact_deviations.deviation_key} = ${dim_deviation_type.deviation_key} ;;
     relationship: many_to_one
+    view_label: " Deviations"
+    sql_on: ${fact_deviations.deviation_key} = ${dim_deviation_type.deviation_key};;
+    sql_where: (${dim_deviation_type.deviation_type} in ('Unplanned', 'Customer Complaint - Packaging and shipping complaints', 'Customer Complaint - Product quality complaints') or ${dim_deviation_type.deviation_type} is null);;
   }
 
 }
