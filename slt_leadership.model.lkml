@@ -71,6 +71,10 @@ explore: pmop_open_by_week {
   label: "PMOP Open Order Counts"
 }
 
+explore: bdops_open_by_week {
+  label: "BDOP Open Order Counts"
+}
+
 explore: qc_testing_union {
   label: "QC Testing Data"
   join: asset_mapping_excel {

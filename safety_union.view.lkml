@@ -73,6 +73,53 @@ view: safety_union {
     fields: [incident_date_date,building_abbreviated,asset_of_event,general_area,incident_cause,nature_of_incident,type_of_incident,incident_description]
   }
 
+  parameter: date_dimension_selector{
+    type: string
+    description: "This fields allow for dynamic date dimension selection. It must be used in conjunction with the Date Reporting Dimension."
+
+    allowed_value:
+    {
+      label: "Quarterly"
+      value: "quarterly"
+    }
+    allowed_value:
+    {
+      label: "Monthly"
+      value: "monthly"
+    }
+    allowed_value:
+    {
+      label: "Weekly"
+      value: "weekly"
+    }
+  }
+
+  dimension: date_dimension_selector_helper {
+    type: string
+    hidden: yes
+    sql:
+    {% if date_dimension_selector._parameter_value == "'quarterly'"%}
+    ${incident_date_quarter_of_year}
+    {% elsif date_dimension_selector._parameter_value == "'monthly'"%}
+    ${incident_date_month}
+    {% elsif date_dimension_selector._parameter_value == "'weekly'"%}
+    ${incident_date_week}
+    {% else %}
+    ${incident_date_month}
+    {% endif %}
+;;
+  }
+
+
+  dimension: dim_value_selector {
+    label: "Reporting Period"
+    description: "This field needs to be used in conjunction with the dimension_selector Filter. This field allows the graphs to plot over a dynamic dimension selection"
+    type: string
+    sql:${date_dimension_selector_helper}
+      ;;
+  }
+
+
   measure: count {
     label: "Number of Incidents and Near Misses"
     type: count

@@ -69,6 +69,54 @@ view: combined_metrics {
     drill_fields: [detail*]
   }
 
+  parameter: date_dimension_selector{
+    type: string
+    description: "This fields allow for dynamic date dimension selection. It must be used in conjunction with the Date Reporting Dimension."
+
+    allowed_value:
+    {
+      label: "Quarterly"
+      value: "quarterly"
+    }
+    allowed_value:
+    {
+      label: "Monthly"
+      value: "monthly"
+    }
+    allowed_value:
+    {
+      label: "Weekly"
+      value: "weekly"
+    }
+  }
+
+  dimension: date_dimension_selector_helper {
+    type: string
+    hidden: yes
+    sql:
+    {% if date_dimension_selector._parameter_value == "'quarterly'"%}
+    ${week_ending_date_quarter_of_year}
+    {% elsif date_dimension_selector._parameter_value == "'monthly'"%}
+    ${week_ending_date_month_name}
+    {% elsif date_dimension_selector._parameter_value == "'weekly'"%}
+    ${week_ending_date_week}
+    {% else %}
+    ${week_ending_date_month_name}
+    {% endif %}
+;;
+  }
+
+
+  dimension: dim_value_selector {
+    label: "Reporting Period"
+    description: "This field needs to be used in conjunction with the dimension_selector Filter. This field allows the graphs to plot over a dynamic dimension selection"
+    type: string
+    sql:${date_dimension_selector_helper}
+      ;;
+  }
+
+
+
   dimension: asset_function {
     type: string
     sql: ${TABLE}.AssetFunction ;;
