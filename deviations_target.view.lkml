@@ -14,6 +14,7 @@ view: deviations_target {
           ON daily_calendar.prior_year = annual_fact_deviations.deviation_created_year
       ;;
     persist_for: "48 hours"
+    indexes: ["deviation_date"]
   }
 
   dimension: primary_key {
