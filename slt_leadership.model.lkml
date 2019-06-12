@@ -82,3 +82,11 @@ explore: qc_testing_union {
     sql_on: ${qc_testing_union.asset_function}=${asset_mapping_excel.excel} ;;
   }
 }
+
+explore: workday_counts {
+  label: "Workday Data"
+  join: asset_mapping_excel {
+    relationship: many_to_one
+    sql_on: ${workday_counts.asset_mapping} = ${asset_mapping_excel.master} ;;
+  }
+}
