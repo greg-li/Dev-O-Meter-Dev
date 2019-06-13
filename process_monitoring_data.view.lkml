@@ -848,6 +848,11 @@ on batch.RecordNum = t.RecordNumber and batch.ProductName = t.CustomerNumber
     type: string
     sql: ${TABLE}.recordnum ;;
     drill_fields: [detail*]
+    link: {
+      label: "Drill-down"
+      url: "/dashboards/zmUjIWwHCXijsuqSROOzMq?Record%20Number={{ value }}"
+      icon_url: "https://www.shareicon.net/download/128x128//2016/09/01/822259_medical_512x512.png"
+    }
   }
 
   dimension: daynumber {
@@ -903,12 +908,22 @@ on batch.RecordNum = t.RecordNumber and batch.ProductName = t.CustomerNumber
     type: string
     sql: ${TABLE}.BatchNumber ;;
     drill_fields: [detail*]
+    link: {
+      label: "Drill-down"
+      url: "/dashboards/zmUjIWwHCXijsuqSROOzMq?Batch%20Number={{ value }}"
+      icon_url: "https://www.shareicon.net/download/128x128//2016/09/01/822259_medical_512x512.png"
+    }
   }
 
   dimension: master_batch_number {
     type: string
     sql: ${TABLE}.MasterBatchNumber ;;
     drill_fields: [detail*]
+    link: {
+      label: "Drill-down"
+      url: "/dashboards/zmUjIWwHCXijsuqSROOzMq?Master%20Batch={{ value }}"
+      icon_url: "https://www.shareicon.net/download/128x128//2016/09/01/822259_medical_512x512.png"
+    }
   }
 
   dimension: cell_bank_id {
@@ -981,6 +996,11 @@ on batch.RecordNum = t.RecordNumber and batch.ProductName = t.CustomerNumber
     type: string
     sql: ${TABLE}.VesselSize ;;
     drill_fields: [process_details*]
+    link: {
+      label: "Drill-down"
+      url: "/dashboards/zmUjIWwHCXijsuqSROOzMq?Vessel%20Size={{ value }}"
+      icon_url: "https://www.shareicon.net/download/128x128//2016/09/01/822259_medical_512x512.png"
+    }
   }
 
   dimension: incubator_id {
