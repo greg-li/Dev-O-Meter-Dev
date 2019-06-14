@@ -151,6 +151,7 @@ view: workday_counts {
       )
     from datalake.SLTWeeklyDataEntry_Excel_Mfg
     where WeekEndingDate < '06/05/2019'
+    and LoadID = (select max(LoadID) from datalake.SLTWeeklyDataEntry_Excel_Mfg)
 
   union all
 
@@ -171,6 +172,7 @@ view: workday_counts {
       where month(MonthEndingDate) = month(GETDATE())
       )
     from datalake.SLTWeeklyDataEntry_Excel_MSAT
+  and LoadID = (select max(LoadID) from datalake.SLTWeeklyDataEntry_Excel_MSAT)
     where MonthEndingDate < '06/05/2019'
 
   union all
@@ -192,6 +194,7 @@ view: workday_counts {
       )
     from datalake.SLTWeeklyDataEntry_Excel_PPL
     where WeekEndingDate < '06/05/2019'
+  and LoadID = (select max(LoadID) from datalake.SLTWeeklyDataEntry_Excel_PPL)
 
   union all
 
@@ -211,7 +214,8 @@ view: workday_counts {
         from datalake.SLTWeeklyDataEntry_Excel_QC
       )
     from datalake.SLTWeeklyDataEntry_Excel_QC
-    where WeekEndingDate < '06/05/2019' ;;
+    where WeekEndingDate < '06/05/2019'
+  and LoadID = (select max(LoadID) from datalake.SLTWeeklyDataEntry_Excel_QC) ;;
   }
 
   measure: count {
