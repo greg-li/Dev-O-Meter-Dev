@@ -286,21 +286,25 @@ view: workday_counts {
   measure: total_head_count {
     type: sum
     sql: ${head_count} ;;
+    drill_fields: [detail*]
   }
 
   measure: total_open_reqs {
     type: sum
     sql: ${open_reqs} ;;
+    drill_fields: [detail*]
   }
 
   measure: total_open_positions {
     type: sum
     sql: ${open_positions} ;;
+    drill_fields: [detail*]
   }
 
   measure: total_open_reqs_target {
     type: sum
     sql: ${open_reqs_target} ;;
+    drill_fields: [detail*]
   }
 
 
