@@ -1,3 +1,4 @@
+#Joe says to pull
 view: workday_counts {
   derived_table: {
     sql: select ccm.assetMapping
