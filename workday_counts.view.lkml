@@ -1,19 +1,217 @@
 view: workday_counts {
   derived_table: {
     sql: select ccm.assetMapping
-        , ccm.assetName
-        , ccm.area
-        , ccm.costCenterCategory
-        , ccm.costCenter
-        , ccm.costCenterDescription
-        , wc.head_count as headCount
-        , wc.open_positions as openPositions
-        , wc.open_reqs as openReqs
-        , wc.LoadDate
-      from datalake.CostCenterMapping ccm
-      inner join datalake.WorkdayCounts wc
-      on ccm.costCenter = wc.cost_center_id
-       ;;
+      , ccm.assetName
+      , ccm.area
+      , ccm.costCenterCategory
+      , ccm.costCenter
+      , ccm.costCenterDescription
+      , wc.head_count as headCount
+      , wc.open_positions as openPositions
+      , 0 as openReqsTarget
+      , wc.open_reqs as openReqs
+      , wc.LoadDate
+      , maxLoadDate = (
+        select max(LoadDate)
+        from datalake.WorkdayCounts
+      )
+    from datalake.CostCenterMapping ccm
+    inner join datalake.WorkdayCounts wc
+    on ccm.costCenter = wc.cost_center_id
+
+    union all
+
+    select am.Master
+      , ''
+      , ''
+      , ''
+      , ''
+      , am.Master + ' Reqs Target'
+      , 0
+      , 0
+      , OpenReqsTarget
+      , 0
+      , WeekEndingDate
+      , maxLoadDate = (
+        select max(WeekEndingDate)
+        from dataLake.SLTWeeklyDataEntry_Excel_Mfg
+      )
+    from datalake.SLTWeeklyDataEntry_Excel_Mfg mfg
+    inner join (
+      select Excel
+        , Master
+      from datalake.AssetMapping_Excel
+      where LoadID = (select max(LoadID) from datalake.AssetMapping_Excel)
+    ) am
+    on mfg.AssetFunction = am.Excel
+    where mfg.LoadID = (select max(LoadID) from datalake.SLTWeeklyDataEntry_Excel_Mfg)
+    and mfg.WeekEndingDate >= '06/05/2019'
+
+  union all
+
+    select am.Master
+      , ''
+      , ''
+      , ''
+      , ''
+      , am.Master + ' Reqs Target'
+      , 0
+      , 0
+      , OpenReqsTarget
+      , 0
+      , MonthEndingDate
+      , maxLoadDate = (
+        select max(MonthEndingDate)
+        from dataLake.SLTWeeklyDataEntry_Excel_MSAT
+        where month(MonthEndingDate) = month(GETDATE())
+      )
+    from datalake.SLTWeeklyDataEntry_Excel_MSAT mfg
+    inner join (
+      select Excel
+        , Master
+      from datalake.AssetMapping_Excel
+      where LoadID = (select max(LoadID) from datalake.AssetMapping_Excel)
+    ) am
+    on mfg.AssetFunction = am.Excel
+    where mfg.LoadID = (select max(LoadID) from datalake.SLTWeeklyDataEntry_Excel_MSAT)
+    and mfg.MonthEndingDate >= '06/05/2019'
+
+  union all
+
+    select am.Master
+      , ''
+      , ''
+      , ''
+      , ''
+      , am.Master + ' Reqs Target'
+      , 0
+      , 0
+      , OpenReqsTarget
+      , 0
+      , WeekEndingDate
+      , maxLoadDate = (
+        select max(WeekEndingDate)
+        from dataLake.SLTWeeklyDataEntry_Excel_PPL
+      )
+    from datalake.SLTWeeklyDataEntry_Excel_PPL mfg
+    inner join (
+      select Excel
+        , Master
+      from datalake.AssetMapping_Excel
+      where LoadID = (select max(LoadID) from datalake.AssetMapping_Excel)
+    ) am
+    on mfg.AssetFunction = am.Excel
+    where mfg.LoadID = (select max(LoadID) from datalake.SLTWeeklyDataEntry_Excel_PPL)
+    and mfg.WeekEndingDate >= '06/05/2019'
+
+  union all
+
+  select am.Master
+      , ''
+      , ''
+      , ''
+      , ''
+      , am.Master + ' Reqs Target'
+      , 0
+      , 0
+      , OpenReqsTarget
+      , 0
+      , WeekEndingDate
+      , maxLoadDate = (
+        select max(WeekEndingDate)
+        from dataLake.SLTWeeklyDataEntry_Excel_QC
+      )
+    from datalake.SLTWeeklyDataEntry_Excel_QC mfg
+    inner join (
+      select Excel
+        , Master
+      from datalake.AssetMapping_Excel
+      where LoadID = (select max(LoadID) from datalake.AssetMapping_Excel)
+    ) am
+    on mfg.AssetFunction = am.Excel
+    where mfg.LoadID = (select max(LoadID) from datalake.SLTWeeklyDataEntry_Excel_QC)
+    and mfg.WeekEndingDate >= '06/05/2019'
+
+  union all
+
+    select AssetFunction
+      , ''
+      , ''
+      , ''
+      , ''
+      , ''
+      , 0
+    , 0
+    , OpenReqsTarget
+      , OpenReqsActual
+      , WeekEndingDate
+      , maxLoadDate = (
+        select max(WeekEndingDate)
+        from datalake.SLTWeeklyDataEntry_Excel_Mfg
+      )
+    from datalake.SLTWeeklyDataEntry_Excel_Mfg
+    where WeekEndingDate < '06/05/2019'
+
+  union all
+
+    select AssetFunction
+      , ''
+      , ''
+      , ''
+      , ''
+      , ''
+      , 0
+    , 0
+    , OpenReqsTarget
+      , OpenReqsActual
+      , MonthEndingDate
+      , maxLoadDate = (
+        select max(MonthEndingDate)
+      from dataLake.SLTWeeklyDataEntry_Excel_MSAT
+      where month(MonthEndingDate) = month(GETDATE())
+      )
+    from datalake.SLTWeeklyDataEntry_Excel_MSAT
+    where MonthEndingDate < '06/05/2019'
+
+  union all
+
+    select AssetFunction
+      , ''
+      , ''
+      , ''
+      , ''
+      , ''
+      , 0
+    , 0
+    , OpenReqsTarget
+      , OpenReqsActual
+      , WeekEndingDate
+      , maxLoadDate = (
+        select max(WeekEndingDate)
+        from datalake.SLTWeeklyDataEntry_Excel_PPL
+      )
+    from datalake.SLTWeeklyDataEntry_Excel_PPL
+    where WeekEndingDate < '06/05/2019'
+
+  union all
+
+  select AssetFunction
+      , ''
+      , ''
+      , ''
+      , ''
+      , ''
+      , 0
+    , 0
+    , OpenReqsTarget
+      , OpenReqsActual
+      , WeekEndingDate
+      , maxLoadDate = (
+        select max(WeekEndingDate)
+        from datalake.SLTWeeklyDataEntry_Excel_QC
+      )
+    from datalake.SLTWeeklyDataEntry_Excel_QC
+    where WeekEndingDate < '06/05/2019' ;;
   }
 
   measure: count {
@@ -66,14 +264,19 @@ view: workday_counts {
     sql: ${TABLE}.openReqs ;;
   }
 
+  dimension: open_reqs_target {
+    type: number
+    sql: ${TABLE}.openReqsTarget ;;
+  }
+
   dimension_group: load_date {
     type: time
     sql: ${TABLE}.LoadDate ;;
   }
 
-  dimension: max_load_date {
-    type: date
-    sql: select max(loadDate) from ${TABLE} ;;
+  dimension_group: max_load_date {
+    type: time
+    sql: ${TABLE}.maxLoadDate ;;
   }
 
   measure: total_head_count {
@@ -90,6 +293,12 @@ view: workday_counts {
     type: sum
     sql: ${open_positions} ;;
   }
+
+  measure: total_open_reqs_target {
+    type: sum
+    sql: ${open_reqs_target} ;;
+  }
+
 
   set: detail {
     fields: [
