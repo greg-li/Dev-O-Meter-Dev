@@ -766,7 +766,6 @@ on batch.RecordNum = t.RecordNumber and batch.ProductName = t.CustomerNumber
     type: average
     sql: ${TABLE}.CultureDurationAge ;;
     drill_fields: [process_details*]
-    link: {label: "Explore Results" url: "{{ link }}" }
   }
 
   measure: max_duration {
@@ -847,7 +846,7 @@ on batch.RecordNum = t.RecordNumber and batch.ProductName = t.CustomerNumber
   dimension: record_num {
     type: string
     sql: ${TABLE}.recordnum ;;
-    drill_fields: [detail*]
+    #drill_fields: [detail*]
     link: {
       label: "Drill-down"
       url: "/dashboards/zmUjIWwHCXijsuqSROOzMq?Record%20Number={{ value }}"
@@ -858,7 +857,7 @@ on batch.RecordNum = t.RecordNumber and batch.ProductName = t.CustomerNumber
   dimension: daynumber {
     type: number
     sql: ${TABLE}.DayNumber ;;
-    drill_fields: [detail*]
+   # drill_fields: [detail*]
   }
   dimension: sample_id {
     type: number
@@ -871,43 +870,43 @@ on batch.RecordNum = t.RecordNumber and batch.ProductName = t.CustomerNumber
     type: time
     timeframes: [date,hour_of_day,week,week_of_year,day_of_week,day_of_month,month_name, month,quarter,quarter_of_year,year]
     sql: ${TABLE}.SampleDateTime ;;
-    drill_fields: [detail*]
+    #drill_fields: [detail*]
   }
 
   dimension: culture_initiated_date_time {
     type: string
     sql: ${TABLE}.CultureInitiatedDateTime ;;
-    drill_fields: [detail*]
+    #drill_fields: [detail*]
   }
 
   dimension: culture_duration_age {
     type: number
     sql: ${TABLE}.CultureDurationAge ;;
-    drill_fields: [detail*]
+   # drill_fields: [detail*]
   }
 
   dimension: seeding_concentration {
     type: number
     sql: ${TABLE}.SeedingConcentration ;;
-    drill_fields: [detail*]
+  #  drill_fields: [detail*]
   }
 
   dimension: approve_status {
     type: number
     sql: ${TABLE}.ApproveStatus ;;
-    drill_fields: [detail*]
+   # drill_fields: [detail*]
   }
 
   dimension: product_name {
     type: string
     sql: ${TABLE}.ProductName ;;
-    drill_fields: [detail*]
+   # drill_fields: [detail*]
   }
 
   dimension: batch_number {
     type: string
     sql: ${TABLE}.BatchNumber ;;
-    drill_fields: [detail*]
+  #  drill_fields: [detail*]
     link: {
       label: "Drill-down"
       url: "/dashboards/zmUjIWwHCXijsuqSROOzMq?Batch%20Number={{ value }}"
@@ -918,7 +917,7 @@ on batch.RecordNum = t.RecordNumber and batch.ProductName = t.CustomerNumber
   dimension: master_batch_number {
     type: string
     sql: ${TABLE}.MasterBatchNumber ;;
-    drill_fields: [detail*]
+  #  drill_fields: [detail*]
     link: {
       label: "Drill-down"
       url: "/dashboards/zmUjIWwHCXijsuqSROOzMq?Master%20Batch={{ value }}"
@@ -929,19 +928,19 @@ on batch.RecordNum = t.RecordNumber and batch.ProductName = t.CustomerNumber
   dimension: cell_bank_id {
     type: string
     sql: ${TABLE}.CellBankID ;;
-    drill_fields: [detail*]
+  #  drill_fields: [detail*]
   }
 
   dimension: ampoule_id {
     type: string
     sql: ${TABLE}.Ampoule_ID ;;
-    drill_fields: [detail*]
+  #  drill_fields: [detail*]
   }
 
   dimension: piece_number {
     type: number
     sql: ${TABLE}.PieceNumber ;;
-    drill_fields: [detail*]
+  #  drill_fields: [detail*]
   }
 
 
